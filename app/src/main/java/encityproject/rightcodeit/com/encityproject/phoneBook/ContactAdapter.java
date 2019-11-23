@@ -11,6 +11,7 @@ import encityproject.rightcodeit.com.encityproject.R;
 public class ContactAdapter extends ArrayAdapter<Contact> {
 
     private ContactActivity discountActivity;
+    private ContactActivity contactActivity;
 
     public ContactAdapter(ContactActivity contactActivity, ArrayList<Contact> contacts) {
         super(contactActivity, 0, contacts);
@@ -27,7 +28,7 @@ public class ContactAdapter extends ArrayAdapter<Contact> {
         }
 
         TextView tvNameContact = (TextView) convertView.findViewById(R.id.tv_name_contact);
-        TextView tvPhoneNumber = (TextView) convertView.findViewById(R.id.tv_phone_number);
+        final TextView tvPhoneNumber = (TextView) convertView.findViewById(R.id.tv_phone_number);
 
         tvNameContact.setText(contact.getNameContact());
         tvPhoneNumber.setText(contact.getPhoneNumber());
