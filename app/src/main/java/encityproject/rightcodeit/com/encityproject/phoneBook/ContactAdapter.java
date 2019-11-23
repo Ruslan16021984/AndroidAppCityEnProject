@@ -5,12 +5,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
 import java.util.ArrayList;
+
 import encityproject.rightcodeit.com.encityproject.R;
 
 public class ContactAdapter extends ArrayAdapter<Contact> {
 
     private ContactActivity discountActivity;
+    private ContactActivity contactActivity;
 
     public ContactAdapter(ContactActivity contactActivity, ArrayList<Contact> contacts) {
         super(contactActivity, 0, contacts);
@@ -27,11 +30,22 @@ public class ContactAdapter extends ArrayAdapter<Contact> {
         }
 
         TextView tvNameContact = (TextView) convertView.findViewById(R.id.tv_name_contact);
-        TextView tvPhoneNumber = (TextView) convertView.findViewById(R.id.tv_phone_number);
+        final TextView tvPhoneNumber = (TextView) convertView.findViewById(R.id.tv_phone_number);
 
         tvNameContact.setText(contact.getNameContact());
         tvPhoneNumber.setText(contact.getPhoneNumber());
 
+        tvPhoneNumber.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tvPhoneNumber.setText("77777777777");
+                contactActivity.startActivity("+380973899504");
+//                contactActivity.startActivity(tvPhoneNumber.getText().toString());
+            }
+        });
+
         return convertView;
     }
+
+
 }
