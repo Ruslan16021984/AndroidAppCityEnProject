@@ -5,10 +5,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
-
 import java.util.ArrayList;
-
 import encityproject.rightcodeit.com.encityproject.R;
 
 public class ContactActivity extends AppCompatActivity {
@@ -34,6 +34,15 @@ public class ContactActivity extends AppCompatActivity {
         adapter = new ContactAdapter(this, arrayOfContacts.getArrayOfContacts());
         ListView listView = findViewById(R.id.lv_contact);
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("tel: " + arrayOfContacts.getArrayOfContacts().get(position).getPhoneNumber()));
+                if (intent != null) {
+                    startActivity(intent);
+                }
+            }
+        });
     }
 
     @Override
@@ -51,16 +60,6 @@ public class ContactActivity extends AppCompatActivity {
         arrayOfContacts.getArrayOfContacts().set(index, new Contact(nameContact, phoneNumber));
 
         adapter.notifyDataSetChanged();
-    }
-
-    public void startActivity(String phoneNumber) {
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("tel: +380973899504"));
-        startActivity(intent);
-//        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("tel: " + phoneNumber));
-//        if (intent != null) {
-//            startActivity(intent);
-//        }
-
     }
 }
 
