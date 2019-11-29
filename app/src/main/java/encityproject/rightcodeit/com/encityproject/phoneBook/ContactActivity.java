@@ -7,7 +7,10 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
+
+import java.nio.file.Files;
 import java.util.ArrayList;
 import encityproject.rightcodeit.com.encityproject.R;
 
@@ -30,7 +33,6 @@ public class ContactActivity extends AppCompatActivity {
     }
 
     private void initData() {
-
         adapter = new ContactAdapter(this, arrayOfContacts.getArrayOfContacts());
         ListView listView = findViewById(R.id.lv_contact);
         listView.setAdapter(adapter);
