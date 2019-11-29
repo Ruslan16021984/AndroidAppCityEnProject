@@ -1,9 +1,7 @@
 package encityproject.rightcodeit.com.encityproject.phoneBook;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,24 +11,16 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
-
 import java.util.ArrayList;
-import java.util.Arrays;
-
 import encityproject.rightcodeit.com.encityproject.R;
 
 public class ContactActivity extends AppCompatActivity {
-
-    ArrayOfContacts arrayOfContacts = new ArrayOfContacts();
-    ContactAdapter adapter;
-
+    private ArrayOfContacts arrayOfContacts = new ArrayOfContacts();
+    private ContactAdapter contactAdapter;
+    private AlertDialogPhoneNumbersAdapter adapterAlertDialog;
     private int index;
     private String nameContact;
     private String phoneNumber;
-    private String phone1;
-    private String phone2;
-    private String returnPhone;
     final Context context = this;
     private Button btnPhone1;
     private Button btnPhone2;
@@ -45,13 +35,12 @@ public class ContactActivity extends AppCompatActivity {
     }
 
     private void initData() {
-        adapter = new ContactAdapter(this, arrayOfContacts.getArrayOfContacts());
+        contactAdapter = new ContactAdapter(this, arrayOfContacts.getArrayOfContacts());
         ListView listView = findViewById(R.id.lv_contact);
-        listView.setAdapter(adapter);
+        listView.setAdapter(contactAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//////////////////////////////////////
                 final String[] split;
                 String toSplit = arrayOfContacts.getArrayOfContacts().get(position).getPhoneNumber();
                 split = toSplit.split(",");
@@ -81,7 +70,6 @@ public class ContactActivity extends AppCompatActivity {
                     btnPhone1.setText(split[0]);
                     btnPhone2.setText(split[1]);
                     dialog.show();
-
                     btnPhone1.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -101,8 +89,6 @@ public class ContactActivity extends AppCompatActivity {
                         }
                     });
                 }
-//////////////////////////////////////
-
             }
         });
     }
@@ -118,7 +104,7 @@ public class ContactActivity extends AppCompatActivity {
         nameContact = oneContact.get(0);
         phoneNumber = oneContact.get(1);
         arrayOfContacts.getArrayOfContacts().set(index, new Contact(nameContact, phoneNumber));
-        adapter.notifyDataSetChanged();
+        contactAdapter.notifyDataSetChanged();
     }
 
 }

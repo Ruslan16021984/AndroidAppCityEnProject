@@ -5,19 +5,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-
 import java.util.ArrayList;
-
 import encityproject.rightcodeit.com.encityproject.R;
 
 public class ContactAdapter extends ArrayAdapter<Contact> {
 
-    private ContactActivity discountActivity;
     private ContactActivity contactActivity;
 
     public ContactAdapter(ContactActivity contactActivity, ArrayList<Contact> contacts) {
         super(contactActivity, 0, contacts);
-        this.discountActivity = contactActivity;
+        this.contactActivity = contactActivity;
     }
 
     @Override
@@ -30,14 +27,14 @@ public class ContactAdapter extends ArrayAdapter<Contact> {
         }
 
         TextView tvNameContact = (TextView) convertView.findViewById(R.id.tv_name_contact);
-        final TextView tvPhoneNumber = (TextView) convertView.findViewById(R.id.tv_phone_number);
+        TextView tvPhoneNumber = (TextView) convertView.findViewById(R.id.tv_phone_number);
 
         tvNameContact.setText(contact.getNameContact());
         final String[] split;
         String toSplit = contact.getPhoneNumber();
         split = toSplit.split(",");
         if (split.length > 1) {
-            tvPhoneNumber.setText(split[0] + split[1]);
+            tvPhoneNumber.setText(split[0] + "\n" + split[1]);
         } else {
             tvPhoneNumber.setText(contact.getPhoneNumber());
         }
