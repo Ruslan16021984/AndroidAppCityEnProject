@@ -1,7 +1,9 @@
 package encityproject.rightcodeit.com.encityproject.phoneBook;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,7 +13,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+
 import java.util.ArrayList;
+
 import encityproject.rightcodeit.com.encityproject.R;
 
 public class ContactActivity extends AppCompatActivity {
@@ -63,31 +67,43 @@ public class ContactActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
                 } else {
-                    final Dialog dialog = new Dialog(context);
-                    dialog.setContentView(R.layout.custom_dialog);
-                    btnPhone1 = (Button) dialog.findViewById(R.id.phone1);
-                    btnPhone2 = (Button) dialog.findViewById(R.id.phone2);
-                    btnPhone1.setText(split[0]);
-                    btnPhone2.setText(split[1]);
+//                    final Dialog dialog = new Dialog(context);
+//                    dialog.setContentView(R.layout.custom_dialog);
+//                    btnPhone1 = (Button) dialog.findViewById(R.id.phone1);
+//                    btnPhone2 = (Button) dialog.findViewById(R.id.phone2);
+//                    btnPhone1.setText(split[0]);
+//                    btnPhone2.setText(split[1]);
+////////////////////////////////
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    builder.setTitle("Select a phone number:");
+                    builder.setItems(split, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("tel: " + "1111"));
+                            startActivity(intent);
+                        }
+                    });
+                    AlertDialog dialog = builder.create();
+////////////////////////////////
                     dialog.show();
-                    btnPhone1.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("tel: " + split[0]));
-                            if (intent != null) {
-                                startActivity(intent);
-                            }
-                        }
-                    });
-                    btnPhone2.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("tel: " + split[1]));
-                            if (intent != null) {
-                                startActivity(intent);
-                            }
-                        }
-                    });
+//                    btnPhone1.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("tel: " + split[0]));
+//                            if (intent != null) {
+//                                startActivity(intent);
+//                            }
+//                        }
+//                    });
+//                    btnPhone2.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("tel: " + split[1]));
+//                            if (intent != null) {
+//                                startActivity(intent);
+//                            }
+//                        }
+//                    });
                 }
             }
         });
