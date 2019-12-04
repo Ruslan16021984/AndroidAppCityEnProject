@@ -11,6 +11,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -74,18 +75,31 @@ public class ContactActivity extends AppCompatActivity {
 //                    btnPhone1.setText(split[0]);
 //                    btnPhone2.setText(split[1]);
 ////////////////////////////////
-                    final AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                    builder.setTitle("Select a phone number:");
-                    builder.setItems(split, new DialogInterface.OnClickListener() {
+//                    final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+//                    builder.setTitle("Select a phone number:");
+//                    builder.setItems(split, new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("tel: " + "1111"));
+//                            startActivity(intent);
+//                        }
+//                    });
+//                    AlertDialog dialog = builder.create();
+////////////////////////////////
+                    AlertDialog.Builder builderSingle = new AlertDialog.Builder(ContactActivity.this);
+                    final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+                            ContactActivity.this, android.R.layout.select_dialog_singlechoice, split);
+                    builderSingle.setAdapter(arrayAdapter, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("tel: " + "1111"));
+                            String strName = arrayAdapter.getItem(which);
+                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("tel: " + strName));
                             startActivity(intent);
                         }
                     });
-                    AlertDialog dialog = builder.create();
+                    builderSingle.show();
 ////////////////////////////////
-                    dialog.show();
+//                    dialog.show();
 //                    btnPhone1.setOnClickListener(new View.OnClickListener() {
 //                        @Override
 //                        public void onClick(View v) {
