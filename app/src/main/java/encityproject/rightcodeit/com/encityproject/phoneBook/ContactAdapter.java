@@ -5,7 +5,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
 import java.util.ArrayList;
+
 import encityproject.rightcodeit.com.encityproject.R;
 
 public class ContactAdapter extends ArrayAdapter<Contact> {
@@ -30,11 +32,16 @@ public class ContactAdapter extends ArrayAdapter<Contact> {
         TextView tvPhoneNumber = (TextView) convertView.findViewById(R.id.tv_phone_number);
 
         tvNameContact.setText(contact.getNameContact());
-        final String[] split;
         String toSplit = contact.getPhoneNumber();
+        final String[] split;
         split = toSplit.split(",");
         if (split.length > 1) {
-            tvPhoneNumber.setText(split[0] + "\n" + split[1]);
+            String s1 = "";
+            for (String s : split) {
+                s1 = s1 + s + "\n";
+            }
+            tvPhoneNumber.setText(s1);
+//            tvPhoneNumber.setText(split[0] + "\n" + split[1]);
         } else {
             tvPhoneNumber.setText(contact.getPhoneNumber());
         }
