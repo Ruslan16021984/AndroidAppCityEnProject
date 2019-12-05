@@ -86,18 +86,34 @@ public class ContactActivity extends AppCompatActivity {
 //                    });
 //                    AlertDialog dialog = builder.create();
 ////////////////////////////////
+
                     AlertDialog.Builder builderSingle = new AlertDialog.Builder(ContactActivity.this);
-                    final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
-                            ContactActivity.this, android.R.layout.select_dialog_singlechoice, split);
-                    builderSingle.setAdapter(arrayAdapter, new DialogInterface.OnClickListener() {
+
+                    View ve = getLayoutInflater().inflate(R.layout.custom_dialog_listview_twomorephones,null);
+                    final ListView lvForTwoMorePhones = ve.findViewById(R.id.lvForTwoMorePhones);
+                    final ArrayList<String> alTwoPhones = new ArrayList<>();
+                    for(int i=0;i<split.length;i++){
+                        alTwoPhones.add(split[i]);
+                    }
+                    lvForTwoMorePhones.setAdapter(new AlertDialogPhoneNumbersAdapter(getApplication(),R.layout.item_one_phonecall,alTwoPhones));
+                    lvForTwoMorePhones.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            String strName = arrayAdapter.getItem(which);
-                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("tel: " + strName));
-                            startActivity(intent);
+                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse
+                                    ("tel: " + alTwoPhones.get(i)));
+                            if (intent != null) {
+                                startActivity(intent);
+                            }
                         }
                     });
-                    builderSingle.show();
+
+                    builderSingle
+                            .setView(ve)
+                            .setCancelable(true)
+                    ;
+                    final AlertDialog alert = builderSingle.create();
+
+                    alert.show();
 ////////////////////////////////
 //                    dialog.show();
 //                    btnPhone1.setOnClickListener(new View.OnClickListener() {
