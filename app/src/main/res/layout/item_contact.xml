@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
     android:background="@color/background"
     tools:context=".MainActivity"
+    android:paddingBottom="5dp"
+    android:paddingTop="5dp"
     >
 
     <TextView
@@ -16,8 +18,6 @@
         android:layout_marginTop="4dp"
         android:layout_marginBottom="4dp"
         android:text="contact"
-        android:textSize="14dp"
-        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -32,8 +32,6 @@
         android:layout_marginBottom="4dp"
         android:gravity="left"
         android:text="phone"
-        android:textSize="14dp"
-        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tv_name_contact"
