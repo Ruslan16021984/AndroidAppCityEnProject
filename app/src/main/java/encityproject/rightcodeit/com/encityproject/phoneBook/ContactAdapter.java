@@ -1,35 +1,66 @@
 package encityproject.rightcodeit.com.encityproject.phoneBook;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import encityproject.rightcodeit.com.encityproject.R;
 
-public class ContactAdapter extends ArrayAdapter<Contact> {
+public class ContactAdapter extends BaseAdapter {
 
-    private ContactActivity contactActivity;
+    private Context ctx;
+    LayoutInflater lInflater;
+    ArrayList<Contact> contacts;
 
-    public ContactAdapter(ContactActivity contactActivity, ArrayList<Contact> contacts) {
-        super(contactActivity, 0, contacts);
-        this.contactActivity = contactActivity;
+
+    public ContactAdapter(Context context, ArrayList<Contact> contacts) {
+        this.ctx = context;
+        this.contacts=contacts;
+        lInflater = (LayoutInflater) ctx
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    }
+
+    Contact getContact(int position) {
+        return ((Contact) getItem(position));
+    }
+
+    // кол-во элементов
+    @Override
+    public int getCount() {
+        return contacts.size();
+    }
+
+    // элемент по позиции
+    @Override
+    public Contact getItem(int position) {
+        return contacts.get(position);
+    }
+
+    // id по позиции
+    @Override
+    public long getItemId(int position) {
+        return position;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        View v = convertView;
+        Contact contact = getContact(position);
 
-        final Contact contact = getItem(position);
-
-        if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_contact, parent, false);
+        if (v == null) {
+            LayoutInflater vi;
+            vi = LayoutInflater.from(ctx);
+            v = vi.inflate(R.layout.item_contact, null);
         }
 
-        TextView tvNameContact = (TextView) convertView.findViewById(R.id.tv_name_contact);
-        TextView tvPhoneNumber = (TextView) convertView.findViewById(R.id.tv_phone_number);
+        TextView tvNameContact = (TextView) v.findViewById(R.id.tv_name_contact);
+        TextView tvPhoneNumber = (TextView) v.findViewById(R.id.tv_phone_number);
 
         tvNameContact.setText(contact.getNameContact());
         String toSplit = contact.getPhoneNumber();
@@ -46,6 +77,6 @@ public class ContactAdapter extends ArrayAdapter<Contact> {
             tvPhoneNumber.setText(contact.getPhoneNumber());
         }
 
-        return convertView;
+        return v;
     }
 }
