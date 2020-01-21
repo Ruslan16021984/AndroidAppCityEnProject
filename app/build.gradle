@@ -41,6 +41,8 @@ dependencies {
     implementation 'com.luckycatlabs:SunriseSunsetCalculator:1.2'
     implementation files('libs/customweatherdata.jar')
 
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
     implementation 'com.github.yukuku:ambilwarna:2.0.1'
     implementation 'org.osmdroid:osmdroid-android:6.1.4'
 }
