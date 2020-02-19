@@ -17,4 +17,9 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="bt_center_map_description">center map</string>
+    <string name="menu_busmap">Bus Tracker</string>
+    <string name="bus_1">Bus 1</string>
+    <string name="bus_3">Bus 3</string>
+    <string name="bus_2">Bus 2</string>
 </resources>
