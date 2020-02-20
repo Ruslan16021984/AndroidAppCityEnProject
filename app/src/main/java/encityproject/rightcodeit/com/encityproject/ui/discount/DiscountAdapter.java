@@ -22,6 +22,7 @@ import java.util.ArrayList;
 
 import encityproject.rightcodeit.com.encityproject.BuildConfig;
 import encityproject.rightcodeit.com.encityproject.R;
+
 public class DiscountAdapter extends BaseAdapter {
 
     private Context ctx;

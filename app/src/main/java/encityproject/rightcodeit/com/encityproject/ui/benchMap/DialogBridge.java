@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 
 import encityproject.rightcodeit.com.encityproject.R;
+/*
 
 public class DialogBridge extends AppCompatDialogFragment {
     private SeekBar sbMain;
@@ -67,3 +68,4 @@ public class DialogBridge extends AppCompatDialogFragment {
 
 
 }
+*/

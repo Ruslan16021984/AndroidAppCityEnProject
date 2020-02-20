@@ -31,7 +31,7 @@ public class BenchFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_beanch_new, container, false);
 
-        btnUsb = v.findViewById(R.id.btnUsb);
+     /*   btnUsb = v.findViewById(R.id.btnUsb);
         btnColor = v.findViewById(R.id.btnColor);
         btnBridge = v.findViewById(R.id.btnBridge);
         btnLed = v.findViewById(R.id.btnLed);
@@ -158,7 +158,7 @@ public class BenchFragment extends Fragment {
                 openDialogColor();
             }
         });
-
+*/
         return v;
     }
 
@@ -180,7 +180,7 @@ public class BenchFragment extends Fragment {
         colorPicker.show();
     }
 
-    private void openDialogUsb() {
+   /* private void openDialogUsb() {
         DialogUsb dialogUsb = new DialogUsb();
         dialogUsb.setTargetFragment(BenchFragment.this, 1);
         dialogUsb.show(getFragmentManager(), "DialogUsb");
@@ -190,5 +190,5 @@ public class BenchFragment extends Fragment {
         DialogBridge dialogBridge = new DialogBridge();
         dialogBridge.setTargetFragment(BenchFragment.this, 1);
         dialogBridge.show(getFragmentManager(), "DialogBrige");
-    }
+    }*/
 }

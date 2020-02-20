@@ -20,19 +20,25 @@
    <fragment
         android:id="@+id/nav_slideshow"
         android:name="encityproject.rightcodeit.com.encityproject.ui.discount.DiscountFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:label="@string/menu_discount"
+        tools:layout="@layout/fragment_discount" />
 
     <fragment
         android:id="@+id/nav_tools"
-        android:name="encityproject.rightcodeit.com.encityproject.benchMap.BeanchFragment"
+        android:name="encityproject.rightcodeit.com.encityproject.ui.benchMap.BenchFragmentNew"
         android:label="@string/menu_tools"
-        tools:layout="@layout/fragment_tools" />
+        tools:layout="@layout/fragment_beanch_new" />
     <fragment
         android:id="@+id/nav_busmap"
         android:name="encityproject.rightcodeit.com.encityproject.busTracker.BusMapFragment"
         android:label="@string/menu_busmap"
-        tools:layout="@layout/fragment_tools" />
+        tools:layout="@layout/fragment_bus_map" />
+
+    <fragment
+        android:id="@+id/nav_description"
+        android:name="encityproject.rightcodeit.com.encityproject.ui.discount.DescriptionFragment"
+        android:label="@string/menu_slideshow"
+        tools:layout="@layout/fragment_description" />
 <!--
     <fragment
         android:id="@+id/nav_share"
