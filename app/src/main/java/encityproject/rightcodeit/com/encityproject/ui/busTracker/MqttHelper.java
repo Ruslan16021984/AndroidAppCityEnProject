@@ -1,4 +1,4 @@
-package encityproject.rightcodeit.com.encityproject.busTracker;
+package encityproject.rightcodeit.com.encityproject.ui.busTracker;
 
 import android.content.Context;
 import android.util.Log;

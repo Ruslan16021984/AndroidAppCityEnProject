@@ -1,4 +1,4 @@
-package encityproject.rightcodeit.com.encityproject.busTracker;
+package encityproject.rightcodeit.com.encityproject.ui.busTracker;
 
 import android.Manifest;
 import android.content.Context;
@@ -57,6 +57,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import encityproject.rightcodeit.com.encityproject.R;
+import encityproject.rightcodeit.com.encityproject.ui.busTracker.MqttHelper;
 
 public class BusMapFragment extends Fragment implements View.OnClickListener{
     private MqttHelper mqttHelper;

@@ -30,7 +30,7 @@
         tools:layout="@layout/fragment_beanch_new" />
     <fragment
         android:id="@+id/nav_busmap"
-        android:name="encityproject.rightcodeit.com.encityproject.busTracker.BusMapFragment"
+        android:name="encityproject.rightcodeit.com.encityproject.ui.busTracker.BusMapFragment"
         android:label="@string/menu_busmap"
         tools:layout="@layout/fragment_bus_map" />
 
