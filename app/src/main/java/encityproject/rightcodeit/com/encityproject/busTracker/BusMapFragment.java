@@ -10,7 +10,6 @@ import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
@@ -29,6 +28,9 @@ import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 
+import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
+import org.eclipse.paho.client.mqttv3.MqttCallbackExtended;
+import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.osmdroid.api.IGeoPoint;
 import org.osmdroid.bonuspack.BuildConfig;
 import org.osmdroid.bonuspack.routing.OSRMRoadManager;
@@ -57,6 +59,7 @@ import java.util.List;
 import encityproject.rightcodeit.com.encityproject.R;
 
 public class BusMapFragment extends Fragment implements View.OnClickListener{
+    private MqttHelper mqttHelper;
     private static final int REQUEST_CODE_PERMISSION_READ_CONTACTS = 123;
     private ScaleBarOverlay mScaleBarOverlay;
     private RotationGestureOverlay mRotationGestureOverlay;
@@ -73,14 +76,6 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
     private ArrayList<GeoPoint> geoPoints;
     private long start;
     private long duration;
-    private Handler h;
-    Handler.Callback hc = new Handler.Callback() {
-        public boolean handleMessage(Message msg) {
-            Log.d("TAG", "loadRoad" + msg);
-            animateMarker(map, hideMarke, geoPoints.get(msg.what));
-            return false;
-        }
-    };
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -91,7 +86,6 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_bus_map, container, false);
         fubBusTrack1 = view.findViewById(R.id.fab_action1);
         fubBusTrack1.setOnClickListener(this);
@@ -99,10 +93,7 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
         fubBusTrack2.setOnClickListener(this);
         fubBusTrack3 = view.findViewById(R.id.fab_action3);
         fubBusTrack3.setOnClickListener(this);
-        h = new Handler();
-        h = new Handler(hc);
         geoPoints = new ArrayList<>();
-        loadGeo();
         duration = 2500;
         start = SystemClock.uptimeMillis();
         interpolator = new LinearInterpolator();
@@ -110,8 +101,72 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
         map.setTileSource(TileSourceFactory.MAPNIK);
         Configuration.getInstance().load(getActivity(), PreferenceManager.getDefaultSharedPreferences(getContext()));
         checkPermition();
+        startMqtt();
 
         return view;
+    }
+
+    private void startMqtt() {
+        mqttHelper = new MqttHelper(getContext());
+        mqttHelper.setCallback(new MqttCallbackExtended() {
+            @Override
+            public void connectComplete(boolean b, String s) {
+
+            }
+
+            @Override
+            public void connectionLost(Throwable throwable) {
+
+            }
+
+            @Override
+            public void messageArrived(String topic, MqttMessage mqttMessage) throws Exception {
+                Log.w("Debug",mqttMessage.toString());
+                //TODO здесь приходят координаты автобуса
+                hideMarke.setPosition(new GeoPoint(47.496618, 34.649008));
+                map.getOverlays().add(hideMarke);
+                map.invalidate();
+                animateMarker(map, hideMarke, new GeoPoint(Float.valueOf(mqttMessage.toString()),Float.valueOf(mqttMessage.toString())));
+
+            }
+
+            @Override
+            public void deliveryComplete(IMqttDeliveryToken iMqttDeliveryToken) {
+
+            }
+        });
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.fab_action1:
+                Log.d("TAG", "ic_center_map");
+                LocationManager mLocationManager = (LocationManager)
+                        getActivity().getSystemService(Context.LOCATION_SERVICE);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
+                            != PackageManager.PERMISSION_GRANTED
+                            && ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION)
+                            != PackageManager.PERMISSION_GRANTED) {
+                        Log.d("TAG", "проверку не прошел");
+                        return;
+                    }
+                }
+                Log.d("TAG", "прошел");
+                Location locationGPS = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                GeoPoint myPosition = new GeoPoint(locationGPS.getLatitude(), locationGPS.getLongitude());
+                map.getController().animateTo(myPosition);
+                break;
+            case R.id.fab_action2:
+                Log.d("TAG", "ic_follow_me");
+                if (!locationOverlay.isFollowLocationEnabled()) {
+                    locationOverlay.enableFollowLocation();
+                } else {
+                    locationOverlay.disableFollowLocation();
+                }
+                break;
+        }
     }
 
     private void checkPermition() {
@@ -122,7 +177,6 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
         if (ACCESS_FINE_LOCATION == PackageManager.PERMISSION_GRANTED
                 && ACCESS_COARSE_LOCATION == PackageManager.PERMISSION_GRANTED
                 && WRITE_EXTERNAL_STORAGE == PackageManager.PERMISSION_GRANTED) {
-//            mapFragment.getMapAsync(this);
             createMap();
         } else {
             Log.d("TAG", "" + "DONT " + Manifest.permission.ACCESS_COARSE_LOCATION);
@@ -221,56 +275,14 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
             }
         }
     }
-
     public void onResume() {
         super.onResume();
         Configuration.getInstance().load(getContext(), PreferenceManager.getDefaultSharedPreferences(getActivity())); //needed for compass, my location overlays, v6.0.0 and up
     }
-//
-//    public void onPause() {
-//        super.onPause();
-//        map.onPause();  //needed for compass, my location overlays, v6.0.0 and up
-//    }
-
-    private void loadRoad() {
-        for (int i = 1; i <= 25; i++) {
-            Log.d("TAG", "loadRoad" + i);
-            h.sendEmptyMessageDelayed(i, (i * 1000) + 1000);
-        }
 
 
-    }
-
-    private ArrayList<GeoPoint> loadGeo() {
-        geoPoints.add(new GeoPoint(47.49686, 34.64888));
-        geoPoints.add(new GeoPoint(47.49485, 34.65054));
-        geoPoints.add(new GeoPoint(47.49315, 34.65174));
-        geoPoints.add(new GeoPoint(47.4907, 34.6535));
-        geoPoints.add(new GeoPoint(47.48854, 34.65502));
-        geoPoints.add(new GeoPoint(47.48689, 34.65611));
-        geoPoints.add(new GeoPoint(47.48664, 34.65616));
-        geoPoints.add(new GeoPoint(47.48424, 34.6552));
-        geoPoints.add(new GeoPoint(47.48347, 34.65922));
-        geoPoints.add(new GeoPoint(47.48295, 34.66191));
-        geoPoints.add(new GeoPoint(47.48572, 34.66308));
-        geoPoints.add(new GeoPoint(47.48703, 34.6636));
-        geoPoints.add(new GeoPoint(47.49016, 34.66105));
-        geoPoints.add(new GeoPoint(47.4907, 34.66069));
-        geoPoints.add(new GeoPoint(47.49144, 34.66254));
-        geoPoints.add(new GeoPoint(47.49351, 34.6608));
-        geoPoints.add(new GeoPoint(47.4958, 34.65889));
-        geoPoints.add(new GeoPoint(47.49764, 34.65737));
-        geoPoints.add(new GeoPoint(47.49896, 34.6563));
-        geoPoints.add(new GeoPoint(47.49984, 34.65561));
-        geoPoints.add(new GeoPoint(47.49879, 34.65283));
-        geoPoints.add(new GeoPoint(47.49719, 34.64867));
-        geoPoints.add(new GeoPoint(47.49703, 34.64846));
-        geoPoints.add(new GeoPoint(47.49692, 34.64862));
-        geoPoints.add(new GeoPoint(47.49694, 34.64879));
-        geoPoints.add(new GeoPoint(47.49669, 34.64897));
-        return geoPoints;
-    }
-
+//метод для прорисовки маршрута автобуса
+    //---------------------------------------
     private void lineRedDirection1() {
         List<GeoPoint> geoPoints = new ArrayList<>();
         geoPoints.add(new GeoPoint(47.49686, 34.64888));
@@ -351,38 +363,4 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
     }
 
 
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.fab_action1:
-                Log.d("TAG", "ic_center_map");
-                LocationManager mLocationManager = (LocationManager)
-                        getActivity().getSystemService(Context.LOCATION_SERVICE);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
-                            != PackageManager.PERMISSION_GRANTED
-                            && ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION)
-                            != PackageManager.PERMISSION_GRANTED) {
-                        Log.d("TAG", "проверку не прошел");
-                        return;
-                    }
-                }
-                Log.d("TAG", "прошел");
-                Location locationGPS = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                GeoPoint myPosition = new GeoPoint(locationGPS.getLatitude(), locationGPS.getLongitude());
-                map.getController().animateTo(myPosition);
-                break;
-            case R.id.fab_action2:
-                Log.d("TAG", "ic_follow_me");
-                if (!locationOverlay.isFollowLocationEnabled()) {
-                    locationOverlay.enableFollowLocation();
-//                    btFollowMe.setImageResource(R.drawable.ic_follow_me_on);
-                } else {
-                    locationOverlay.disableFollowLocation();
-//                    btFollowMe.setImageResource(R.drawable.ic_follow_me);
-                }
-                break;
-        }
-    }
 }
