@@ -13,13 +13,13 @@
             android:icon="@drawable/weather"
             android:title="@string/menu_weather" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/menu_slideshow" />
+            android:id="@+id/nav_discount"
+            android:icon="@drawable/discount"
+            android:title="@string/menu_discount" />
         <item
-            android:id="@+id/nav_tools"
+            android:id="@+id/nav_bench"
             android:icon="@drawable/ic_menu_manage"
-            android:title="@string/menu_tools" />
+            android:title="@string/menu_bench" />
         <item
             android:id="@+id/nav_busmap"
             android:icon="@drawable/ic_menu_manage"

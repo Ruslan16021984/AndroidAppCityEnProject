@@ -18,15 +18,15 @@
         tools:layout="@layout/fragment_weather" />
 
    <fragment
-        android:id="@+id/nav_slideshow"
+        android:id="@+id/nav_discount"
         android:name="encityproject.rightcodeit.com.encityproject.ui.discount.DiscountFragment"
         android:label="@string/menu_discount"
         tools:layout="@layout/fragment_discount" />
 
     <fragment
-        android:id="@+id/nav_tools"
+        android:id="@+id/nav_bench"
         android:name="encityproject.rightcodeit.com.encityproject.ui.benchMap.BenchFragmentNew"
-        android:label="@string/menu_tools"
+        android:label="@string/menu_bench"
         tools:layout="@layout/fragment_beanch_new" />
     <fragment
         android:id="@+id/nav_busmap"
@@ -37,7 +37,7 @@
     <fragment
         android:id="@+id/nav_description"
         android:name="encityproject.rightcodeit.com.encityproject.ui.discount.DescriptionFragment"
-        android:label="@string/menu_slideshow"
+        android:label="@string/menu_discount"
         tools:layout="@layout/fragment_description" />
 <!--
     <fragment

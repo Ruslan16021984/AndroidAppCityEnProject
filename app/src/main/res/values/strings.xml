@@ -16,7 +16,7 @@
     <string name="menu_description">Знижка</string>
     <string name="menu_send">Send</string>
     <string name="menu_discount">Знижки</string>
-
+    <string name="menu_bench">Розумна лава</string>
     <string name="btn_usb">Отримати доступ до зарядки</string>
 
     <!-- TODO: Remove or change this placeholder text -->
