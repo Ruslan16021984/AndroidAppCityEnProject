@@ -1,4 +1,4 @@
-package encityproject.rightcodeit.com.encityproject.phoneBook;
+package encityproject.rightcodeit.com.encityproject.ui.phonesBook;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -22,9 +22,9 @@ public class AlertDialogPhoneNumbersAdapter extends ArrayAdapter<String> {
 
     public AlertDialogPhoneNumbersAdapter(Context context, int resource, ArrayList<String> list) {
         super(context, resource, list);
-        this.context=context;
-        this.resource=resource;
-        this.list=list;
+        this.context = context;
+        this.resource = resource;
+        this.list = list;
     }
 
     @Override

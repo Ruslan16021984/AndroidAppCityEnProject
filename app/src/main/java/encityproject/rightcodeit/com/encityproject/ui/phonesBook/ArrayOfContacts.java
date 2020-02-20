@@ -1,8 +1,7 @@
-package encityproject.rightcodeit.com.encityproject.phoneBook;
+package encityproject.rightcodeit.com.encityproject.ui.phonesBook;
 
 import java.util.ArrayList;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

@@ -27,7 +27,6 @@
         <activity android:name=".MainActivity">
 
         </activity>
-        <activity android:name=".phoneBook.ContactActivity" />
         <service android:name="org.eclipse.paho.android.service.MqttService" />
     </application>
 

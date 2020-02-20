@@ -1,16 +1,14 @@
-package encityproject.rightcodeit.com.encityproject.benchMap;
+package encityproject.rightcodeit.com.encityproject.ui.benchMap;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.hardware.camera2.TotalCaptureResult;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatDialogFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 
 import encityproject.rightcodeit.com.encityproject.R;

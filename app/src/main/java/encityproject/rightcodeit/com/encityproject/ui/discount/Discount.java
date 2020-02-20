@@ -13,4 +13,5 @@ public class Discount {
     private String priceAndDiscount;
     private String coordinates;
     private String imgPath;
+    private String description;
 }

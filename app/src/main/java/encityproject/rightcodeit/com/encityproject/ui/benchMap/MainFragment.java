@@ -1,24 +1,15 @@
-package encityproject.rightcodeit.com.encityproject.benchMap;
+package encityproject.rightcodeit.com.encityproject.ui.benchMap;
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-
-
-
-import com.google.gson.Gson;
 
 
 import org.osmdroid.api.IMapController;
@@ -27,12 +18,6 @@ import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
-
-import java.io.BufferedOutputStream;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.net.Socket;
-import java.util.Objects;
 
 import encityproject.rightcodeit.com.encityproject.R;
 
@@ -74,7 +59,7 @@ public class MainFragment extends Fragment {
                 FragmentTransaction ft;
                 ft= getFragmentManager().beginTransaction();
 
-                //ft.replace(R.id.frame, new BeanchFragment());
+                //ft.replace(R.id.frame, new BenchFragment());
                 ft.addToBackStack(null);
                 ft.commit();
 

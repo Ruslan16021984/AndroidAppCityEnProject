@@ -2,7 +2,6 @@ package encityproject.rightcodeit.com.encityproject.ui.phonesBook;
 
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,11 +16,6 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 import encityproject.rightcodeit.com.encityproject.R;
-import encityproject.rightcodeit.com.encityproject.phoneBook.AlertDialogPhoneNumbersAdapter;
-import encityproject.rightcodeit.com.encityproject.phoneBook.ArrayOfContacts;
-import encityproject.rightcodeit.com.encityproject.phoneBook.Contact;
-import encityproject.rightcodeit.com.encityproject.phoneBook.ContactActivity;
-import encityproject.rightcodeit.com.encityproject.phoneBook.ContactAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -42,7 +36,7 @@ public class PhonesFragment extends Fragment {
     private void initData(View view) {
         arrayOfContacts = new ArrayOfContacts();
         contactAdapter = new ContactAdapter(getActivity(), arrayOfContacts.getArrayOfContacts());
-        ListView listView = view.findViewById(R.id.lv_contact);
+        ListView listView = view.findViewById(R.id.lv_contactPhones);
        ArrayList<Contact> ac = new ArrayList<>();
        ac.add(new Contact("тест", "911"));
         listView.setAdapter(new ContactAdapter(getActivity(), ac));

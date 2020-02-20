@@ -2,7 +2,7 @@ package encityproject.rightcodeit.com.encityproject.ui.discount;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.media.Image;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,28 +10,27 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.squareup.picasso.Picasso;
 
+import org.osmdroid.api.IMapController;
+import org.osmdroid.config.Configuration;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapController;
 import org.osmdroid.views.MapView;
-
 import java.util.ArrayList;
 
+import encityproject.rightcodeit.com.encityproject.BuildConfig;
 import encityproject.rightcodeit.com.encityproject.R;
-
 public class DiscountAdapter extends BaseAdapter {
 
     private Context ctx;
     LayoutInflater lInflater;
     ArrayList<Discount> discounts;
 
-
     public DiscountAdapter(Context context, ArrayList<Discount> contacts) {
         this.ctx = context;
-        this.discounts =contacts;
+        this.discounts = contacts;
         lInflater = (LayoutInflater) ctx
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -59,7 +58,7 @@ public class DiscountAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         View v = convertView;
         final Discount discount = getDiscount(position);
 
@@ -70,7 +69,7 @@ public class DiscountAdapter extends BaseAdapter {
         }
 
         TextView tvNameGoods = (TextView) v.findViewById(R.id.tv_name_goods);
-        TextView tvPriceAndDiscount = (TextView) v.findViewById(R.id.tv_phone_price_and_discount);
+        TextView tvPriceAndDiscount = (TextView) v.findViewById(R.id.tv_price_and_discount);
         ImageView ivItemDiscount = (ImageView) v.findViewById(R.id.iv_item_discount);
         ImageView ivMark = (ImageView) v.findViewById(R.id.iv_mark);
 
@@ -79,23 +78,25 @@ public class DiscountAdapter extends BaseAdapter {
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
                 LayoutInflater inflater = LayoutInflater.from(ctx);
-                View vOpenStreetMap =  inflater.inflate(R.layout.custom_dialog_open_street_map,null);
+                View vOpenStreetMap = inflater.inflate(R.layout.custom_dialog_open_street_map, null);
 
-                Toast toast=Toast. makeText(ctx.getApplicationContext(),"Hello!!!!!!!!!!!!!!!",Toast. LENGTH_LONG);
-                toast.show();
+                Toast.makeText(ctx.getApplicationContext(), "Hello! " + (position + 1), Toast.LENGTH_LONG).show();
 
-               // String coordinates = arrayOfDiscount.getArrayOfDiscount().get(position).getCoordinates();
-                MapView mMapView = (MapView) vOpenStreetMap.findViewById(R.id.mapview);
+                // String coordinates = arrayOfDiscount.getArrayOfDiscount().get(position).getCoordinates();
+
+                //Координаты можно писать классически
+                Configuration.getInstance().setUserAgentValue(BuildConfig.APPLICATION_ID);
+                MapView mMapView = vOpenStreetMap.findViewById(R.id.mapview);
                 mMapView.setTileSource(TileSourceFactory.DEFAULT_TILE_SOURCE);
                 mMapView.setBuiltInZoomControls(true);
+                mMapView.setMultiTouchControls(true);
                 MapController mMapController = (MapController) mMapView.getController();
-                mMapController.setZoom(13);
-                GeoPoint gPt = new GeoPoint(51500000, -150000);
+                mMapController.setZoom(16);
+                GeoPoint gPt = new GeoPoint(47.490461, 34.659276);
                 mMapController.setCenter(gPt);
                 builder
                         .setView(vOpenStreetMap)
-                        .setCancelable(true)
-                ;
+                        .setCancelable(true);
                 final AlertDialog alert = builder.create();
                 alert.show();
             }

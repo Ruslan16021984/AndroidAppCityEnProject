@@ -1,4 +1,4 @@
-package encityproject.rightcodeit.com.encityproject.phoneBook;
+package encityproject.rightcodeit.com.encityproject.ui.phonesBook;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,6 +8,7 @@ import lombok.EqualsAndHashCode;
 @AllArgsConstructor // Створюєм Constructor
 @EqualsAndHashCode // Створюєм Equals, HashCode
 
-public class PhoneNumbersAlertDialog {
+public class Contact {
+    private String nameContact;
     private String phoneNumber;
 }
