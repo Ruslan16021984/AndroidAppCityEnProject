@@ -4,7 +4,6 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -126,35 +125,35 @@ public class BenchFragmentNew extends Fragment {
 
                 if (progress > 0 && progress <= 10) {
                     color = red;
-                    chengeColorSeekBar(progress);
+                    changeColorSeekBar(progress);
                 }
                 if (progress > 10 && progress <= 20) {
                     color = orange;
-                    chengeColorSeekBar(progress - 10);
+                    changeColorSeekBar(progress - 10);
                 }
                 if (progress > 20 && progress <= 30) {
                     color = yellow;
-                    chengeColorSeekBar(progress - 20);
+                    changeColorSeekBar(progress - 20);
                 }
                 if (progress > 30 && progress <= 40) {
                     color = green;
-                    chengeColorSeekBar(progress - 30);
+                    changeColorSeekBar(progress - 30);
                 }
                 if (progress > 40 && progress <= 50) {
                     color = blue;
-                    chengeColorSeekBar(progress - 40);
+                    changeColorSeekBar(progress - 40);
                 }
                 if (progress > 50 && progress <= 60) {
                     color = darkBlue;
-                    chengeColorSeekBar(progress - 50);
+                    changeColorSeekBar(progress - 50);
                 }
                 if (progress > 60 && progress <= 70) {
                     color = purple;
-                    chengeColorSeekBar(progress - 60);
+                    changeColorSeekBar(progress - 60);
                 }
                 if (progress > 70 && progress <= 80) {
                     color = white;
-                    chengeColorSeekBar(progress - 70);
+                    changeColorSeekBar(progress - 70);
                 }
             }
 
@@ -165,7 +164,7 @@ public class BenchFragmentNew extends Fragment {
                 ivLightPower3.setColorFilter(Color.parseColor(color));
             }
 
-            private void chengeColorSeekBar(int progress) {
+            private void changeColorSeekBar(int progress) {
                 if (progress >= 1 && progress <= 2) {
                     setColor(color[0]);
                 }
@@ -191,6 +190,7 @@ public class BenchFragmentNew extends Fragment {
             public void onStopTrackingTouch(SeekBar seekBar) {
             }
         });
+
 
         btnUsb.setOnClickListener(new View.OnClickListener() {
             @Override
