@@ -1,6 +1,7 @@
 package encityproject.rightcodeit.com.encityproject.ui.benchMap;
 
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -21,7 +22,11 @@ import encityproject.rightcodeit.com.encityproject.R;
 
 public class BenchFragmentNew extends Fragment {
 
+    private MyAsyncTask myAsyncTask;
+
     private Handler handlerButtonUsb;
+
+    private TextView tvUsbTimer;
 
     private TextView tvLightPower;
     private TextView tvLightColor;
@@ -43,7 +48,6 @@ public class BenchFragmentNew extends Fragment {
     private String[] purple = {MyColor.purple100, MyColor.purple90, MyColor.purple80, MyColor.purple70, MyColor.purple60};
     private String[] white = {MyColor.white100, MyColor.white90, MyColor.white80, MyColor.white70, MyColor.white60};
 
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -62,18 +66,25 @@ public class BenchFragmentNew extends Fragment {
         ivLightPower3 = v.findViewById(R.id.iv_light_power3);
 
         btnUsb = v.findViewById(R.id.btn_usb);
+        tvUsbTimer = v.findViewById(R.id.tv_usb_timer);
 
-        handlerButtonUsb = new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                btnUsb.setEnabled(false);
-                btnUsb.setText("Залишилось часу на підключення: " + msg.what + " секунд");
-                if (msg.what == 0) {
-                    btnUsb.setEnabled(true);
-                    btnUsb.setText(R.string.btn_usb);
-                }
-            }
-        };
+/////////////////////////////////////////////////////////////////////////////////////
+//        handlerButtonUsb = new Handler() {
+//            @Override
+//            public void handleMessage(Message msg) {
+//                btnUsb.setEnabled(false);
+//                btnUsb.setVisibility(View.INVISIBLE);
+//                tvUsbTimer.setVisibility(View.VISIBLE);
+//                tvUsbTimer.setText("Залишилось часу на підключення: " + msg.what + " секунд");
+//                if (msg.what == 0) {
+//                    btnUsb.setEnabled(true);
+//                    btnUsb.setVisibility(View.VISIBLE);
+//                    tvUsbTimer.setVisibility(View.INVISIBLE);
+//                    btnUsb.setText(R.string.btn_usb);
+//                }
+//            }
+//        };
+/////////////////////////////////////////////////////////////////////////////////////
 
         sbLightPower.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -172,7 +183,6 @@ public class BenchFragmentNew extends Fragment {
                 }
             }
 
-
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
             }
@@ -189,23 +199,66 @@ public class BenchFragmentNew extends Fragment {
             }
 
             private void usbOpen() {
-                Thread threadUsbOpen = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        for (int i = 30; i >= 0; i--) {
-                            handlerButtonUsb.sendEmptyMessage(i);
-                            try {
-                                TimeUnit.SECONDS.sleep(1);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-                });
-                threadUsbOpen.start();
+                /////////////////////////////////////////////////////////////////////////////////////
+//                Thread threadUsbOpen = new Thread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        for (int i = 30; i >= 0; i--) {
+//                            handlerButtonUsb.sendEmptyMessage(i);
+//                            try {
+//                                TimeUnit.SECONDS.sleep(1);
+//                            } catch (InterruptedException e) {
+//                                e.printStackTrace();
+//                            }
+//                        }
+//                    }
+//                });
+//                threadUsbOpen.start();
+                /////////////////////////////////////////////////////////////////////////////////////
+                myAsyncTask = new MyAsyncTask();
+                myAsyncTask.execute();
             }
         });
 
         return v;
     }
+
+    class MyAsyncTask extends AsyncTask<Void, Integer, Void> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            btnUsb.setEnabled(false);
+            btnUsb.setVisibility(View.INVISIBLE);
+            tvUsbTimer.setVisibility(View.VISIBLE);
+            tvUsbTimer.setText("Залишилось часу на підключення: " + "30" + " секунд");
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            for (int i = 30; i >= 0; i--) {
+                try {
+                    publishProgress(i);
+                    TimeUnit.SECONDS.sleep(1);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+            tvUsbTimer.setText("Залишилось часу на підключення: " + values[0] + " секунд");
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            btnUsb.setEnabled(true);
+            btnUsb.setVisibility(View.VISIBLE);
+            tvUsbTimer.setVisibility(View.INVISIBLE);
+        }
+    }
 }
+

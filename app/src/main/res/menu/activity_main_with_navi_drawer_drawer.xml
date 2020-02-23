@@ -24,6 +24,11 @@
             android:id="@+id/nav_busmap"
             android:icon="@drawable/bus"
             android:title="@string/menu_busmap" />
+
+        <item
+            android:id="@+id/nav_helsi"
+            android:icon="@drawable/bus"
+            android:title="@string/menu_helsi" />
     </group>
 
     <!--<item android:title="Communicate">

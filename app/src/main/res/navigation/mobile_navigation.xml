@@ -39,6 +39,12 @@
         android:name="encityproject.rightcodeit.com.encityproject.ui.discount.DescriptionFragment"
         android:label="@string/menu_discount"
         tools:layout="@layout/fragment_description" />
+
+    <fragment
+        android:id="@+id/nav_helsi"
+        android:name="encityproject.rightcodeit.com.encityproject.ui.helsi.HelsiMeFragment"
+        android:label="@string/menu_helsi"
+        tools:layout="@layout/fragment_webview" />
 <!--
     <fragment
         android:id="@+id/nav_share"
