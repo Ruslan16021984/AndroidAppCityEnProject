@@ -245,6 +245,7 @@ public class BenchFragmentNew extends Fragment {
                         e.printStackTrace();
                     }
                 }
+            } else {
             }
             return null;
         }
@@ -260,6 +261,7 @@ public class BenchFragmentNew extends Fragment {
             btnUsb.setEnabled(true);
             btnUsb.setVisibility(View.VISIBLE);
             tvUsbTimer.setVisibility(View.INVISIBLE);
+            myAsyncTask.cancel(true);
         }
 
         @Override
