@@ -10,6 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.squareup.picasso.Picasso;
 
 import org.osmdroid.api.IMapController;
@@ -18,6 +19,7 @@ import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapController;
 import org.osmdroid.views.MapView;
+
 import java.util.ArrayList;
 
 import encityproject.rightcodeit.com.encityproject.BuildConfig;
@@ -36,7 +38,7 @@ public class DiscountAdapter extends BaseAdapter {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-    Discount getDiscount(int position) {
+    public Discount getDiscount(int position) {
         return ((Discount) getItem(position));
     }
 

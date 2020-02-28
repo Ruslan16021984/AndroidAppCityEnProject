@@ -40,13 +40,13 @@ public class ArrayOfContacts {
         arrayOfContacts.add(new Contact("Прокуратура", "+380(6139)3-11-08"));
         arrayOfContacts.add(new Contact("Єдиний офіс «мерія»", "+380(6139)6-22-25"));
         arrayOfContacts.add(new Contact("ДК «Сучасник»", "+380(6139)4-10-97"));
-        arrayOfContacts.add(new Contact("Ветеринарний дільниця № 1", "+380(6139)6-33-44"));
+        arrayOfContacts.add(new Contact("Ветеринарна дільниця № 1", "+380(6139)6-33-44"));
         arrayOfContacts.add(new Contact("Дитяча музична школа", "+380(6139)6-27-12," + "+380(6139)6-39-44"));
         arrayOfContacts.add(new Contact("Енергодарський лабораторний центр", "+380(6139)6-08-28"));
-        arrayOfContacts.add(new Contact("Поштове відділення №1 по Молодіжній, 65", "+380(6139)6-58-72"));
+        arrayOfContacts.add(new Contact("Поштове відділення № 1 по Молодіжній, 65", "+380(6139)6-58-72"));
         arrayOfContacts.add(new Contact("Поштове відділення № 2 по Лісовій, 6", "+380(6139)6-13-21"));
-        arrayOfContacts.add(new Contact("Поштове відділення №3 по Будівельників, 27", "+380(6139)6-16-79"));
-        arrayOfContacts.add(new Contact("Поштове відділення №4", "+38(067)434-72-35"));
+        arrayOfContacts.add(new Contact("Поштове відділення № 3 по Будівельників, 27", "+380(6139)6-16-79"));
+        arrayOfContacts.add(new Contact("Поштове відділення № 4", "+38(067)434-72-35"));
         arrayOfContacts.add(new Contact("Басейн", "+380(6139)5-05-07"));
 
         arrayOfContacts.add(new Contact("Суші-бар «Сакура»\n" + "вул.Українська, 10", "+38(099)001-09-04"));
