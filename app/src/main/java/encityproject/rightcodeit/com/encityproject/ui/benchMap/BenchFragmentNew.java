@@ -236,16 +236,18 @@ public class BenchFragmentNew extends Fragment {
 
         @Override
         protected Void doInBackground(Void... params) {
-            if (!isCancelled()) {
-                for (int i = 30; i >= 0; i--) {
+            for (int i = 30; i >= 0; i--) {
+                if (!isCancelled()) {
                     try {
                         publishProgress(i);
                         TimeUnit.SECONDS.sleep(1);
+
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
+                } else {
+                    return null;
                 }
-            } else {
             }
             return null;
         }
@@ -271,6 +273,12 @@ public class BenchFragmentNew extends Fragment {
             btnUsb.setVisibility(View.VISIBLE);
             tvUsbTimer.setVisibility(View.INVISIBLE);
         }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        myAsyncTask.cancel(false);
     }
 }
 

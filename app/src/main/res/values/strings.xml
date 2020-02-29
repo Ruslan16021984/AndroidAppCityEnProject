@@ -27,4 +27,5 @@
     <string name="bus_1">Bus 1</string>
     <string name="bus_3">Bus 3</string>
     <string name="bus_2">Bus 2</string>
+    <string name="menu_news">Новини</string>
 </resources>

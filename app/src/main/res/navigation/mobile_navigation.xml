@@ -41,6 +41,18 @@
         tools:layout="@layout/fragment_description" />
 
     <fragment
+        android:id="@+id/nav_news"
+        android:name="encityproject.rightcodeit.com.encityproject.ui.news.NewsFragment"
+        android:label="@string/menu_news"
+        tools:layout="@layout/fragment_news" />
+
+    <fragment
+        android:id="@+id/nav_one_news"
+        android:name="encityproject.rightcodeit.com.encityproject.ui.news.OneNewsFragment"
+
+        tools:layout="@layout/fragment_one_news" />
+
+    <fragment
         android:id="@+id/nav_helsi"
         android:name="encityproject.rightcodeit.com.encityproject.ui.helsi.HelsiMeFragment"
         android:label="@string/menu_helsi"

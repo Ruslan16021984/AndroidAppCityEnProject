@@ -13,7 +13,6 @@ import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapController;
 import org.osmdroid.views.MapView;
-
 import encityproject.rightcodeit.com.encityproject.R;
 
 public class DescriptionFragment extends Fragment {
