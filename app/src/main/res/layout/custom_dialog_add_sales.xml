@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Як додати?"
+        android:layout_margin="20sp"
+        android:textSize="20sp"
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Надсилайте актуальну знижку на 380city@gmail.com\n\nУ тексті повідомлення напишіть:\n\nназва: не більше 25 символів\nціна: фіксована ціна у гривні або відсоток знижки\nопис з контактами: не больше 500 символів\nчас дії: максимальний період один місяць\nмісце: гео мітка з Google карти, наприклад:47.490625, 34.661524\nкартинка: горизонтальне ображення у форматі JPEG\nконтактний номер: +380ХХХХХХХХХ"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_margin="20sp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Все просто!"
+        android:layout_margin="20sp"
+        android:layout_gravity="center"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_margin="20sp"
+        android:text="P.S. Інформація не повинна порушувати діючого законодавства України"/>
+
+</LinearLayout>

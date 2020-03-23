@@ -18,7 +18,7 @@
             android:title="@string/menu_discount" />
         <item
             android:id="@+id/nav_bench"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/bench"
             android:title="@string/menu_bench" />
         <item
             android:id="@+id/nav_busmap"

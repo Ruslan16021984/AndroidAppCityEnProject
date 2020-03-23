@@ -278,7 +278,9 @@ public class BenchFragmentNew extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        myAsyncTask.cancel(false);
+        if(myAsyncTask!=null){
+            myAsyncTask.cancel(false);
+        }
     }
 }
 

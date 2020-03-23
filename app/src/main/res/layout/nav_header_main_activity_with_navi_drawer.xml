@@ -14,15 +14,15 @@
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:contentDescription="@string/nav_header_desc"
-        app:srcCompat="@drawable/city" />
+        app:srcCompat="@drawable/offlogo" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/nav_header_title"
-        android:textSize="20sp"
+
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
 <!--

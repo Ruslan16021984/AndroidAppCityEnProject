@@ -64,15 +64,32 @@
 
                     </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/tv_price_and_discount_description"
+                    <FrameLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="10dp"
-                        android:text="Ціна і знижка"
-                        android:textColor="@android:color/holo_red_dark"
-                        android:textSize="22sp" />
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:id="@+id/tv_price_and_discount_description"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="10dp"
+                            android:text="Ціна і знижка"
+                            android:layout_gravity="left"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="22sp" />
+                        <TextView
+                            android:id="@+id/tv_last_time_desc"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="10dp"
+                            android:paddingRight="5sp"
+                            android:text="Часу"
+                            android:layout_gravity="right|bottom"
+                            android:textColor="#DA0000"
+                            android:textSize="14sp" />
+
+                    </FrameLayout>
 
                     <ScrollView
                         android:layout_width="match_parent"

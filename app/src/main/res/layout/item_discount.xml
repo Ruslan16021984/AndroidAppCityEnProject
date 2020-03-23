@@ -11,7 +11,7 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="200dp"
         tools:ignore="MissingConstraints">
 
         <ImageView
@@ -21,43 +21,73 @@
             android:scaleType="centerCrop" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/tv_name_goods"
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginBottom="4dp"
-                    android:text="Назва товару"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-                <TextView
-                    android:id="@+id/tv_price_and_discount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginEnd="40dp"
-                    android:layout_marginBottom="4dp"
-                    android:text="Ціна і знижка"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/tv_name_goods"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    <TextView
+                        android:id="@+id/tv_name_goods"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="#99404040"
+                        android:gravity="center"
+                        android:paddingLeft="20sp"
+                        android:paddingTop="10sp"
+                        android:paddingRight="20sp"
+                        android:paddingBottom="10sp"
+                        android:text="Назва товару"
+                        android:textColor="#ffffff"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/tv_last_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|left"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+
+                        android:gravity="center"
+                        android:paddingLeft="20sp"
+                        android:paddingTop="14sp"
+                        android:paddingRight="20sp"
+                        android:paddingBottom="14sp"
+                        android:text="Залишилось"
+                        android:textColor="#DA0000"
+                        android:textSize="12sp" />
+                    <TextView
+                        android:id="@+id/tv_price_and_discount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|right"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="#99404040"
+                        android:gravity="center"
+                        android:paddingLeft="20sp"
+                        android:paddingTop="10sp"
+                        android:paddingRight="20sp"
+                        android:paddingBottom="10sp"
+                        android:text="Ціна і знижка"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="20sp"
+                       />
+
+                </FrameLayout>
+
 
             </LinearLayout>
 
@@ -69,7 +99,10 @@
             android:layout_height="40dp"
             android:layout_gravity="right"
             android:layout_marginTop="20dp"
-            app:srcCompat="@drawable/mark" />
+            app:srcCompat="@drawable/mark"
+            android:background="#90FFFFFF"
+            android:padding="10sp"
+            />
 
     </FrameLayout>
 

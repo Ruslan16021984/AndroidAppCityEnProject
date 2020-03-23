@@ -3,6 +3,7 @@ package encityproject.rightcodeit.com.encityproject.ui.weatherData;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -19,6 +20,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.FrameLayout;
@@ -28,6 +30,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
+
 
 import com.luckycatlabs.sunrisesunset.SunriseSunsetCalculator;
 import com.luckycatlabs.sunrisesunset.dto.Location;
@@ -45,6 +48,8 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import encityproject.rightcodeit.com.encityproject.MainActivity;
+import encityproject.rightcodeit.com.encityproject.MainActivityWithNaviDrawer;
 import encityproject.rightcodeit.com.encityproject.R;
 
 import static android.content.Context.AUDIO_SERVICE;
@@ -61,6 +66,7 @@ public class WeatherFragment extends Fragment {
     private RotateAnimation anim;
     private Timer screenTimer;
     private Handler dataHandler;
+    //private ImageView ivLogoDar1;
 
     private int t7=0;
 
@@ -84,8 +90,9 @@ public class WeatherFragment extends Fragment {
     private FrameLayout flBackgroundGreen, flBackgroundWhite;
     private int dayStart, dayEnd;
     private ProgressBar progessBar;
-    private int port = 4646;
-    private String ip = "";
+    private int port = 4656;
+    //private String ip = "192.168.1.46";
+    private String ip = "35.232.178.112";
     private WeatherData wdTemp;
     private WeatherData wdHP;
 
@@ -300,6 +307,7 @@ public class WeatherFragment extends Fragment {
 
 
             for(int i=0; i<wd.size();i++){
+                Log.d(wd.get(i).getName(), String.valueOf(wd.get(i).getVal1())+String.valueOf(wd.get(i).getVal2()));
                 if(wd.get(i).getName().equals("data111")){
                     wdTemp = new WeatherData(wd.get(i).getName(), wd.get(i).getVal1(),wd.get(i).getVal2());
                 }
@@ -307,7 +315,7 @@ public class WeatherFragment extends Fragment {
                     wdHP = new WeatherData(wd.get(i).getName(), wd.get(i).getVal1(),wd.get(i).getVal2());
                 }
             }
-
+//data111,43,23
             return null;
         }
 
@@ -333,7 +341,7 @@ public class WeatherFragment extends Fragment {
             }
             else{
                 progessBar.setVisibility(View.INVISIBLE);
-                Toast.makeText(getContext(), "Неудачно. Для повтора кликните по температуре", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Виникли технічні помилки. Вже вирішуемо", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -361,7 +369,7 @@ public class WeatherFragment extends Fragment {
                         getWeather.execute("getw");
                     }
                     else{
-                        Toast.makeText(getContext(), "Проверьте интернет", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Перевірте інтернет", Toast.LENGTH_SHORT).show();
                         dataHandler.postDelayed(this,5000);
                     }
                 }
@@ -376,6 +384,26 @@ public class WeatherFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_weather, container, false);
+
+        /*ivLogoDar1 = v.findViewById(R.id.ivLogoDar1);
+        Animation anim = AnimationUtils.loadAnimation(getContext(), R.anim.disapp);
+        ivLogoDar1.startAnimation(anim);
+        anim.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                ivLogoDar1.setVisibility(View.INVISIBLE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });*/
 
         ivRot=v.findViewById(R.id.ivDayRotate);
 

@@ -4,30 +4,47 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity  {
 
-    private TextView tv;
+    private ImageView ivLogoDar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_main);
 
-        tv = findViewById(R.id.tv);
-        tv.setOnClickListener(this);
+       ivLogoDar = findViewById(R.id.ivLogoDar);
+        Animation anim = AnimationUtils.loadAnimation(this, R.anim.disapp);
+        ivLogoDar.startAnimation(anim);
+
+        anim.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                ivLogoDar.setVisibility(View.INVISIBLE);
+                Intent myIntent = new Intent(MainActivity.this, MainActivityWithNaviDrawer.class);
+                MainActivity.this.startActivity(myIntent);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
 
     }
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case (R.id.tv):
-                /*Intent intent = new Intent(this, ContactActivity.class);
-                intent.putExtra("KEY", "to phone book");
-                startActivity(intent);*/
-                break;
-        }
-    }
+
 }

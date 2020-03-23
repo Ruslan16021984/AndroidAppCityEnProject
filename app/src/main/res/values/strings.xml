@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">EnCityProject</string>
-    <string name="title_activity_main_with_navi_drawer">MainActivityWithNaviDrawer</string>
+    <string name="title_activity_main_with_navi_drawer">Місто у твоїй кишені</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Місто у твоєму кармані</string>
+    <string name="nav_header_title">Місто у твоїй кишені</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
@@ -23,7 +23,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="bt_center_map_description">center map</string>
-    <string name="menu_busmap">Bus Tracker</string>
+    <string name="menu_busmap">Громадський транспорт</string>
     <string name="bus_1">Bus 1</string>
     <string name="bus_3">Bus 3</string>
     <string name="bus_2">Bus 2</string>

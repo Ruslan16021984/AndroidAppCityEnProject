@@ -33,13 +33,15 @@ public class MainActivityWithNaviDrawer extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_phonesBook, R.id.nav_weather, R.id.nav_discount,
+                 R.id.nav_weather, R.id.nav_phonesBook,R.id.nav_discount,
                 R.id.nav_bench, R.id.nav_busmap, R.id.nav_helsi, R.id.nav_news/*,*R.id.nav_share, R.id.nav_send*/)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+
     }
 
     @Override
@@ -56,5 +58,9 @@ public class MainActivityWithNaviDrawer extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
 
+    }
 }

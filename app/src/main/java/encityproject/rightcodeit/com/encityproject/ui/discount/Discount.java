@@ -11,7 +11,11 @@ import lombok.EqualsAndHashCode;
 public class Discount {
     private String nameGoods;
     private String priceAndDiscount;
-    private String coordinates;
+    private String lan;
+    private String lon;
     private String imgPath;
     private String description;
+    private String startTime;
+    private String endTime;
+
 }

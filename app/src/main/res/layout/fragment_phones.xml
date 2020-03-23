@@ -5,11 +5,33 @@
     android:layout_height="match_parent"
     tools:context=".ui.phonesBook.PhonesFragment">
 
-    <ListView
-        android:id="@+id/lv_contactPhones"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:dividerHeight="1dp"
-        ></ListView>
+        android:layout_height="match_parent">
+        <ListView
+            android:id="@+id/lv_contactPhones"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:dividerHeight="1dp"
+            />
+        <ProgressBar
+            android:id="@+id/pbListPhones"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:id="@+id/tvFPhones"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Будь ласка, перевірте інтернет"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:layout_gravity="center"/>
+
+    </FrameLayout>
+
+
+
 
 </LinearLayout>

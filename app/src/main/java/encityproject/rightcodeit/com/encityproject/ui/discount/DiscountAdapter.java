@@ -19,7 +19,11 @@ import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapController;
 import org.osmdroid.views.MapView;
+import org.osmdroid.views.overlay.Marker;
+import org.osmdroid.views.overlay.Overlay;
+import org.osmdroid.views.overlay.OverlayItem;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import encityproject.rightcodeit.com.encityproject.BuildConfig;
@@ -71,6 +75,7 @@ public class DiscountAdapter extends BaseAdapter {
             v = vi.inflate(R.layout.item_discount, null);
         }
 
+        TextView tvLastTime = v.findViewById(R.id.tv_last_time);
         TextView tvNameGoods = (TextView) v.findViewById(R.id.tv_name_goods);
         TextView tvPriceAndDiscount = (TextView) v.findViewById(R.id.tv_price_and_discount);
         ImageView ivItemDiscount = (ImageView) v.findViewById(R.id.iv_item_discount);
@@ -83,7 +88,7 @@ public class DiscountAdapter extends BaseAdapter {
                 LayoutInflater inflater = LayoutInflater.from(ctx);
                 View vOpenStreetMap = inflater.inflate(R.layout.custom_dialog_open_street_map, null);
 
-                Toast.makeText(ctx.getApplicationContext(), "Hello! " + (position + 1), Toast.LENGTH_LONG).show();
+          //      Toast.makeText(ctx.getApplicationContext(), "Hello! " + (position + 1), Toast.LENGTH_LONG).show();
 
                 // String coordinates = arrayOfDiscount.getArrayOfDiscount().get(position).getCoordinates();
 
@@ -94,9 +99,15 @@ public class DiscountAdapter extends BaseAdapter {
                 mMapView.setBuiltInZoomControls(true);
                 mMapView.setMultiTouchControls(true);
                 MapController mMapController = (MapController) mMapView.getController();
-                mMapController.setZoom(16);
-                GeoPoint gPt = new GeoPoint(47.490461, 34.659276);
+                mMapController.setZoom(17);
+                GeoPoint gPt = new GeoPoint(Double.parseDouble(discount.getLan()), Double.parseDouble(discount.getLon()));
                 mMapController.setCenter(gPt);
+                Marker startMarker = new Marker(mMapView);
+                startMarker.setPosition(gPt);
+                startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+                startMarker.setIcon(ctx.getResources().getDrawable(R.drawable.mark));
+                mMapView.getOverlays().add(startMarker);
+
                 builder
                         .setView(vOpenStreetMap)
                         .setCancelable(true);
@@ -105,8 +116,28 @@ public class DiscountAdapter extends BaseAdapter {
             }
         });
 
+        if((Timestamp.valueOf(discount.getEndTime()).getTime()-System.currentTimeMillis())/(1000*60*60*24)>1) {
+            tvLastTime.setText("Залишилось " + String.valueOf((Timestamp.valueOf(discount.getEndTime()).getTime() -System.currentTimeMillis()) / (1000 * 60 * 60 * 24)) + " днів");
+        }
+        else{
+            if((Timestamp.valueOf(discount.getEndTime()).getTime() -System.currentTimeMillis()) / (1000 * 60 * 60)>1){
+            tvLastTime.setText("Залишилось " + String.valueOf((Timestamp.valueOf(discount.getEndTime()).getTime() -System.currentTimeMillis()) / (1000 * 60 * 60)) + " годин");
+            }
+            else {
+                tvLastTime.setText("Залишилось " + String.valueOf((Timestamp.valueOf(discount.getEndTime()).getTime() -System.currentTimeMillis()) / (1000 * 60)) + " хвилин");
+            }
+        }
+
         tvNameGoods.setText(discount.getNameGoods());
-        tvPriceAndDiscount.setText(discount.getPriceAndDiscount());
+        if(discount.getPriceAndDiscount().split(",")[0].length()>0){
+            tvPriceAndDiscount.setText(discount.getPriceAndDiscount().split(",")[0]+" грн");
+        }
+        else if(discount.getPriceAndDiscount().split(",")[1].length()>0){
+            tvPriceAndDiscount.setText(discount.getPriceAndDiscount().split(",")[1]+" %");
+        }
+        else {
+            tvPriceAndDiscount.setText("");
+        }
 
         Picasso.get()
                 .load(discount.getImgPath())

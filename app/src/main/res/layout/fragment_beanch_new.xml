@@ -7,142 +7,173 @@
     android:orientation="vertical"
     android:weightSum="1">
 
-    <android.support.constraint.ConstraintLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.9"
-        android:background="@drawable/fdsm">
+        android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/iv_light_power1"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="132dp"
-            android:layout_marginTop="88dp"
-            android:src="@drawable/icons8spotlight"
-            android:visibility="visible"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/iv_light_power2"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:src="@drawable/icons8spotlight"
-            android:visibility="invisible"
-            app:layout_constraintStart_toEndOf="@+id/iv_light_power1"
-            app:layout_constraintTop_toTopOf="@+id/iv_light_power1" />
-
-        <ImageView
-            android:id="@+id/iv_light_power3"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:src="@drawable/icons8spotlight"
-            android:visibility="invisible"
-            app:layout_constraintStart_toEndOf="@+id/iv_light_power2"
-            app:layout_constraintTop_toTopOf="@+id/iv_light_power2" />
-
-    </android.support.constraint.ConstraintLayout>
-    <!--    <Button-->
-    <!--        android:id="@+id/btnLed"-->
-    <!--        android:layout_width="110dp"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginTop="100dp"-->
-    <!--        android:text="Led" />-->
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="32dp"
-        android:layout_marginRight="32dp"
-        android:layout_marginBottom="16dp"
-        android:layout_weight="0.1"
-        android:gravity="bottom"
-        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Яскравість освітлення:"
-                android:textSize="22sp" />
+                android:layout_weight="0.9"
+                android:background="@drawable/fdsm">
 
-            <TextView
-                android:id="@+id/tv_count_lightPower"
-                android:layout_width="wrap_content"
+                <ImageView
+                    android:id="@+id/iv_light_power1"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="132dp"
+                    android:layout_marginTop="88dp"
+                    android:src="@drawable/icons8spotlight"
+                    android:visibility="visible"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/iv_light_power2"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/icons8spotlight"
+                    android:visibility="invisible"
+                    app:layout_constraintStart_toEndOf="@+id/iv_light_power1"
+                    app:layout_constraintTop_toTopOf="@+id/iv_light_power1" />
+
+                <ImageView
+                    android:id="@+id/iv_light_power3"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/icons8spotlight"
+                    android:visibility="invisible"
+                    app:layout_constraintStart_toEndOf="@+id/iv_light_power2"
+                    app:layout_constraintTop_toTopOf="@+id/iv_light_power2" />
+
+            </android.support.constraint.ConstraintLayout>
+            <!--    <Button-->
+            <!--        android:id="@+id/btnLed"-->
+            <!--        android:layout_width="110dp"-->
+            <!--        android:layout_height="wrap_content"-->
+            <!--        android:layout_marginTop="100dp"-->
+            <!--        android:text="Led" />-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginLeft="16dp"
-                android:textSize="22sp"
-                android:textStyle="bold" />
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="32dp"
+                android:layout_marginBottom="16dp"
+                android:layout_weight="0.1"
+                android:gravity="bottom"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Яскравість освітлення:"
+                        android:textSize="22sp" />
+
+                    <TextView
+                        android:id="@+id/tv_count_lightPower"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginLeft="16dp"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <SeekBar
+                    android:id="@+id/sb_light"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="32dp"
+                    android:max="100"
+                    android:progress="50"
+                    android:thumbTint="#00BFA5" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Колір освітлення:"
+                        android:textSize="22sp" />
+
+                    <TextView
+                        android:id="@+id/tv_count_lightColor"
+                        android:layout_width="140dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:background="#00000000"
+                        android:text="" />
+
+
+                </LinearLayout>
+
+                <SeekBar
+                    android:id="@+id/sb_color"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="32dp"
+                    android:max="80"
+                    android:progress="80"
+                    android:thumbTint="#00BFA5" />
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_usb_timer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:textSize="16sp"/>
+                    <Button
+                        android:id="@+id/btn_usb"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginLeft="16dp"
+                        android:text="@string/btn_usb" />
+
+                </FrameLayout>
+
+
+            </LinearLayout>
 
         </LinearLayout>
 
-        <SeekBar
-            android:id="@+id/sb_light"
+        <ImageView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
-            android:max="100"
-            android:progress="50"
-            android:thumbTint="#00BFA5" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Колір освітлення:"
-                android:textSize="22sp" />
-
-            <TextView
-                android:id="@+id/tv_count_lightColor"
-                android:layout_width="140dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:background="#00000000"
-                android:text="" />
-
-
-        </LinearLayout>
-
-        <SeekBar
-            android:id="@+id/sb_color"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
-            android:max="80"
-            android:progress="80"
-            android:thumbTint="#00BFA5" />
-        <FrameLayout
+            android:layout_height="match_parent"
+            android:src="@drawable/comingbot"
+            android:scaleType="centerCrop"
+            />
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal">
+            android:text="Очікуйте на появлення\nу Вашому місті навесні\n2020 року"
+            android:layout_gravity="center"
+            android:textSize="24sp"
+            android:textColor="@color/colorPrimary"
+            android:background="#404040"
+            android:padding="20sp"
+            android:gravity="center"/>
 
-            <TextView
-                android:id="@+id/tv_usb_timer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:textSize="16sp"/>
-            <Button
-                android:id="@+id/btn_usb"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginLeft="16dp"
-                android:text="@string/btn_usb" />
-
-        </FrameLayout>
-
-
-    </LinearLayout>
+    </FrameLayout>
 
 </LinearLayout>

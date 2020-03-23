@@ -63,7 +63,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="10dp"
                         android:text="Дата і час новини"
-                        android:textSize="22sp" />
+                        android:textSize="12sp" />
 
                     <ScrollView
                         android:layout_width="match_parent"
@@ -77,8 +77,8 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="bottom"
                             android:paddingRight="16dp"
-                            android:text="Текст новини"
-                            android:textSize="18sp" />
+                            android:gravity="center"
+                            android:text="Текст новини" />
                     </ScrollView>
 
                     <TextView
@@ -87,7 +87,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="10dp"
-                        android:text="Линк на сайт новини" />
+                        android:textSize="10sp"/>
 
                 </LinearLayout>
 

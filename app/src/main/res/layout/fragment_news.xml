@@ -5,11 +5,45 @@
     android:layout_height="match_parent"
     tools:context=".ui.news.NewsFragment">
 
-    <ListView
-        android:id="@+id/lv_news"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:dividerHeight="1dp"
-        ></ListView>
+        android:layout_height="match_parent">
+        <ListView
+            android:id="@+id/lv_news"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:dividerHeight="1dp"
+            ></ListView>
+
+        <ProgressBar
+            android:id="@+id/pbListNews"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:id="@+id/tvFNews"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Будь ласка, перевірте інтернет"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:layout_gravity="center"/>
+        <!--<ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/newscommingsoon"
+            android:scaleType="centerCrop"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Очікуйте на появлення\nнайближчим часом"
+            android:layout_gravity="center"
+            android:textSize="24sp"
+            android:textColor="@color/colorPrimary"
+            android:background="#404040"
+            android:padding="20sp"
+            android:gravity="center"/>-->
+    </FrameLayout>
 
 </LinearLayout>

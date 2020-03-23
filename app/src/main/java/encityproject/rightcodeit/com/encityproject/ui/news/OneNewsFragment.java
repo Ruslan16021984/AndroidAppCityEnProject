@@ -1,5 +1,6 @@
 package encityproject.rightcodeit.com.encityproject.ui.news;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -10,6 +11,8 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import encityproject.rightcodeit.com.encityproject.R;
+
+import static android.text.Layout.JUSTIFICATION_MODE_INTER_WORD;
 
 public class OneNewsFragment extends Fragment {
     private TextView tvTextOneNews;
@@ -38,13 +41,16 @@ public class OneNewsFragment extends Fragment {
             tvTitleOneNews.setText(fromBundle.split("@")[0]);
             tvDateAndTimeOneNews.setText(fromBundle.split("@")[1]);
             tvTextOneNews.setText(fromBundle.split("@")[2]);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                tvTextOneNews.setJustificationMode(JUSTIFICATION_MODE_INTER_WORD);
+            }
             String imgPathOneNews = fromBundle.split("@")[3];
                         Picasso.get()
                     .load(imgPathOneNews)
                     .resize(200, 200)
                     .centerCrop()
                     .into(ivOneNews);
-            tvLinkSite.setText(fromBundle.split("@")[4]);
+            tvLinkSite.setText("Джерело - "+fromBundle.split("@")[4]);
         }
         return v;
     }
