@@ -4,10 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
-    tools:context=".MainActivity"
-    android:paddingBottom="5dp"
+    android:background="@drawable/button_rounded"
     android:paddingTop="5dp"
+    android:paddingBottom="5dp"
+    tools:context=".MainActivity"
+    android:backgroundTint="#424242"
     >
 
     <TextView
@@ -18,6 +19,7 @@
         android:layout_marginTop="4dp"
         android:layout_marginBottom="4dp"
         android:text="contact"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -32,6 +34,7 @@
         android:layout_marginBottom="4dp"
         android:gravity="left"
         android:text="phone"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tv_name_contact"
@@ -44,9 +47,9 @@
         android:layout_marginTop="4dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="4dp"
+        android:src="@drawable/phonecall"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/phonecall" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
