@@ -4,9 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/button_rounded"
     android:orientation="horizontal"
     android:layout_margin="10dp"
-    android:gravity="right">
+    android:gravity="right"
+    android:backgroundTint="#424242"
+    >
 
     <TextView
         android:id="@+id/tvOnePhone"
@@ -14,6 +17,7 @@
         android:layout_height="wrap_content"
         android:text="TextView"
         android:textSize="20dp"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.096"
