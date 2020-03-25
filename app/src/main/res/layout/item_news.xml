@@ -13,7 +13,8 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        tools:ignore="MissingConstraints">
+        tools:ignore="MissingConstraints"
+        >
 
         <ImageView
             android:id="@+id/iv_item_news"
@@ -23,7 +24,9 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+
+            >
 
                 <TextView
                     android:id="@+id/tv_title_news"

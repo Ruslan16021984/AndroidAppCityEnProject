@@ -7,7 +7,9 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#3D3D3D"
+        >
         <ListView
             android:id="@+id/lv_discounts"
             android:layout_width="match_parent"

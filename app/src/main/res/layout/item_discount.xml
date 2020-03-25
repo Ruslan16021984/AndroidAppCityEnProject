@@ -13,7 +13,9 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        tools:ignore="MissingConstraints">
+        tools:ignore="MissingConstraints"
+        android:background="#3D3D3D"
+        >
 
         <ImageView
             android:id="@+id/iv_item_discount"
