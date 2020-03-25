@@ -10,6 +10,7 @@
 
     <string name="menu_phones_book">Довідник</string>
     <string name="menu_weather">Погода</string>
+    <string name="menu_reg">Вхід</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="menu_tools">Tools</string>
     <string name="menu_share">Share</string>

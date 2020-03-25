@@ -39,17 +39,17 @@
             android:title="@string/menu_news" />
     </group>
 
-    <!--<item android:title="Communicate">
+    <item android:title="Хочу більше">
         <menu>
-            <item
+            <!--<item
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_menu_share"
-                android:title="@string/menu_share" />
+                android:title="@string/menu_share" />-->
             <item
-                android:id="@+id/nav_send"
+                android:id="@+id/nav_reg"
                 android:icon="@drawable/ic_menu_send"
-                android:title="@string/menu_send" />
+                android:title="@string/menu_reg" />
         </menu>
-    </item>-->
+    </item>
 
 </menu>
