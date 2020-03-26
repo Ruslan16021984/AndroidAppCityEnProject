@@ -64,6 +64,24 @@
         android:label="@string/menu_reg"
         tools:layout="@layout/fragment_reg_first" />
 
+    <fragment
+        android:id="@+id/nav_enter_phone"
+        android:name="encityproject.rightcodeit.com.encityproject.ui.registration.EnterPhoneFragment"
+        android:label="@string/menu_reg"
+        tools:layout="@layout/fragment_enter_phone" />
+
+    <fragment
+        android:id="@+id/nav_enter_sms"
+        android:name="encityproject.rightcodeit.com.encityproject.ui.registration.EnterSmsFragment"
+        android:label="@string/menu_reg"
+        tools:layout="@layout/fragment_enter_sms" />
+
+
+    <fragment
+        android:id="@+id/nav_market"
+        android:name="encityproject.rightcodeit.com.encityproject.ui.market.MarketFragment"
+        android:label="@string/menu_market"
+        tools:layout="@layout/fragment_market" />
     <!--
         <fragment
             android:id="@+id/nav_share"
