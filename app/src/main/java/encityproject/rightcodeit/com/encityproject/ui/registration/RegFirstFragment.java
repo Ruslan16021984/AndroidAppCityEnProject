@@ -43,7 +43,7 @@ public class RegFirstFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
-                navController.navigate(R.id.nav_enter_phone);
+                navController.navigate(R.id.nav_rocket_choice);
             }
         });
 

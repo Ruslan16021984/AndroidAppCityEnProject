@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import encityproject.rightcodeit.com.encityproject.R;
-import encityproject.rightcodeit.com.encityproject.ui.registration.adapters.CategoryAdapter;
+import encityproject.rightcodeit.com.encityproject.ui.market.adapter.CatAdapter;
 import encityproject.rightcodeit.com.encityproject.ui.market.model.CategoryModel;
 
 /**
@@ -24,7 +24,7 @@ public class GridCategoryFragment extends Fragment {
     private ArrayList<CategoryModel> categoryList;
     private Activity activity;
     private Context context;
-    private CategoryAdapter adapter = null;
+    private CatAdapter adapter = null;
     private RecyclerView recyclerView;
 
 
@@ -44,13 +44,16 @@ public class GridCategoryFragment extends Fragment {
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2, GridLayoutManager.VERTICAL, false));
 
         categoryList = new ArrayList<>();
-        categoryList.add(new CategoryModel("1", "Вода"));
-        categoryList.add(new CategoryModel("2", "Картошка"));
-        categoryList.add(new CategoryModel("3", "Кирпич"));
-        categoryList.add(new CategoryModel("4", "Киллер"));
-        categoryList.add(new CategoryModel("5", "Интим"));
-        adapter = new CategoryAdapter(context, activity, categoryList);
+        categoryList.add(new CategoryModel("1", "Стройматеріали", R.drawable.build));
+        categoryList.add(new CategoryModel("2", "Продукти", R.drawable.foods));
+        categoryList.add(new CategoryModel("3", "Послуги", R.drawable.service));
+        categoryList.add(new CategoryModel("4", "Аптека", R.drawable.pharma));
+        categoryList.add(new CategoryModel("5", "Техніка", R.drawable.technic));
+        categoryList.add(new CategoryModel("6", "Одежа", R.drawable.clothes));
+        adapter = new CatAdapter(context, categoryList);
+
         recyclerView.setAdapter(adapter);
+
         return view;
     }
 

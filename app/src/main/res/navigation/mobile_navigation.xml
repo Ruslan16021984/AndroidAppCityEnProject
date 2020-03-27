@@ -82,6 +82,18 @@
         android:name="encityproject.rightcodeit.com.encityproject.ui.market.GridCategoryFragment"
         android:label="@string/menu_market"
         tools:layout="@layout/fragment_market" />
+
+    <fragment
+        android:id="@+id/nav_rocket_choice"
+        android:name="encityproject.rightcodeit.com.encityproject.ui.registration.WhoFragment"
+        android:label="@string/menu_market"
+        tools:layout="@layout/fragment_who" />
+
+    <fragment
+        android:id="@+id/nav_cat_choice"
+        android:name="encityproject.rightcodeit.com.encityproject.ui.registration.CatChoiceFragment"
+        android:label="@string/menu_market"
+        tools:layout="@layout/fragment_cat_choice" />
     <!--
         <fragment
             android:id="@+id/nav_share"

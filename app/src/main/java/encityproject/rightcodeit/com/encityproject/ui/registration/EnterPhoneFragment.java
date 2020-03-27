@@ -42,6 +42,8 @@ public class EnterPhoneFragment extends Fragment {
     private String ip = "35.232.178.112";
     private Button btnEnterPhoneNext;
     private EditText etPhone;
+    private Bundle bundle;
+    private String bunStr;
 
     public EnterPhoneFragment() {
         // Required empty public constructor
@@ -92,6 +94,10 @@ public class EnterPhoneFragment extends Fragment {
         View v= inflater.inflate(R.layout.fragment_enter_phone, container, false);
         btnEnterPhoneNext=v.findViewById(R.id.btnEnterPhoneNext);
         etPhone = v.findViewById(R.id.etPhone);
+
+        bundle = getArguments();
+        bunStr = bundle.getString("role");
+       // bundle.putString("role", bunStr);
 
         btnEnterPhoneNext.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,8 +154,9 @@ public class EnterPhoneFragment extends Fragment {
             //pbListPhones.setVisibility(View.INVISIBLE);
             fromServer="ok";
             if(fromServer.length()>0){
+                bundle.putString("role", bunStr);
                 NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
-                navController.navigate(R.id.nav_enter_sms);
+                navController.navigate(R.id.nav_enter_sms, bundle);
             }
             else{
                 Toast.makeText(getContext(), "Виникли технічні помилки. Вже вирішуемо", Toast.LENGTH_SHORT).show();

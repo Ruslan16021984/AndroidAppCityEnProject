@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.registration.WhoFragment"
+    android:background="#3D3D3D">
+
+    <ImageView
+        android:id="@+id/ivRocket"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/rocket"
+        android:layout_gravity="center|left">
+
+    </ImageView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+            <Button
+                android:id="@+id/btnSellerReg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="Я - Компанія"
+                android:textColor="@color/colorPrimary"
+                android:background="@drawable/button_rounded"
+                android:padding="30dp"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+            <Button
+                android:id="@+id/btnClientReg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="Я - Покупець"
+                android:textColor="@color/colorPrimary"
+                android:background="@drawable/button_rounded"
+                android:padding="30dp"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</FrameLayout>

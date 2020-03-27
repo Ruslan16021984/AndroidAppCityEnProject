@@ -30,6 +30,8 @@ public class EnterSmsFragment extends Fragment {
 
     private Button btnEnterSms;
     private EditText etSms;
+    private Bundle bundle;
+    private String bunStr;
 
     public EnterSmsFragment() {
         // Required empty public constructor
@@ -43,6 +45,10 @@ public class EnterSmsFragment extends Fragment {
         View v= inflater.inflate(R.layout.fragment_enter_sms, container, false);
         btnEnterSms=v.findViewById(R.id.btnEnterSmsNext);
         etSms=v.findViewById(R.id.etSms);
+
+        bundle = getArguments();
+        bunStr = bundle.getString("role");
+        //bundle.putString("role", bunStr);
 
         btnEnterSms.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,32 +102,38 @@ public class EnterSmsFragment extends Fragment {
             //pbListPhones.setVisibility(View.INVISIBLE);
             fromServer="ok";
             if(fromServer.length()>0){
+                if(bunStr.equals("seller")){
+                     NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+                navController.navigate(R.id.nav_cat_choice);
+                }
+                else{
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    View ve = (LinearLayout) getLayoutInflater()
+                            .inflate(R.layout.dialog_congratulate, null);
+
+                    Button btnCong = ve.findViewById(R.id.btnCong);
+
+                    builder
+                            .setView(ve)
+                            .setCancelable(false)
+                    ;
+                    final AlertDialog alert2 = builder.create();
+
+                    btnCong.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            alert2.dismiss();
+                            NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+                            navController.navigate(R.id.nav_market, bundle);
+                        }
+                    });
+
+                    alert2.show();
+                    alert2.setCancelable(false);
+                }
                 /*NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
                 navController.navigate(R.id.nav_enter_sms);*/
-                final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                View ve = (LinearLayout) getLayoutInflater()
-                        .inflate(R.layout.dialog_congratulate, null);
 
-               Button btnCong = ve.findViewById(R.id.btnCong);
-
-                builder
-                        .setView(ve)
-
-                        .setCancelable(false)
-                ;
-                final AlertDialog alert2 = builder.create();
-
-                btnCong.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        alert2.dismiss();
-                        NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
-                        navController.navigate(R.id.nav_market);
-                    }
-                });
-
-                alert2.show();
-                alert2.setCancelable(false);
             }
             else{
                 Toast.makeText(getContext(), "Виникли технічні помилки. Вже вирішуемо", Toast.LENGTH_SHORT).show();
