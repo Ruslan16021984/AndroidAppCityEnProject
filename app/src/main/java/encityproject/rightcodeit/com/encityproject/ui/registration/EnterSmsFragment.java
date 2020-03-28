@@ -36,7 +36,7 @@ public class EnterSmsFragment extends Fragment {
     private String bunRole, bunPhone;
     private SharedPreferences prefer;
     private SharedPreferences.Editor editor;
-    private static final String APP_PREFERENCES = "mysettings";
+    private static final String APP_PREFERENCES = "ensettings";
 
     public EnterSmsFragment() {
         // Required empty public constructor

@@ -9,7 +9,7 @@
         >
         <item
             android:id="@+id/nav_phonesBook"
-            android:icon="@drawable/phonecall"
+            android:icon="@drawable/phonecallempty"
             android:title="@string/menu_phones_book" />
         <item
             android:id="@+id/nav_weather"
@@ -49,6 +49,11 @@
                 android:id="@+id/nav_reg"
                 android:icon="@drawable/ic_menu_send"
                 android:title="@string/menu_reg" />
+
+            <item
+                android:id="@+id/nav_auth_company_fragment"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Моя компанія" />
         </menu>
     </item>
 

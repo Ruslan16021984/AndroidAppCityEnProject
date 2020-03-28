@@ -1,8 +1,11 @@
 package encityproject.rightcodeit.com.encityproject;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.view.MenuItem;
 import android.view.View;
 
 import androidx.navigation.NavController;
@@ -20,6 +23,9 @@ import android.view.Menu;
 public class MainActivityWithNaviDrawer extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
+    private SharedPreferences prefer;
+    private SharedPreferences.Editor editor;
+    private static final String APP_PREFERENCES = "ensettings";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,18 +34,36 @@ public class MainActivityWithNaviDrawer extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        prefer=getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                  R.id.nav_weather, R.id.nav_phonesBook,R.id.nav_discount,
-                R.id.nav_bench, R.id.nav_busmap, R.id.nav_helsi, R.id.nav_news, R.id.nav_reg/*,*R.id.nav_share, R.id.nav_send*/)
+                R.id.nav_bench, R.id.nav_busmap, R.id.nav_helsi, R.id.nav_news, R.id.nav_reg, R.id.nav_auth_company_fragment/*,*R.id.nav_share, R.id.nav_send*/)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        if(prefer.contains("cats") && prefer.contains("auth")){
+            Menu menuNav=navigationView.getMenu();
+            MenuItem nav_reg = menuNav.findItem(R.id.nav_reg);
+            nav_reg.setVisible(false);
+            MenuItem nav_auth = menuNav.findItem(R.id.nav_auth_company_fragment);
+            nav_auth.setVisible(true);
+        }
+        else{
+            Menu menuNav=navigationView.getMenu();
+            MenuItem nav_reg = menuNav.findItem(R.id.nav_reg);
+            nav_reg.setVisible(true);
+            MenuItem nav_auth = menuNav.findItem(R.id.nav_auth_company_fragment);
+            nav_auth.setVisible(false);
+        }
+
 
 
     }
@@ -48,8 +72,11 @@ public class MainActivityWithNaviDrawer extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main_activity_with_navi_drawer, menu);
+
+
         return true;
     }
+
 
     @Override
     public boolean onSupportNavigateUp() {
