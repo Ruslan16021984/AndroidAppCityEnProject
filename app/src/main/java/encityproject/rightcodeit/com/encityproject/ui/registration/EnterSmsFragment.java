@@ -2,6 +2,8 @@ package encityproject.rightcodeit.com.encityproject.ui.registration;
 
 
 import android.app.AlertDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -31,7 +33,10 @@ public class EnterSmsFragment extends Fragment {
     private Button btnEnterSms;
     private EditText etSms;
     private Bundle bundle;
-    private String bunStr;
+    private String bunRole, bunPhone;
+    private SharedPreferences prefer;
+    private SharedPreferences.Editor editor;
+    private static final String APP_PREFERENCES = "mysettings";
 
     public EnterSmsFragment() {
         // Required empty public constructor
@@ -47,7 +52,11 @@ public class EnterSmsFragment extends Fragment {
         etSms=v.findViewById(R.id.etSms);
 
         bundle = getArguments();
-        bunStr = bundle.getString("role");
+        bunRole = bundle.getString("role");
+        bunPhone = bundle.getString("phone");
+
+        prefer=getContext().getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+
         //bundle.putString("role", bunStr);
 
         btnEnterSms.setOnClickListener(new View.OnClickListener() {
@@ -102,9 +111,15 @@ public class EnterSmsFragment extends Fragment {
             //pbListPhones.setVisibility(View.INVISIBLE);
             fromServer="ok";
             if(fromServer.length()>0){
-                if(bunStr.equals("seller")){
-                     NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
-                navController.navigate(R.id.nav_cat_choice);
+                editor = prefer.edit();
+                editor.putString("auth", fromServer);
+                editor.apply();
+                if(bunRole.equals("seller")){
+                    Bundle bundle = new Bundle();
+                    bundle.putString("role", bunRole);
+                    bundle.putString("phone", bunPhone);
+                    NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+                    navController.navigate(R.id.nav_cat_choice, bundle);
                 }
                 else{
                     final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

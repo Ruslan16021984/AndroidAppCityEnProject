@@ -155,6 +155,7 @@ public class EnterPhoneFragment extends Fragment {
             fromServer="ok";
             if(fromServer.length()>0){
                 bundle.putString("role", bunStr);
+                bundle.putString("phone", etPhone.getText().toString());
                 NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
                 navController.navigate(R.id.nav_enter_sms, bundle);
             }

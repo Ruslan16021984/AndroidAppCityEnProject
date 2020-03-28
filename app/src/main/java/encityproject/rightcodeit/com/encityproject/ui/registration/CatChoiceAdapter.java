@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -23,6 +24,11 @@ public class CatChoiceAdapter extends RecyclerView.Adapter<CatChoiceAdapter.View
 
     private Context context;
     private ArrayList<String> caList;
+    private ArrayList<Integer> itemsForReturn=new ArrayList<>();
+
+    public ArrayList<Integer> getItemsForReturn() {
+        return itemsForReturn;
+    }
 
     public CatChoiceAdapter(Context mContext, ArrayList<String> caList) {
         this.context = mContext;
@@ -79,14 +85,68 @@ public class CatChoiceAdapter extends RecyclerView.Adapter<CatChoiceAdapter.View
                 break;
         }
 
+        holder.cbCatSeller.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(holder.cbCatSeller.isChecked()){
+                    if(itemsForReturn.size()==0){
+                        itemsForReturn.add(position);
+
+                    }
+                    else {
+                        int ch = 0;
+                        for (int k = 0; k < itemsForReturn.size(); k++) {
+                            if (itemsForReturn.get(k) == position) {
+                                ch = 0;
+                                break;
+                            } else {
+                                ch = 1;
+                            }
+                        }
+                        if (ch == 1) {
+                            itemsForReturn.add(position);
+                        }
+                    }
+                }
+                else {
+                    for(int k=0;k<itemsForReturn.size();k++){
+                        if(itemsForReturn.get(k)==position){
+                            itemsForReturn.remove(k);
+                        }
+                    }
+                }
+            }
+        });
 
         holder.setClickListener(new ItemClickListener() {
             @Override public void onClickItem(int pos) {
                 if(holder.cbCatSeller.isChecked()){
                     holder.cbCatSeller.setChecked(false);
+                    for(int k=0;k<itemsForReturn.size();k++){
+                        if(itemsForReturn.get(k)==pos){
+                            itemsForReturn.remove(k);
+                        }
+                    }
                 }
                 else {
                     holder.cbCatSeller.setChecked(true);
+                    if(itemsForReturn.size()==0){
+                        itemsForReturn.add(pos);
+                    }
+                    else {
+                        int ch = 0;
+                        for (int k = 0; k < itemsForReturn.size(); k++) {
+                            if (itemsForReturn.get(k) == position) {
+                                ch = 0;
+                                break;
+                            } else {
+                                ch = 1;
+                            }
+                        }
+                        if (ch == 1) {
+                            itemsForReturn.add(pos);
+                        }
+                    }
                 }
                 Toast.makeText(context, "clck: " + catMod, Toast.LENGTH_SHORT).show();
             }
@@ -108,7 +168,6 @@ public class CatChoiceAdapter extends RecyclerView.Adapter<CatChoiceAdapter.View
         private ItemClickListener mListener;
 
         public ViewHolder(View itemView) {
-
             super(itemView);
             cv = itemView.findViewById(R.id.cv);
             cbCatSeller =  itemView.findViewById(R.id.cbCatSeller);
