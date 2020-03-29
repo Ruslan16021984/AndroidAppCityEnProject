@@ -8,6 +8,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.BounceInterpolator;
@@ -41,6 +44,7 @@ public class TotalFragment extends Fragment {
     public TotalFragment() {
         // Required empty public constructor
     }
+
 
 
     @Override
@@ -106,6 +110,7 @@ public class TotalFragment extends Fragment {
                         editor.putString("who", bunRole);
                         editor.putString("cats", tvTotalCats.getText().toString());
                         editor.apply();
+                        setHasOptionsMenu(true);
                         NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
                         navController.navigate(R.id.nav_auth_company_fragment);
                     }

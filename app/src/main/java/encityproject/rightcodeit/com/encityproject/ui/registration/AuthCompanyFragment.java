@@ -36,6 +36,7 @@ public class AuthCompanyFragment extends Fragment {
         btnAuthClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 prefer=getContext().getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
                 prefer.edit().clear().commit();
             }
