@@ -5,7 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#3D3D3D"
-    tools:context=".ui.registration.EnterPhoneFragment">
+    tools:context=".ui.registration.EnterSmsFragment">
+    <ImageView
+        android:id="@+id/ivRocket_enter_sms"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|left"
+        android:layout_marginTop="32dp"
+        android:src="@drawable/rocket"
+        android:paddingTop="200dp"/>
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -24,6 +32,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.213" />
+
+
 
         <Button
             android:id="@+id/btnEnterSmsNext"

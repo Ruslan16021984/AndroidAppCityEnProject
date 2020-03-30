@@ -1,6 +1,8 @@
 package encityproject.rightcodeit.com.encityproject.ui.registration;
 
 
+import android.animation.Animator;
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -11,9 +13,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.BounceInterpolator;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.navigation.NavController;
@@ -44,6 +48,7 @@ public class EnterPhoneFragment extends Fragment {
     private EditText etPhone;
     private Bundle bundle;
     private String bunStr;
+    private ImageView ivRocketEnterPhone;
 
     public EnterPhoneFragment() {
         // Required empty public constructor
@@ -99,13 +104,56 @@ public class EnterPhoneFragment extends Fragment {
         bunStr = bundle.getString("role");
        // bundle.putString("role", bunStr);
 
+
+        /////////////////////////////////////////////////////////////////////////////
+        ivRocketEnterPhone=v.findViewById(R.id.ivRocket_enter_phone);
+        ObjectAnimator buttonAnimator = ObjectAnimator.ofFloat(ivRocketEnterPhone, "translationX",0f, 400f);
+        buttonAnimator.setDuration(3000);
+        buttonAnimator.setInterpolator(new BounceInterpolator());
+        buttonAnimator.start();
+        /////////////////////////////////////////////////////////////////////////////
+
+
         btnEnterPhoneNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(checkPhone(etPhone.getText().toString())){
                     if(isOnline()){
-                        SendForRegPhone sendForRegPhone = new SendForRegPhone();
-                        sendForRegPhone.execute(etPhone.getText().toString());
+
+        /////////////////////////////////////////////////////////////////////////////
+                        ObjectAnimator buttonAnimator = ObjectAnimator.ofFloat(ivRocketEnterPhone, "translationX",400f, 1000f);
+                        buttonAnimator.setDuration(1000);
+                        buttonAnimator.start();
+                        buttonAnimator.addListener(new Animator.AnimatorListener() {
+                            @Override
+                            public void onAnimationStart(Animator animator) {
+
+                            }
+
+                            @Override
+                            public void onAnimationEnd(Animator animator) {
+//                                Bundle bundle = new Bundle();
+//                                bundle.putString("role", "client");
+//                                NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+//                                navController.navigate(R.id.nav_enter_sms, bundle);
+                                SendForRegPhone sendForRegPhone = new SendForRegPhone();
+                                sendForRegPhone.execute(etPhone.getText().toString());
+                            }
+
+                            @Override
+                            public void onAnimationCancel(Animator animator) {
+
+                            }
+
+                            @Override
+                            public void onAnimationRepeat(Animator animator) {
+
+                            }
+                        });
+         /////////////////////////////////////////////////////////////////////////////
+
+//                        SendForRegPhone sendForRegPhone = new SendForRegPhone();
+//                        sendForRegPhone.execute(etPhone.getText().toString());
                     }
                 }
             }
