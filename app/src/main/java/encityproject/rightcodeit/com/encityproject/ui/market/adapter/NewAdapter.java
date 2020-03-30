@@ -2,8 +2,6 @@ package encityproject.rightcodeit.com.encityproject.ui.market.adapter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.Icon;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,39 +9,35 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 
 import java.util.ArrayList;
 
 import encityproject.rightcodeit.com.encityproject.R;
 import encityproject.rightcodeit.com.encityproject.ui.market.model.CategoryModel;
 
-public class CatAdapter extends RecyclerView.Adapter<CatAdapter.ViewHolder> {
-    private Activity activity;
+public class NewAdapter extends RecyclerView.Adapter<NewAdapter.ViewHolder> {
     private Context context;
+    private Activity activity;
     private ArrayList<CategoryModel> caList;
 
-    public CatAdapter(Context mContext, ArrayList<CategoryModel> caList) {
+    public NewAdapter(Context mContext, ArrayList<CategoryModel> caList) {
         this.context = mContext;
         this.caList = caList;
     }
-    public CatAdapter(Context mContext, Activity activity, ArrayList<CategoryModel> caList) {
+    public NewAdapter(Context mContext, Activity activity , ArrayList<CategoryModel> caList) {
         this.context = mContext;
         this.caList = caList;
         this.activity = activity;
     }
 
-    @Override public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.item_category_recycler, parent, false);
-        return new ViewHolder(v);
+    @Override public NewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(context).inflate(R.layout.item_newandorder_recycler, parent, false);
+        return new NewAdapter.ViewHolder(v);
     }
 
-    @Override public void onBindViewHolder(ViewHolder holder, int position) {
+    @Override public void onBindViewHolder(NewAdapter.ViewHolder holder, int position) {
 
         final CategoryModel catMod = caList.get(position);
         holder.iv.setBackground(ContextCompat.getDrawable(context, catMod.getPicDraw()));
@@ -89,11 +83,10 @@ public class CatAdapter extends RecyclerView.Adapter<CatAdapter.ViewHolder> {
         }
 
 
-        holder.setClickListener(new ItemClickListener() {
+        holder.setClickListener(new NewAdapter.ItemClickListener() {
             @Override public void onClickItem(int pos) {
-                Toast.makeText(context, "clck: " + catMod.getCategoryName(), Toast.LENGTH_SHORT).show();
-                NavController navController = Navigation.findNavController(activity, R.id.nav_host_fragment);
-                navController.navigate(R.id.nav_orders_fragment);
+                caList.remove(pos);
+                notifyItemRemoved(position);
             }
 
             @Override public void onLongClickItem(int pos) {
@@ -111,7 +104,7 @@ public class CatAdapter extends RecyclerView.Adapter<CatAdapter.ViewHolder> {
         private LinearLayout lytContainer;
         private ImageView iv;
         private TextView text;
-        private ItemClickListener mListener;
+        private NewAdapter.ItemClickListener mListener;
 
         public ViewHolder(View itemView) {
 
@@ -124,7 +117,7 @@ public class CatAdapter extends RecyclerView.Adapter<CatAdapter.ViewHolder> {
             itemView.setOnLongClickListener(this);
         }
 
-        public void setClickListener(ItemClickListener listener) {
+        public void setClickListener(NewAdapter.ItemClickListener listener) {
             this.mListener = listener;
         }
 

@@ -112,6 +112,21 @@
      android:name="encityproject.rightcodeit.com.encityproject.ui.registration.AuthCompanyFragment"
      android:label="Моя компанія"
      tools:layout="@layout/fragment_auth_company" />
+ <fragment
+     android:id="@+id/nav_orders_fragment"
+     android:name="encityproject.rightcodeit.com.encityproject.ui.registration.Orders.OrdersFragment"
+     android:label="Заказы"
+     tools:layout="@layout/fragment_orders" />
+ <fragment
+     android:id="@+id/nav_accepted_fragment"
+     android:name="encityproject.rightcodeit.com.encityproject.ui.registration.Orders.tabs.AcceptedFragment"
+     android:label="принятые заказы"
+     tools:layout="@layout/fragment_accepted" />
+ <fragment
+     android:id="@+id/nav_neworders_fragment"
+     android:name="encityproject.rightcodeit.com.encityproject.ui.registration.Orders.tabs.NewOrdersFragment"
+     android:label="Список заказов"
+     tools:layout="@layout/fragment_new_orders" />
 
     <!--
         <fragment
