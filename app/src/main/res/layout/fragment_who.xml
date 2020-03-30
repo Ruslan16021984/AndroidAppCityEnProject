@@ -11,7 +11,8 @@
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:src="@drawable/rocket"
-        android:layout_gravity="center|left">
+        android:layout_gravity="center|left"
+        android:paddingTop="200dp">
 
     </ImageView>
 

@@ -1,6 +1,7 @@
 package encityproject.rightcodeit.com.encityproject.ui.registration;
 
 
+import android.animation.ObjectAnimator;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -10,8 +11,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.BounceInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,6 +40,7 @@ public class EnterSmsFragment extends Fragment {
     private SharedPreferences prefer;
     private SharedPreferences.Editor editor;
     private static final String APP_PREFERENCES = "ensettings";
+    private ImageView ivRocketEnterSms;
 
     public EnterSmsFragment() {
         // Required empty public constructor
@@ -59,10 +63,25 @@ public class EnterSmsFragment extends Fragment {
 
         //bundle.putString("role", bunStr);
 
+        /////////////////////////////////////////////////////////////////////////////
+        ivRocketEnterSms=v.findViewById(R.id.ivRocket_enter_sms);
+        ObjectAnimator buttonAnimator = ObjectAnimator.ofFloat(ivRocketEnterSms, "translationX",0f, 400f);
+        buttonAnimator.setDuration(3000);
+        buttonAnimator.setInterpolator(new BounceInterpolator());
+        buttonAnimator.start();
+        /////////////////////////////////////////////////////////////////////////////
+
         btnEnterSms.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(etSms.getText().length()>0){
+
+                    /////////////////////////////////////////////////////////////////////////////
+                    ObjectAnimator buttonAnimator = ObjectAnimator.ofFloat(ivRocketEnterSms, "translationX",400f, 1000f);
+                    buttonAnimator.setDuration(1000);
+                    buttonAnimator.start();
+                    /////////////////////////////////////////////////////////////////////////////
+
                     SendForRegSms sendForRegSms = new SendForRegSms();
                     sendForRegSms.execute(etSms.getText().toString());
                 }
