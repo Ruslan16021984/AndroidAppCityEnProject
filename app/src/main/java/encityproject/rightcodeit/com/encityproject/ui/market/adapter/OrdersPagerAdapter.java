@@ -9,13 +9,13 @@ import encityproject.rightcodeit.com.encityproject.ui.registration.Orders.tabs.A
 import encityproject.rightcodeit.com.encityproject.ui.registration.Orders.tabs.NewOrdersFragment;
 
 public class OrdersPagerAdapter extends FragmentPagerAdapter {
-   CharSequence Title[];
-   int NumbOfTabsumb;
+  private CharSequence title[];
+  private int numbOfTabsumb;
 
     public OrdersPagerAdapter(FragmentManager fm, CharSequence mTitle[], int mNumbOfTabsumb) {
         super(fm);
-       this.Title = mTitle;
-       this.NumbOfTabsumb = mNumbOfTabsumb;
+       this.title = mTitle;
+       this.numbOfTabsumb = mNumbOfTabsumb;
 
     }
 
@@ -32,13 +32,13 @@ public class OrdersPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return NumbOfTabsumb;
+        return numbOfTabsumb;
     }
 
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
-        return Title[position];
+        return title[position];
     }
 
 }

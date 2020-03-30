@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.Icon;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -38,7 +39,7 @@ public class CatAdapter extends RecyclerView.Adapter<CatAdapter.ViewHolder> {
         this.activity = activity;
     }
 
-    @Override public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    @Override public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(context).inflate(R.layout.item_category_recycler, parent, false);
         return new ViewHolder(v);
     }
@@ -117,14 +118,14 @@ public class CatAdapter extends RecyclerView.Adapter<CatAdapter.ViewHolder> {
 
             super(itemView);
             lytContainer = itemView.findViewById(R.id.lytContainer);
-            text = (TextView) itemView.findViewById(R.id.titleText);
+            text = itemView.findViewById(R.id.titleText);
             iv = itemView.findViewById(R.id.ivLogoCat);
 
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
         }
 
-        public void setClickListener(ItemClickListener listener) {
+        private void setClickListener(ItemClickListener listener) {
             this.mListener = listener;
         }
 

@@ -42,7 +42,7 @@ public class OrdersFragment extends Fragment {
         adapter =  new OrdersPagerAdapter(getChildFragmentManager(),Titles,Numboftabs);
         viewPager.setAdapter(adapter);
 
-        slidingTabLayout = (SlidingTabLayout) view.findViewById(R.id.sliding_tabs);
+        slidingTabLayout = view.findViewById(R.id.sliding_tabs);
         slidingTabLayout.setDistributeEvenly(true);
         slidingTabLayout.setViewPager(viewPager);
     }
