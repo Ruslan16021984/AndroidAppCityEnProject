@@ -11,35 +11,34 @@
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center|left"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="0dp"
         android:src="@drawable/rocket"
-        android:paddingTop="200dp"/>
+        android:paddingTop="0dp"/>
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
         <TextView
             android:id="@+id/tvTopSms"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Вам вислане SMS\nБудь ласка, введіть його нижче та натисніть Далі"
             android:gravity="center"
+            android:text="Вам надіслане SMS\nБудь ласка, введіть його нижче та натисніть Далі"
             android:textColor="#ffffff"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.213" />
-
-
+            app:layout_constraintVertical_bias="0.121" />
 
         <Button
             android:id="@+id/btnEnterSmsNext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="72dp"
             android:background="@drawable/button_rounded"
             android:paddingLeft="40dp"
             android:paddingRight="40dp"
@@ -49,8 +48,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etPhone"
-            app:layout_constraintVertical_bias="0.83" />
+            app:layout_constraintTop_toBottomOf="@+id/etSms"
+            app:layout_constraintVertical_bias="0.821" />
 
         <EditText
             android:id="@+id/etSms"
@@ -65,8 +64,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.516" />
+            app:layout_constraintTop_toBottomOf="@+id/tvTopSms"
+            app:layout_constraintVertical_bias="0.095" />
 
 
     </android.support.constraint.ConstraintLayout>
