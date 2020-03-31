@@ -11,19 +11,35 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/textView"
+
+        <LinearLayout
+            android:id="@+id/lltop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Компанія авторизована"
-            android:textColor="#ffffff"
-            android:textSize="20sp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="30dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.058" />
+            app:layout_constraintVertical_bias="0.0">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Компанія авторизована"
+                android:textColor="#ffffff"
+                android:textSize="20sp" />
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:src="@drawable/icook" />
+        </LinearLayout>
+
 
         <android.support.v7.widget.CardView
             android:layout_width="80dp"
@@ -32,8 +48,10 @@
             app:cardCornerRadius="40dp"
             app:layout_constraintBottom_toTopOf="@+id/ll"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView">
+            app:layout_constraintTop_toBottomOf="@+id/lltop"
+            app:layout_constraintVertical_bias="0.101">
 
             <ImageView
                 android:id="@+id/ivLogoCat"
@@ -45,21 +63,20 @@
                 android:src="@drawable/company" />
         </android.support.v7.widget.CardView>
 
-
         <LinearLayout
             android:id="@+id/ll"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="188dp"
+            android:layout_marginTop="104dp"
             android:gravity="center"
             android:orientation="vertical"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             app:layout_constraintBottom_toTopOf="@+id/btnTotalNext"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView"
+            app:layout_constraintTop_toBottomOf="@+id/lltop"
             app:layout_constraintVertical_bias="0.327">
 
             <LinearLayout
@@ -150,10 +167,12 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center|left"
+                    android:gravity="center"
                     android:text="Ваша діяльність не повинна порушувати Діючого Законодаства України. Ви несете за це особисту відповідальность.\nВдалого Бизнесу Вам"
-                    android:textColor="#ffffff"
-                    android:textSize="14sp" />
+                    android:textColor="#8D8D8D"
+                    android:textSize="12sp"
+                    android:layout_gravity="center"
+                    />
             </LinearLayout>
         </LinearLayout>
 
@@ -164,8 +183,8 @@
             android:background="@drawable/button_rounded"
             android:paddingLeft="40dp"
             android:paddingRight="40dp"
-            android:text="Видалити компанію"
-            android:textColor="@color/colorPrimary"
+            android:text="Деактивувати компанію"
+            android:textColor="#F44336"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
