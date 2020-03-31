@@ -6,6 +6,7 @@ import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -110,7 +111,14 @@ public class TotalFragment extends Fragment {
                         editor.putString("who", bunRole);
                         editor.putString("cats", tvTotalCats.getText().toString());
                         editor.apply();
+                       // getActivity().supportInvalidateOptionsMenu();
                         setHasOptionsMenu(true);
+                        NavigationView navigationView = getActivity().findViewById(R.id.nav_view);
+                        Menu menuNav=navigationView.getMenu();
+                        MenuItem nav_reg = menuNav.findItem(R.id.nav_reg);
+                        nav_reg.setVisible(false);
+                        MenuItem nav_auth = menuNav.findItem(R.id.nav_auth_company_fragment);
+                        nav_auth.setVisible(true);
                         NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
                         navController.navigate(R.id.nav_auth_company_fragment);
                     }

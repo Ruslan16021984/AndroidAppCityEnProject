@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:src="@drawable/rocket"
         android:layout_gravity="center|left"
-        android:paddingTop="200dp">
+        android:paddingTop="0dp">
 
     </ImageView>
 
