@@ -50,7 +50,7 @@ public class GridCategoryFragment extends Fragment {
         categoryList.add(new CategoryModel("4", "Аптека", R.drawable.pharma));
         categoryList.add(new CategoryModel("5", "Техніка", R.drawable.technic));
         categoryList.add(new CategoryModel("6", "Одежа", R.drawable.clothes));
-        adapter = new CatAdapter(context, categoryList);
+        adapter = new CatAdapter(context,activity ,categoryList);
 
         recyclerView.setAdapter(adapter);
 
