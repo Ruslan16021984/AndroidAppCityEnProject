@@ -1,6 +1,7 @@
 package encityproject.rightcodeit.com.encityproject.ui.registration;
 
 
+import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -81,9 +82,35 @@ public class EnterSmsFragment extends Fragment {
                     buttonAnimator.setDuration(1000);
                     buttonAnimator.start();
                     /////////////////////////////////////////////////////////////////////////////
+                    buttonAnimator.addListener(new Animator.AnimatorListener() {
+                        @Override
+                        public void onAnimationStart(Animator animator) {
 
-                    SendForRegSms sendForRegSms = new SendForRegSms();
-                    sendForRegSms.execute(etSms.getText().toString());
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animator animator) {
+//                                Bundle bundle = new Bundle();
+//                                bundle.putString("role", "client");
+//                                NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+//                                navController.navigate(R.id.nav_enter_sms, bundle);
+                            SendForRegSms sendForRegSms = new SendForRegSms();
+                            sendForRegSms.execute(etSms.getText().toString());
+                        }
+
+                        @Override
+                        public void onAnimationCancel(Animator animator) {
+
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animator animator) {
+
+                        }
+                    });
+
+
+
                 }
             }
         });
