@@ -54,6 +54,11 @@
                 android:id="@+id/nav_auth_company_fragment"
                 android:icon="@drawable/ic_menu_send"
                 android:title="Моя компанія" />
+
+            <item
+                android:id="@+id/nav_entrance_market"
+                android:icon="@drawable/cloudmarket"
+                android:title="Віртуальний ринок" />
         </menu>
     </item>
 

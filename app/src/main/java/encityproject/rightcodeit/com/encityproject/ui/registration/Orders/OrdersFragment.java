@@ -20,6 +20,7 @@ public class OrdersFragment extends Fragment {
     private ViewPager viewPager;
     OrdersPagerAdapter adapter;
     CharSequence Titles[]={"Новые заказы","Принятые"};
+    //CharSequence Titles[]={"Магазини","Послуги"};
     int Numboftabs = 2;
 
 

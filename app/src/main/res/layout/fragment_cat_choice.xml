@@ -6,6 +6,11 @@
     android:background="#3D3D3D"
     tools:context=".ui.registration.CatChoiceFragment">
 
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,8 +33,35 @@
                 android:layout_marginBottom="5dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Магазини"
+                android:textSize="20sp"
+                android:textColor="@color/colorPrimary"
+                android:layout_margin="5dp"/>
+
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/rvChoiceList"
+                android:id="@+id/rvChoiceListStore"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="2dp"
+                android:nestedScrollingEnabled="true"
+                tools:targetApi="lollipop">
+
+            </android.support.v7.widget.RecyclerView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Послуги"
+                android:textSize="20sp"
+                android:textColor="@color/colorPrimary"
+                android:layout_margin="5dp"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvChoiceListService"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:elevation="2dp"
@@ -40,25 +72,27 @@
 
 
         </LinearLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:padding="10dp">
-            <Button
-                android:id="@+id/btnCatChoice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/button_rounded"
-                android:paddingLeft="40dp"
-                android:paddingRight="40dp"
-                android:text="Далі"
-                android:textColor="@color/colorPrimary"
-                />
+            android:layout_height="10dp">
+
         </LinearLayout>
 
     </LinearLayout>
+
+    </ScrollView>
+
+        <Button
+            android:id="@+id/btnCatChoice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_rounded"
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp"
+            android:layout_margin="20dp"
+            android:layout_gravity="bottom|right"
+            android:text="Далі"
+            android:textColor="@color/colorPrimary"
+            />
 
 </FrameLayout>

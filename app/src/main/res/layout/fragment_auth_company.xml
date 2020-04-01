@@ -68,7 +68,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="104dp"
-            android:gravity="center"
+            android:gravity="left"
             android:orientation="vertical"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
@@ -91,7 +91,7 @@
                     android:layout_height="wrap_content"
                     android:padding="5dp"
                     android:text="Компанія: "
-                    android:textColor="#ffffff" />
+                    android:textColor="@color/colorPrimary" />
 
                 <TextView
                     android:id="@+id/tvAuthName"
@@ -115,7 +115,7 @@
                     android:layout_height="wrap_content"
                     android:padding="5dp"
                     android:text="Категорії: "
-                    android:textColor="#ffffff" />
+                    android:textColor="@color/colorPrimary" />
 
                 <TextView
                     android:id="@+id/tvAuthCats"
@@ -138,11 +138,11 @@
                     android:layout_height="wrap_content"
                     android:padding="5dp"
                     android:text="Телефон: "
-                    android:textColor="#ffffff" />
+                    android:textColor="@color/colorPrimary" />
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     android:paddingLeft="5dp"
                     android:text="+380"
                     android:textColor="#ffffff" />
@@ -159,6 +159,27 @@
             </LinearLayout>
 
             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tvAuthAbout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/button_rounded"
+                    android:ems="10"
+                    android:fontFamily="sans-serif-condensed"
+                    android:inputType="textMultiLine"
+                    android:maxLines="5"
+                    android:maxLength="180"
+                    android:minLines="5"
+                    android:padding="10dp"
+                    android:text=""
+                    />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="100dp"
                 android:orientation="horizontal">
@@ -168,7 +189,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Ваша діяльність не повинна порушувати Діючого Законодаства України. Ви несете за це особисту відповідальность.\nВдалого Бизнесу Вам"
+                    android:text="Ваша діяльність не повинна порушувати Діючого Законодаства України. Ви несете за це особисту відповідальность.\nВдалого Бізнесу Вам"
                     android:textColor="#8D8D8D"
                     android:textSize="12sp"
                     android:layout_gravity="center"

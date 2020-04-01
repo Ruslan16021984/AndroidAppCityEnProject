@@ -16,8 +16,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.BounceInterpolator;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -32,12 +34,14 @@ import encityproject.rightcodeit.com.encityproject.R;
 public class TotalFragment extends Fragment {
 
     private TextView tvTotalName;
-    private TextView tvTotalPhone, tvTotalCats;
+    private TextView tvTotalPhone, tvTotalCats, tvAbout;
+    private CheckBox cbTotal;
     private Button btnTotalNext;
     private ImageView ivTotal;
     private TextView tvCats;
-    private String bunPhone, bunRole, bunName;
-    private ArrayList<String> catList;
+    private String bunPhone, bunRole, bunName, bunSecondPhone, bunAbout;
+    private ArrayList<String> catListStore;
+    private ArrayList<String> catListService;
     private SharedPreferences prefer;
     private SharedPreferences.Editor editor;
     private static final String APP_PREFERENCES = "ensettings";
@@ -58,82 +62,131 @@ public class TotalFragment extends Fragment {
 
         Bundle bundle = getArguments();
         bunPhone=bundle.getString("phone");
+        if(bundle.containsKey("secondphone")){
+            bunSecondPhone=bundle.getString("secondphone");
+        }
         bunRole=bundle.getString("role");
         bunName=bundle.getString("nameCompany");
-        catList=bundle.getStringArrayList("catnames");
-        ArrayList<Integer> alCats= bundle.getIntegerArrayList("cat");
+        bunAbout=bundle.getString("about");
+        catListStore=bundle.getStringArrayList("catstore");
+        catListService=bundle.getStringArrayList("catservice");
+        ArrayList<Integer> CheckedCatsStore= bundle.getIntegerArrayList("checkedcatstore");
+        ArrayList<Integer> CheckedCatsService= bundle.getIntegerArrayList("checkedcatservice");
 
-        String totalCats="";
-
-        for(int i=0; i<alCats.size();i++){
-            if(i==0){
-                totalCats=catList.get(alCats.get(i));
-            }
-            else {
-                totalCats=totalCats+", "+catList.get(alCats.get(i));
-            }
-        }
+        String totalCatsStore="";
+        String totalCatsService="";
 
         btnTotalNext=v.findViewById(R.id.btnTotalNext);
         tvTotalName=v.findViewById(R.id.tvTotalName);
         tvTotalPhone=v.findViewById(R.id.tvTotalPhone);
         tvTotalCats=v.findViewById(R.id.tvTotalCats);
+        tvAbout=v.findViewById(R.id.tvAbout);
+        cbTotal=v.findViewById(R.id.cbTotal);
+
+        tvAbout.setText(bunAbout);
+
+        if(CheckedCatsStore.size()>0){
+        for(int i=0; i<CheckedCatsStore.size();i++){
+            if(i==0){
+                totalCatsStore="Магазини - "+catListStore.get(CheckedCatsStore.get(i));
+                if(CheckedCatsStore.size()==1){
+                    totalCatsStore=totalCatsStore+"\n";
+                }
+            }
+            else {
+                totalCatsStore=totalCatsStore+", "+catListStore.get(CheckedCatsStore.get(i));
+            }
+            }
+            tvTotalCats.setText(totalCatsStore);
+        }
+
+        if(CheckedCatsService.size()>0){
+            for(int i=0; i<CheckedCatsService.size();i++){
+                if(i==0){
+                    totalCatsService="Послуги - "+catListService.get(CheckedCatsService.get(i));
+                    if(CheckedCatsStore.size()==1){
+                        totalCatsService=totalCatsService+"\n";
+                    }
+                }
+                else {
+                    totalCatsService=totalCatsService+", "+catListService.get(CheckedCatsService.get(i));
+                }
+            }
+            if(tvTotalCats.getText().length()>0){
+                tvTotalCats.setText(tvTotalCats.getText().toString()+"\n"+totalCatsService);
+            }
+            else{
+                tvTotalCats.setText(totalCatsService);
+            }
+        }
+
 
         tvTotalName.setText(bunName);
         tvTotalPhone.setText(bunPhone);
-        tvTotalCats.setText(totalCats);
+
+        if(bundle.containsKey("secondphone")){
+            tvTotalPhone.setText(tvTotalPhone.getText().toString()+", +380"+bundle.getString("secondphone")+"(для клієнтів)");
+        }
 
         ivTotal=v.findViewById(R.id.ivTotal);
         ivTotal.setRotation(270);
 
 
-
-
         btnTotalNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ObjectAnimator buttonAnimator = ObjectAnimator.ofFloat(ivTotal, "translationY", 0f,-2000f);
-                buttonAnimator.setDuration(3000);
-                buttonAnimator.start();
+                if(cbTotal.isChecked()) {
+                    ObjectAnimator buttonAnimator = ObjectAnimator.ofFloat(ivTotal, "translationY", 0f, -2000f);
+                    buttonAnimator.setDuration(3000);
+                    buttonAnimator.start();
 
-                buttonAnimator.addListener(new Animator.AnimatorListener() {
-                    @Override
-                    public void onAnimationStart(Animator animator) {
+                    buttonAnimator.addListener(new Animator.AnimatorListener() {
+                        @Override
+                        public void onAnimationStart(Animator animator) {
 
-                    }
+                        }
 
-                    @Override
-                    public void onAnimationEnd(Animator animator) {
-                        //AsyncTask for confirm reg
-                        editor = prefer.edit();
-                        editor.putString("name", bunName);
-                        editor.putString("phone", bunPhone);
-                        editor.putString("who", bunRole);
-                        editor.putString("cats", tvTotalCats.getText().toString());
-                        editor.apply();
-                       // getActivity().supportInvalidateOptionsMenu();
-                        setHasOptionsMenu(true);
-                        NavigationView navigationView = getActivity().findViewById(R.id.nav_view);
-                        Menu menuNav=navigationView.getMenu();
-                        MenuItem nav_reg = menuNav.findItem(R.id.nav_reg);
-                        nav_reg.setVisible(false);
-                        MenuItem nav_auth = menuNav.findItem(R.id.nav_auth_company_fragment);
-                        nav_auth.setVisible(true);
-                        NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
-                        navController.navigate(R.id.nav_auth_company_fragment);
-                    }
+                        @Override
+                        public void onAnimationEnd(Animator animator) {
+                            //AsyncTask for confirm reg
+                            editor = prefer.edit();
+                            editor.putString("name", bunName);
+                            editor.putString("phone", bunPhone);
+                            if (bunSecondPhone != null) {
+                                editor.putString("secondphone", bunSecondPhone);
+                            }
+                            editor.putString("about", bunAbout);
+                            editor.putString("who", bunRole);
+                            editor.putString("addcats", tvTotalCats.getText().toString());
+                            editor.apply();
+                            // getActivity().supportInvalidateOptionsMenu();
+                            setHasOptionsMenu(true);
+                            NavigationView navigationView = getActivity().findViewById(R.id.nav_view);
+                            Menu menuNav = navigationView.getMenu();
+                            MenuItem nav_reg = menuNav.findItem(R.id.nav_reg);
+                            nav_reg.setVisible(false);
+                            MenuItem nav_auth = menuNav.findItem(R.id.nav_auth_company_fragment);
+                            nav_auth.setVisible(true);
+                            MenuItem nav_cloud_market = menuNav.findItem(R.id.nav_entrance_market);
+                            nav_cloud_market.setVisible(true);
+                            NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+                            navController.navigate(R.id.nav_auth_company_fragment);
+                        }
 
-                    @Override
-                    public void onAnimationCancel(Animator animator) {
+                        @Override
+                        public void onAnimationCancel(Animator animator) {
 
-                    }
+                        }
 
-                    @Override
-                    public void onAnimationRepeat(Animator animator) {
+                        @Override
+                        public void onAnimationRepeat(Animator animator) {
 
-                    }
-                });
-
+                        }
+                    });
+                }
+                else{
+                    Toast.makeText(getContext(), "Підтвердіть Вашу згоду", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

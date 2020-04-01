@@ -127,17 +127,52 @@
      android:name="encityproject.rightcodeit.com.encityproject.ui.registration.Orders.tabs.NewOrdersFragment"
      android:label="Список заказов"
      tools:layout="@layout/fragment_new_orders" />
+ <!--<fragment
+     android:id="@+id/nav_exp_cats_fragment"
+     android:name="encityproject.rightcodeit.com.encityproject.ui.registration.marketCats.ExpCatsFragment"
+     android:label="выбор категории"
+     tools:layout="@layout/fragment_exp_cats" />
 
-    <!--
-        <fragment
-            android:id="@+id/nav_share"
-            android:name="encityproject.rightcodeit.com.encityproject.ui.share.ShareFragment"
-            android:label="@string/menu_share"
-            tools:layout="@layout/fragment_share" />
+ <fragment
+     android:id="@+id/nav_exp_cats_list_fragment"
+     android:name="encityproject.rightcodeit.com.encityproject.ui.registration.marketCats01.ExpCatsListFragment"
+     android:label="выбор категории лист"
+     tools:layout="@layout/fragment_exp_cats_list" />
 
-        <fragment
-            android:id="@+id/nav_send"
-            android:name="encityproject.rightcodeit.com.encityproject.ui.send.SendFragment"
-            android:label="@string/menu_send"
-            tools:layout="@layout/fragment_send" />-->
+ <fragment
+     android:id="@+id/nav_sub_cats_fragment"
+     android:name="encityproject.rightcodeit.com.encityproject.ui.registration.marketCats02.SubCatsFragment"
+     android:label="Оберіть категорію"
+     tools:layout="@layout/fragment_sub_cats" />-->
+
+ <fragment
+     android:id="@+id/nav_about_company_fragment"
+     android:name="encityproject.rightcodeit.com.encityproject.ui.registration.AboutCompanyFragment"
+     android:label="Оберіть категорію"
+     tools:layout="@layout/fragment_about_company" />
+
+ <fragment
+     android:id="@+id/nav_entrance_market"
+     android:name="encityproject.rightcodeit.com.encityproject.ui.registration.cloudMarket.EntranceMarketFragment"
+     android:label="Ласкаво Просимо на Ринок"
+     tools:layout="@layout/fragment_entrance_market" />
+
+ <fragment
+     android:id="@+id/nav_current_cat_fragment"
+     android:name="encityproject.rightcodeit.com.encityproject.ui.registration.cloudMarket.CurrentCatFragment"
+     android:label="Ласкаво Просимо на Ринок"
+     tools:layout="@layout/fragment_current_cat" />
+
+ <!--
+     <fragment
+         android:id="@+id/nav_share"
+         android:name="encityproject.rightcodeit.com.encityproject.ui.share.ShareFragment"
+         android:label="@string/menu_share"
+         tools:layout="@layout/fragment_share" />
+
+     <fragment
+         android:id="@+id/nav_send"
+         android:name="encityproject.rightcodeit.com.encityproject.ui.send.SendFragment"
+         android:label="@string/menu_send"
+         tools:layout="@layout/fragment_send" />-->
 </navigation>

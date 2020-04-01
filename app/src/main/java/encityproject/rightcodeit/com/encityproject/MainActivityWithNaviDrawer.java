@@ -42,19 +42,21 @@ public class MainActivityWithNaviDrawer extends AppCompatActivity {
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                  R.id.nav_weather, R.id.nav_phonesBook,R.id.nav_discount,
-                R.id.nav_bench, R.id.nav_busmap, R.id.nav_helsi, R.id.nav_news, R.id.nav_reg, R.id.nav_auth_company_fragment/*,*R.id.nav_share, R.id.nav_send*/)
+                R.id.nav_bench, R.id.nav_busmap, R.id.nav_helsi, R.id.nav_news, R.id.nav_reg, R.id.nav_auth_company_fragment, R.id.nav_entrance_market/*,*R.id.nav_share, R.id.nav_send*/)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-        if(prefer.contains("cats") && prefer.contains("auth")){
+        if(prefer.contains("addcats") && prefer.contains("auth")){
             Menu menuNav=navigationView.getMenu();
             MenuItem nav_reg = menuNav.findItem(R.id.nav_reg);
             nav_reg.setVisible(false);
             MenuItem nav_auth = menuNav.findItem(R.id.nav_auth_company_fragment);
             nav_auth.setVisible(true);
+            MenuItem nav_cloud_market = menuNav.findItem(R.id.nav_entrance_market);
+            nav_cloud_market.setVisible(true);
         }
         else{
             Menu menuNav=navigationView.getMenu();
@@ -62,6 +64,8 @@ public class MainActivityWithNaviDrawer extends AppCompatActivity {
             nav_reg.setVisible(true);
             MenuItem nav_auth = menuNav.findItem(R.id.nav_auth_company_fragment);
             nav_auth.setVisible(false);
+            MenuItem nav_cloud_market = menuNav.findItem(R.id.nav_entrance_market);
+            nav_cloud_market.setVisible(false);
         }
 
 

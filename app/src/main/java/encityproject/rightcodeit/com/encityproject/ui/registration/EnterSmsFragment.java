@@ -166,6 +166,7 @@ public class EnterSmsFragment extends Fragment {
                     bundle.putString("phone", bunPhone);
                     NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
                     navController.navigate(R.id.nav_cat_choice, bundle);
+                    //navController.navigate(R.id.nav_sub_cats_fragment, bundle);
                 }
                 else{
                     final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

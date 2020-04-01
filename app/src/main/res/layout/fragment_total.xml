@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Реєстрацію майже завершено"
-            android:textColor="#ffffff"
+            android:textColor="@color/colorPrimary"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -30,9 +30,12 @@
             android:id="@+id/ll"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            android:gravity="left"
             android:orientation="vertical"
-            android:padding="20dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
             app:layout_constraintBottom_toTopOf="@+id/btnTotalNext"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -52,7 +55,7 @@
                     android:layout_height="wrap_content"
                     android:padding="5dp"
                     android:text="Компанія: "
-                    android:textColor="#ffffff" />
+                    android:textColor="@color/colorPrimary" />
 
                 <TextView
                     android:id="@+id/tvTotalName"
@@ -76,12 +79,12 @@
                     android:layout_height="wrap_content"
                     android:padding="5dp"
                     android:text="Категорії: "
-                    android:textColor="#ffffff" />
+                    android:textColor="@color/colorPrimary" />
 
                 <TextView
                     android:id="@+id/tvTotalCats"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="100dp"
                     android:padding="5dp"
                     android:text="cats"
                     android:textColor="#ffffff" />
@@ -99,11 +102,11 @@
                     android:layout_height="wrap_content"
                     android:padding="5dp"
                     android:text="Телефон: "
-                    android:textColor="#ffffff" />
+                    android:textColor="@color/colorPrimary" />
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     android:paddingLeft="5dp"
                     android:text="+380"
                     android:textColor="#ffffff" />
@@ -124,7 +127,24 @@
                 android:layout_height="100dp"
                 android:orientation="horizontal">
 
+                <TextView
+                    android:id="@+id/tvAbout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_rounded"
+                    android:gravity="center|left"
+                    android:padding="10dp"
+                    android:textColor="@color/colorDarkBack"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"
+                android:orientation="horizontal">
+
                 <CheckBox
+                    android:id="@+id/cbTotal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:buttonTint="@color/colorPrimary" />
@@ -137,6 +157,8 @@
                     android:textColor="#ffffff"
                     android:textSize="14sp" />
             </LinearLayout>
+
+
         </LinearLayout>
 
         <Button

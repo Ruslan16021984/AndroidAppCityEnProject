@@ -83,6 +83,24 @@ public class CatChoiceAdapter extends RecyclerView.Adapter<CatChoiceAdapter.View
             case 11:
                 holder.cv.setBackground(ContextCompat.getDrawable(context, R.drawable.rectangle_purple));
                 break;
+            case 12:
+                holder.cv.setBackground(ContextCompat.getDrawable(context, R.drawable.rectangle_yellow));
+                break;
+            case 13:
+                holder.cv.setBackground(ContextCompat.getDrawable(context, R.drawable.rectangle_green));
+                break;
+            case 14:
+                holder.cv.setBackground(ContextCompat.getDrawable(context, R.drawable.rectangle_blue));
+                break;
+            case 15:
+                holder.cv.setBackground(ContextCompat.getDrawable(context, R.drawable.rectangle_orange));
+                break;
+            case 16:
+                holder.cv.setBackground(ContextCompat.getDrawable(context, R.drawable.rectangle_red));
+                break;
+            case 17:
+                holder.cv.setBackground(ContextCompat.getDrawable(context, R.drawable.rectangle_purple));
+                break;
         }
 
         holder.cbCatSeller.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

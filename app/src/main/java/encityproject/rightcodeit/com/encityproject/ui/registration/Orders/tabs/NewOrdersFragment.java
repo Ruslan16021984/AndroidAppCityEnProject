@@ -15,13 +15,15 @@ import java.util.ArrayList;
 
 import encityproject.rightcodeit.com.encityproject.R;
 import encityproject.rightcodeit.com.encityproject.ui.market.adapter.NewAdapter;
+import encityproject.rightcodeit.com.encityproject.ui.market.adapter.inner_adapter.CloudMarketAdapter;
 import encityproject.rightcodeit.com.encityproject.ui.market.model.CategoryModel;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class NewOrdersFragment extends Fragment {
-    private NewAdapter adapter = null;
+    //private NewAdapter adapter = null;
+    private CloudMarketAdapter adapter = null;
     private RecyclerView recyclerView;
     private ArrayList<CategoryModel> categoryList;
     private Activity activity;
@@ -45,7 +47,8 @@ public class NewOrdersFragment extends Fragment {
         categoryList.add(new CategoryModel("4", "Категория", R.drawable.pharma));
         categoryList.add(new CategoryModel("5", "Категория", R.drawable.technic));
         categoryList.add(new CategoryModel("6", "Категория", R.drawable.clothes));
-        adapter = new NewAdapter(context,activity ,categoryList);
+      //  adapter = new NewAdapter(context,activity ,categoryList);
+        adapter = new CloudMarketAdapter(context,activity ,categoryList);
 
         recyclerView.setAdapter(adapter);
         return view;

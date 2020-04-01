@@ -31,8 +31,8 @@ public class AuthCompanyFragment extends Fragment {
     private SharedPreferences prefer;
     private SharedPreferences.Editor editor;
     private static final String APP_PREFERENCES = "ensettings";
-    private String authName, authCats, authPhone;
-    private TextView tvAuthName, tvAuthCats, tvAuthPhone;
+    private String authName, authCats, authPhone, authAbout;
+    private TextView tvAuthName, tvAuthCats, tvAuthPhone, tvAuthAbout;
 
     public AuthCompanyFragment() {
         // Required empty public constructor
@@ -48,14 +48,21 @@ public class AuthCompanyFragment extends Fragment {
         tvAuthName=v.findViewById(R.id.tvAuthName);
         tvAuthCats=v.findViewById(R.id.tvAuthCats);
         tvAuthPhone=v.findViewById(R.id.tvAuthPhone);
+        tvAuthAbout=v.findViewById(R.id.tvAuthAbout);
 
-        if(prefer.contains("cats") && prefer.contains("auth")){
+
+        if(prefer.contains("addcats") && prefer.contains("auth")){
             authName=prefer.getString("name","");
-            authCats=prefer.getString("cats", "");
+            authCats=prefer.getString("addcats", "");
             authPhone=prefer.getString("phone", "");
+            authAbout=prefer.getString("about","");
             tvAuthName.setText(authName);
             tvAuthCats.setText(authCats);
             tvAuthPhone.setText(authPhone);
+            tvAuthAbout.setText(authAbout);
+            if(prefer.contains("secondphone")){
+                tvAuthPhone.setText(tvAuthPhone.getText().toString()+", +380"+prefer.getString("secondphone","")+"(для клієнтів)");
+            }
         }
         btnAuthClose=v.findViewById(R.id.btnAuthClose);
         btnAuthClose.setOnClickListener(new View.OnClickListener() {
@@ -85,6 +92,8 @@ public class AuthCompanyFragment extends Fragment {
                         nav_reg.setVisible(true);
                         MenuItem nav_auth = menuNav.findItem(R.id.nav_auth_company_fragment);
                         nav_auth.setVisible(false);
+                        MenuItem nav_cloud_market = menuNav.findItem(R.id.nav_entrance_market);
+                        nav_cloud_market.setVisible(false);
                         prefer=getContext().getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
                         prefer.edit().clear().commit();
                         Toast.makeText(getContext(), "Вашу Компанію деактивовано", Toast.LENGTH_SHORT).show();
