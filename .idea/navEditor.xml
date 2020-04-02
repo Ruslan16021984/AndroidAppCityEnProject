@@ -80,6 +80,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="nav_current_cat_fragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="12" />
+                            <option name="y" value="12" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="nav_description">
                     <value>
                       <LayoutPositions>
@@ -129,6 +141,30 @@
                     </value>
                   </entry>
                   <entry key="nav_entrance_market">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="12" />
+                            <option name="y" value="12" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="nav_firstAid">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="12" />
+                            <option name="y" value="12" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="nav_firstAid_fragment_algorithm">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
