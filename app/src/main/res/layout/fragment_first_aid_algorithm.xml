@@ -12,8 +12,8 @@
         android:layout_margin="8dp"
         android:background="@drawable/button_rounded"
         android:backgroundTint="#424242"
-        android:padding="8dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="8dp">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -31,57 +31,82 @@
                     android:text="@string/algorithm"
                     android:textColor="@color/white"
                     android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:layout_marginBottom="8dp"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/algorithm_text"
                     android:textColor="@color/white"
-                    android:textSize="12dp" />
+                    android:textSize="12dp"
+                    android:layout_marginBottom="8dp"/>
 
-                <ImageView
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="200dp"
-                    android:src="@drawable/first_aid1"
-                    android:layout_margin="8dp"/>
+                    android:background="@drawable/button_rounded"
+                    android:padding="8dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="200dp"
+                        android:src="@drawable/first_aid1" />
+
+                </LinearLayout>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:text="Признаки жизни: пульс"
-                    android:gravity="center"
                     android:textColor="@color/white"
                     android:textSize="12dp" />
 
-                <ImageView
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="200dp"
-                    android:src="@drawable/first_aid2"
-                    android:layout_margin="8dp"/>
+                    android:background="@drawable/button_rounded"
+                    android:padding="8dp"
+                    android:layout_margin="8dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="200dp"
+                        android:src="@drawable/first_aid2" />
+
+                </LinearLayout>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:text="Признаки жизни: дыхание"
-                    android:gravity="center"
                     android:textColor="@color/white"
                     android:textSize="12dp" />
 
-                <ImageView
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="200dp"
-                    android:src="@drawable/first_aid3"
-                    android:layout_margin="8dp"/>
+                    android:background="@drawable/button_rounded"
+                    android:padding="8dp"
+                    android:layout_margin="8dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="200dp"
+                        android:src="@drawable/first_aid3" />
+
+                </LinearLayout>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Признаки жизни: реакция значков на свет"
                     android:gravity="center"
+                    android:text="Признаки жизни: реакция значков на свет"
                     android:textColor="@color/white"
                     android:textSize="12dp" />
-
 
 
             </LinearLayout>
