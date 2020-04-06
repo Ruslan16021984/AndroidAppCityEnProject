@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import encityproject.rightcodeit.com.encityproject.R;
-public class firstAidAlgorithm extends Fragment {
+public class firstAidAlgorithmFragment extends Fragment {
 
 
     @Override
