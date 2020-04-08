@@ -55,7 +55,7 @@ public class ContactAdapter extends BaseAdapter {
         if (v == null) {
             LayoutInflater vi;
             vi = LayoutInflater.from(ctx);
-            v = vi.inflate(R.layout.item_contact, null);
+            v = vi.inflate(R.layout.item_contact_with_cardview, null);
         }
 
         TextView tvNameContact = (TextView) v.findViewById(R.id.tv_name_contact);

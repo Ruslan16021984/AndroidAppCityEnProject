@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import encityproject.rightcodeit.com.encityproject.R;
 public class firstAidAlgorithmFragment extends Fragment {
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
