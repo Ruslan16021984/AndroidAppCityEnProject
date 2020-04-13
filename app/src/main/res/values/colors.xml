@@ -9,6 +9,7 @@
     <color name="colorPrimary21">#c4c6c7</color>
     <color name="colorAccent21">#f26144</color>
 
+    <color name="dark_grey">#808080</color>
     <color name="black_semi_transparent">#B2000000</color>
     <color name="half_black">#808080</color>
     <color name="white">#fafafa</color>

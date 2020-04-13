@@ -4,6 +4,8 @@ package encityproject.rightcodeit.com.encityproject.ui.registration;
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -32,6 +34,8 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import encityproject.rightcodeit.com.encityproject.MainActivity;
+import encityproject.rightcodeit.com.encityproject.MainActivityWithNaviDrawer;
 import encityproject.rightcodeit.com.encityproject.R;
 import encityproject.rightcodeit.com.encityproject.ui.news.News;
 import encityproject.rightcodeit.com.encityproject.ui.news.NewsAdapter;
@@ -42,13 +46,17 @@ import encityproject.rightcodeit.com.encityproject.ui.news.NewsAdapter;
 public class EnterPhoneFragment extends Fragment {
 
     private int port = 4656;
-    //private String ip = "192.168.1.46";
-    private String ip = "35.232.178.112";
+    private String ip = "192.168.1.46";
+    //private String ip = "192.168.1.103";
+    //private String ip = "35.232.178.112";
     private Button btnEnterPhoneNext;
     private EditText etPhone;
     private Bundle bundle;
     private String bunStr;
     private ImageView ivRocketEnterPhone;
+    private SharedPreferences prefer;
+    private static final String APP_PREFERENCES = "ensettings";
+
 
     public EnterPhoneFragment() {
         // Required empty public constructor
@@ -96,6 +104,14 @@ public class EnterPhoneFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
+        prefer=getContext().getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+
+        if(prefer.contains("auth")){
+            Intent myIntent = new Intent(getContext(), MainActivityWithNaviDrawer.class);
+            getContext().startActivity(myIntent);
+        }
+
         View v= inflater.inflate(R.layout.fragment_enter_phone, container, false);
         btnEnterPhoneNext=v.findViewById(R.id.btnEnterPhoneNext);
         etPhone = v.findViewById(R.id.etPhone);
@@ -137,7 +153,7 @@ public class EnterPhoneFragment extends Fragment {
 //                                NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
 //                                navController.navigate(R.id.nav_enter_sms, bundle);
                                 SendForRegPhone sendForRegPhone = new SendForRegPhone();
-                                sendForRegPhone.execute(etPhone.getText().toString());
+                                sendForRegPhone.execute("phone"+"@.#"+etPhone.getText().toString());
                             }
 
                             @Override
@@ -172,7 +188,7 @@ public class EnterPhoneFragment extends Fragment {
         @Override
         protected Socket doInBackground(String... params) {
 
-            /*PrintWriter pw;
+            PrintWriter pw;
             try {
                 socket = new Socket(ip, port);
 
@@ -187,11 +203,11 @@ public class EnterPhoneFragment extends Fragment {
                 is.close();
             } catch (IOException e) {
                 //e.printStackTrace();
-                Log.d("Ex GetWeather", e.getMessage());
+                Log.d("send phone fo reg", e.getMessage());
             }
              finally {
 
-            }*/
+            }
 
             return null;
         }
@@ -200,7 +216,7 @@ public class EnterPhoneFragment extends Fragment {
         protected void onPostExecute(Socket socket) {
             super.onPostExecute(socket);
             //pbListPhones.setVisibility(View.INVISIBLE);
-            fromServer="ok";
+            //fromServer="ok";
             if(fromServer.length()>0){
                 bundle.putString("role", bunStr);
                 bundle.putString("phone", etPhone.getText().toString());

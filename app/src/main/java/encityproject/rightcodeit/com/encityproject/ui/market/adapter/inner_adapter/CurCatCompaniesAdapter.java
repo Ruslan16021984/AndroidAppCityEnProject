@@ -2,6 +2,7 @@ package encityproject.rightcodeit.com.encityproject.ui.market.adapter.inner_adap
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
@@ -9,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,13 +22,13 @@ import androidx.navigation.Navigation;
 import java.util.ArrayList;
 
 import encityproject.rightcodeit.com.encityproject.R;
-import encityproject.rightcodeit.com.encityproject.ui.market.model.CategoryModel;
 
-public class CloudMarketAdapter extends RecyclerView.Adapter<CloudMarketAdapter.ViewHolder> {
+public class CurCatCompaniesAdapter extends RecyclerView.Adapter<CurCatCompaniesAdapter.ViewHolder> {
     private Context context;
     private Activity activity;
     /*private ArrayList<CategoryModel> caList;*/
     private ArrayList<String> caList;
+    private String cat;
 
     /*public CloudMarketAdapter(Context mContext, ArrayList<CategoryModel> caList) {
         this.context = mContext;
@@ -37,27 +39,30 @@ public class CloudMarketAdapter extends RecyclerView.Adapter<CloudMarketAdapter.
         this.caList = caList;
         this.activity = activity;
     }*/
-    public CloudMarketAdapter(Context mContext, Activity activity , ArrayList<String> caList) {
+    public CurCatCompaniesAdapter(Context mContext, Activity activity , ArrayList<String> caList, String cat) {
         this.context = mContext;
         this.caList = caList;
         this.activity = activity;
+        this.cat=cat;
     }
 
-    @Override public CloudMarketAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.item_entrance_goods_recycler, parent, false);
-        return new CloudMarketAdapter.ViewHolder(v);
+    @Override public CurCatCompaniesAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(context).inflate(R.layout.item_cur_cat_companies, parent, false);
+        return new CurCatCompaniesAdapter.ViewHolder(v);
     }
 
-    @Override public void onBindViewHolder(CloudMarketAdapter.ViewHolder holder, int position) {
-
+    @Override public void onBindViewHolder(CurCatCompaniesAdapter.ViewHolder holder, int position) {
+//companyname, about, phone
         /*final CategoryModel catMod = caList.get(position);*/
         final String catMod = caList.get(position);
-        holder.iv.setBackground(ContextCompat.getDrawable(context,
-                activity.getResources().getIdentifier(catMod.split("@.#")[2],"drawable", activity.getPackageName())));
+       /* holder.iv.setBackground(ContextCompat.getDrawable(context,
+                activity.getResources().getIdentifier(catMod.split("@.#")[2],"drawable", activity.getPackageName())));*/
         //holder.text.setText(catMod.getCategoryName());
-        holder.text.setText(catMod.split("@.#")[1]);
+        holder.text.setText(catMod.split("@.#")[0]);
+        holder.textPhone.setText("+380"+catMod.split("@.#")[2]);
+       // holder.lytContainer.setBackgroundColor(Color.GRAY);
 
-        switch (position) {
+        /*switch (position) {
             case 0:
                 holder.lytContainer.setBackground(ContextCompat.getDrawable(context, R.drawable.rectangle_yellow));
                 break;
@@ -113,17 +118,18 @@ public class CloudMarketAdapter extends RecyclerView.Adapter<CloudMarketAdapter.
                 holder.lytContainer.setBackground(ContextCompat.getDrawable(context, R.drawable.rectangle_purple));
                 break;
         }
-
+*/
 
         holder.setClickListener(new CloudMarketAdapter.ItemClickListener() {
             @Override public void onClickItem(int pos) {
-             //   caList.remove(pos);
-               // notifyItemRemoved(position);
-                Bundle bundle =new Bundle();
-                bundle.putString("curcat", caList.get(pos));
-            //    Toast.makeText(context, caList.get(pos).split("@.#")[0], Toast.LENGTH_SHORT).show();
+                //   caList.remove(pos);
+                // notifyItemRemoved(position);
+                Bundle bundle = new Bundle();
+                bundle.putString("curcomp", caList.get(pos));
+                bundle.putString("cat", cat);
+                Toast.makeText(context, caList.get(pos).split("@.#")[0], Toast.LENGTH_SHORT).show();
                 NavController navController = Navigation.findNavController(activity, R.id.nav_host_fragment);
-                navController.navigate(R.id.nav_cur_cat_companies_fragment, bundle);
+                navController.navigate(R.id.nav_current_cat_fragment, bundle);
             }
 
             @Override public void onLongClickItem(int pos) {
@@ -138,16 +144,17 @@ public class CloudMarketAdapter extends RecyclerView.Adapter<CloudMarketAdapter.
     public static class ViewHolder extends RecyclerView.ViewHolder
             implements View.OnClickListener, View.OnLongClickListener {
 
-        private LinearLayout lytContainer;
+        private FrameLayout lytContainer;
         private ImageView iv;
-        private TextView text;
+        private TextView text, textPhone;
         private CloudMarketAdapter.ItemClickListener mListener;
 
         public ViewHolder(View itemView) {
 
             super(itemView);
             lytContainer = itemView.findViewById(R.id.lytContainer);
-            text = (TextView) itemView.findViewById(R.id.titleText);
+            text = (TextView) itemView.findViewById(R.id.tvNameCurComp);
+            textPhone= itemView.findViewById(R.id.tvPhoneCurComp);
             iv = itemView.findViewById(R.id.ivLogoCat);
 
             itemView.setOnClickListener(this);
@@ -173,3 +180,4 @@ public class CloudMarketAdapter extends RecyclerView.Adapter<CloudMarketAdapter.
         void onLongClickItem(int pos);
     }
 }
+

@@ -56,9 +56,24 @@
                 android:title="Моя компанія" />
 
             <item
+                android:id="@+id/nav_auth_client_fragment"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Мій профіль" />
+
+            <item
                 android:id="@+id/nav_entrance_market"
                 android:icon="@drawable/cloudmarket"
                 android:title="Віртуальний ринок" />
+
+            <item
+                android:id="@+id/nav_basket_fragment"
+                android:icon="@drawable/cart"
+                android:title="Мої покупки" />
+
+            <item
+                android:id="@+id/nav_work_basket_fragment"
+                android:icon="@drawable/workbasket"
+                android:title="Моя робота" />
         </menu>
     </item>
 

@@ -42,7 +42,7 @@ public class CatChoiceAdapter extends RecyclerView.Adapter<CatChoiceAdapter.View
 
     @Override public void onBindViewHolder(ViewHolder holder, int position) {
 
-        final String catMod = caList.get(position);
+        final String catMod = caList.get(position).split("@.#")[1];
 
         holder.cbCatSeller.setText(catMod);
 

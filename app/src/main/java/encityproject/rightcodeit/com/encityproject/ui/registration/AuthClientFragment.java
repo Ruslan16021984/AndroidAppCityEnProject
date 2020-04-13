@@ -25,16 +25,15 @@ import encityproject.rightcodeit.com.encityproject.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AuthCompanyFragment extends Fragment {
+public class AuthClientFragment extends Fragment {
 
-    private Button btnAuthClose;
+    private TextView tvAuthPhoneClient;
+    private Button btnAuthCloseClient;
     private SharedPreferences prefer;
     private SharedPreferences.Editor editor;
     private static final String APP_PREFERENCES = "ensettings";
-    private String authName, authCats, authPhone, authAbout;
-    private TextView tvAuthName, tvAuthCats, tvAuthPhone, tvAuthAbout;
 
-    public AuthCompanyFragment() {
+    public AuthClientFragment() {
         // Required empty public constructor
     }
 
@@ -43,34 +42,22 @@ public class AuthCompanyFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v= inflater.inflate(R.layout.fragment_auth_company, container, false);
+        View v=inflater.inflate(R.layout.fragment_auth_client, container, false);
+
         prefer=getContext().getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
-        tvAuthName=v.findViewById(R.id.tvAuthName);
-        tvAuthCats=v.findViewById(R.id.tvAuthCats);
-        tvAuthPhone=v.findViewById(R.id.tvAuthPhone);
-        tvAuthAbout=v.findViewById(R.id.tvAuthAbout);
+        tvAuthPhoneClient=v.findViewById(R.id.tvAuthPhoneClient);
+        btnAuthCloseClient=v.findViewById(R.id.btnAuthCloseClient);
 
-
-        if(prefer.contains("addcats") && prefer.contains("auth")){
-            authName=prefer.getString("name","");
-            authCats=prefer.getString("addcats", "");
-            authPhone=prefer.getString("phone", "");
-            authAbout=prefer.getString("about","");
-            tvAuthName.setText(authName);
-            tvAuthCats.setText(authCats);
-            tvAuthPhone.setText(authPhone);
-            tvAuthAbout.setText(authAbout);
-            if(prefer.contains("secondphone")){
-                tvAuthPhone.setText(tvAuthPhone.getText().toString()+", +380"+prefer.getString("secondphone","")+"(для клієнтів)");
-            }
+        if(prefer.contains("auth")){
+            tvAuthPhoneClient.setText(prefer.getString("phone",""));
         }
-        btnAuthClose=v.findViewById(R.id.btnAuthClose);
-        btnAuthClose.setOnClickListener(new View.OnClickListener() {
+
+        btnAuthCloseClient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 View ve = (LinearLayout) getLayoutInflater()
-                        .inflate(R.layout.dialog_confirm_delete_comp, null);
+                        .inflate(R.layout.dialog_confirm_delete_client, null);
 
                 Button btnConfirmDelete = ve.findViewById(R.id.btnConfirmDelete);
                 Button btnConfirmCancel = ve.findViewById(R.id.btnConfirmCancel);
@@ -90,17 +77,15 @@ public class AuthCompanyFragment extends Fragment {
                         Menu menuNav=navigationView.getMenu();
                         MenuItem nav_reg = menuNav.findItem(R.id.nav_reg);
                         nav_reg.setVisible(true);
-                        MenuItem nav_auth = menuNav.findItem(R.id.nav_auth_company_fragment);
+                        MenuItem nav_auth = menuNav.findItem(R.id.nav_auth_client_fragment);
                         nav_auth.setVisible(false);
                         MenuItem nav_cloud_market = menuNav.findItem(R.id.nav_entrance_market);
                         nav_cloud_market.setVisible(false);
                         MenuItem nav_basket = menuNav.findItem(R.id.nav_basket_fragment);
                         nav_basket.setVisible(false);
-                        MenuItem nav_work_basket = menuNav.findItem(R.id.nav_work_basket_fragment);
-                        nav_work_basket.setVisible(false);
                         prefer=getContext().getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
                         prefer.edit().clear().commit();
-                        Toast.makeText(getContext(), "Вашу Компанію деактивовано", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Вашу авторизацію деактивовано", Toast.LENGTH_SHORT).show();
                         NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
                         navController.navigate(R.id.nav_weather);
                     }
@@ -118,6 +103,7 @@ public class AuthCompanyFragment extends Fragment {
 
             }
         });
+
         return v;
     }
 

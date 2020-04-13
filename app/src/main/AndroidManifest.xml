@@ -19,6 +19,7 @@
             android:name=".MainActivity"
             android:noHistory = "true"
             android:label="@string/title_activity_main_with_navi_drawer"
+            android:screenOrientation="portrait"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,7 +28,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivityWithNaviDrawer"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait">
 
         </activity>
         <service android:name="org.eclipse.paho.android.service.MqttService" />

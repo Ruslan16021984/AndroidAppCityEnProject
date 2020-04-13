@@ -1,6 +1,7 @@
 package encityproject.rightcodeit.com.encityproject.ui.registration.cloudMarket;
 
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
@@ -21,17 +22,24 @@ import encityproject.rightcodeit.com.encityproject.ui.market.model.CategoryModel
 /**
  * A simple {@link Fragment} subclass.
  */
+@SuppressLint("ValidFragment")
 public class GoodsFragment extends Fragment {
     private CloudMarketAdapter adapter = null;
     private RecyclerView recyclerView;
     private ArrayList<CategoryModel> categoryList;
     private Activity activity;
     private Context context;
+    private ArrayList<String> catsListStore;
 
-    public GoodsFragment() {
-        // Required empty public constructor
+    @SuppressLint("ValidFragment")
+    public GoodsFragment(ArrayList<String> catsListStore) {
+        this.catsListStore=catsListStore;
     }
 
+    private int setDrawIcon (String name){
+        int nameToInt=getResources().getIdentifier(name , "drawable", getContext().getPackageName());
+        return nameToInt;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -59,25 +67,28 @@ public class GoodsFragment extends Fragment {
         catsListStore.add("Дитячі");
         catsListStore.add("Інші");*/
 
-        categoryList = new ArrayList<>();
-        categoryList.add(new CategoryModel("1", "Продовольчі", R.drawable.catgoods));
-        categoryList.add(new CategoryModel("2", "Одежи", R.drawable.catclothes));
-        categoryList.add(new CategoryModel("3", "Спортивні", R.drawable.catsport));
-        categoryList.add(new CategoryModel("4", "Автомобільні", R.drawable.catauto));
-        categoryList.add(new CategoryModel("5", "Будівельні", R.drawable.catbuild));
-        categoryList.add(new CategoryModel("6", "Побутової техніки", R.drawable.catdevice));
-        categoryList.add(new CategoryModel("6", "Сантехніки", R.drawable.catpipe));
-        categoryList.add(new CategoryModel("6", "Електрики та освітлення", R.drawable.catelec));
-        categoryList.add(new CategoryModel("6", "Зоомагазини", R.drawable.catzoo));
-        categoryList.add(new CategoryModel("6", "Сільськогосподарські", R.drawable.catbyt));
-        categoryList.add(new CategoryModel("6", "Аптеки", R.drawable.pharma));
-        categoryList.add(new CategoryModel("6", "Побутової хімії", R.drawable.catchemi));
-        categoryList.add(new CategoryModel("6", "Канцелярські", R.drawable.catoffice));
-        categoryList.add(new CategoryModel("6", "Дитячі", R.drawable.catkid));
-        categoryList.add(new CategoryModel("6", "Інші", R.drawable.catother));
+        String ee = "catgoods";
+        int dd = getResources().getIdentifier(ee , "drawable", getContext().getPackageName());
+        /*categoryList = new ArrayList<>();
+        categoryList.add(new CategoryModel("1", "Продовольчі", setDrawIcon("catgoods")));
+        categoryList.add(new CategoryModel("2", "Одежи", setDrawIcon("catclothes")));
+        categoryList.add(new CategoryModel("3", "Спортивні", setDrawIcon("catsport")));
+        categoryList.add(new CategoryModel("4", "Автомобільні", setDrawIcon("catauto")));
+        categoryList.add(new CategoryModel("5", "Будівельні", setDrawIcon("catbuild")));
+        categoryList.add(new CategoryModel("6", "Побутової техніки", setDrawIcon("catdevice")));
+        categoryList.add(new CategoryModel("6", "Сантехніки", setDrawIcon("catpipe")));
+        categoryList.add(new CategoryModel("6", "Електрики та освітлення", setDrawIcon("catelec")));
+        categoryList.add(new CategoryModel("6", "Зоомагазини", setDrawIcon("catzoo")));
+        categoryList.add(new CategoryModel("6", "Сільськогосподарські", setDrawIcon("catbyt")));
+        categoryList.add(new CategoryModel("6", "Аптеки", setDrawIcon("catpharma")));
+        categoryList.add(new CategoryModel("6", "Побутової хімії", setDrawIcon("catchemi")));
+        categoryList.add(new CategoryModel("6", "Канцелярські", setDrawIcon("catoffice")));
+        categoryList.add(new CategoryModel("6", "Дитячі", setDrawIcon("catkid")));
+        categoryList.add(new CategoryModel("6", "Інші", setDrawIcon("catother")));*/
 
         //  adapter = new NewAdapter(context,activity ,categoryList);
-        adapter = new CloudMarketAdapter(context,activity ,categoryList);
+        //adapter = new CloudMarketAdapter(context,activity ,categoryList);
+        adapter = new CloudMarketAdapter(context,activity ,catsListStore);
 
         recyclerView.setAdapter(adapter);
         return view;

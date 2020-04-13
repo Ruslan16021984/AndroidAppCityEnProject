@@ -42,23 +42,31 @@ public class MainActivityWithNaviDrawer extends AppCompatActivity {
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                  R.id.nav_weather, R.id.nav_phonesBook,R.id.nav_discount,
-                R.id.nav_bench, R.id.nav_busmap, R.id.nav_helsi, R.id.nav_news, R.id.nav_reg, R.id.nav_auth_company_fragment, R.id.nav_entrance_market/*,*R.id.nav_share, R.id.nav_send*/)
+                R.id.nav_bench, R.id.nav_busmap, R.id.nav_helsi, R.id.nav_news, R.id.nav_reg, R.id.nav_auth_company_fragment,
+                R.id.nav_auth_client_fragment, R.id.nav_entrance_market, R.id.nav_basket_fragment, R.id.nav_work_basket_fragment/*,*R.id.nav_share, R.id.nav_send*/)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
+
         if(prefer.contains("addcats") && prefer.contains("auth")){
             Menu menuNav=navigationView.getMenu();
             MenuItem nav_reg = menuNav.findItem(R.id.nav_reg);
             nav_reg.setVisible(false);
+            MenuItem nav_auth_client = menuNav.findItem(R.id.nav_auth_client_fragment);
+            nav_auth_client.setVisible(false);
             MenuItem nav_auth = menuNav.findItem(R.id.nav_auth_company_fragment);
             nav_auth.setVisible(true);
             MenuItem nav_cloud_market = menuNav.findItem(R.id.nav_entrance_market);
             nav_cloud_market.setVisible(true);
+            MenuItem nav_basket = menuNav.findItem(R.id.nav_basket_fragment);
+            nav_basket.setVisible(true);
+            MenuItem nav_work_basket = menuNav.findItem(R.id.nav_work_basket_fragment);
+            nav_work_basket.setVisible(true);
         }
-        else{
+        else if(prefer.contains("auth") && prefer.contains("role") && prefer.contains("phone") && !prefer.contains("regstatus")){
             Menu menuNav=navigationView.getMenu();
             MenuItem nav_reg = menuNav.findItem(R.id.nav_reg);
             nav_reg.setVisible(true);
@@ -66,8 +74,43 @@ public class MainActivityWithNaviDrawer extends AppCompatActivity {
             nav_auth.setVisible(false);
             MenuItem nav_cloud_market = menuNav.findItem(R.id.nav_entrance_market);
             nav_cloud_market.setVisible(false);
+            MenuItem nav_work_basket = menuNav.findItem(R.id.nav_work_basket_fragment);
+            nav_work_basket.setVisible(false);
+                if (prefer.getString("role", "").equals("client")) {
+                    MenuItem nav_auth_client = menuNav.findItem(R.id.nav_auth_client_fragment);
+                    nav_auth_client.setVisible(true);
+                    nav_reg.setVisible(false);
+                    nav_cloud_market.setVisible(true);
+                    MenuItem nav_basket = menuNav.findItem(R.id.nav_basket_fragment);
+                    nav_basket.setVisible(true);
+                    nav_work_basket.setVisible(false);
+                }
+                else if(prefer.getString("role", "").equals("seller")){
+                    Bundle bundle = new Bundle();
+                    bundle.putString("role", prefer.getString("role",""));
+                    bundle.putString("phone", prefer.getString("phone",""));
+                    navController.navigate(R.id.nav_cat_choice, bundle);
+                }
         }
+        else{
+            Menu menuNav=navigationView.getMenu();
+            MenuItem nav_reg = menuNav.findItem(R.id.nav_reg);
+            nav_reg.setVisible(true);
+            MenuItem nav_auth = menuNav.findItem(R.id.nav_auth_company_fragment);
+            nav_auth.setVisible(false);
+            MenuItem nav_auth_client = menuNav.findItem(R.id.nav_auth_client_fragment);
+            nav_auth_client.setVisible(false);
+            MenuItem nav_cloud_market = menuNav.findItem(R.id.nav_entrance_market);
+            nav_cloud_market.setVisible(false);
+            MenuItem nav_basket = menuNav.findItem(R.id.nav_basket_fragment);
+            nav_basket.setVisible(false);
+            MenuItem nav_work_basket = menuNav.findItem(R.id.nav_work_basket_fragment);
+            nav_work_basket.setVisible(false);
 
+        }
+        /*Menu menuNav=navigationView.getMenu();
+        MenuItem nav_cloud_market = menuNav.findItem(R.id.nav_entrance_market);
+        nav_cloud_market.setVisible(true);*/
 
 
     }
