@@ -56,7 +56,9 @@
                 android:gravity="center"
                 android:text="Признаки жизни: пульс"
                 android:textColor="@color/white"
-                android:textSize="12dp" />
+                android:textSize="12dp"
+                android:layout_marginBottom="8dp"
+                />
 
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
@@ -78,7 +80,8 @@
                 android:gravity="center"
                 android:text="Признаки жизни: дыхание"
                 android:textColor="@color/white"
-                android:textSize="12dp" />
+                android:textSize="12dp"
+                android:layout_marginBottom="8dp"/>
 
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
@@ -100,7 +103,8 @@
                 android:gravity="center"
                 android:text="Признаки жизни: реакция значков на свет"
                 android:textColor="@color/white"
-                android:textSize="12dp" />
+                android:textSize="12dp"
+                android:layout_marginBottom="8dp"/>
 
 
         </LinearLayout>
