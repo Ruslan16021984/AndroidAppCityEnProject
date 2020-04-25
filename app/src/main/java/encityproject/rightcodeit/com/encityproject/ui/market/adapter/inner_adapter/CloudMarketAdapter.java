@@ -2,6 +2,8 @@ package encityproject.rightcodeit.com.encityproject.ui.market.adapter.inner_adap
 
 import android.app.Activity;
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
@@ -41,6 +43,13 @@ public class CloudMarketAdapter extends RecyclerView.Adapter<CloudMarketAdapter.
         this.context = mContext;
         this.caList = caList;
         this.activity = activity;
+    }
+
+    public boolean isOnline() {
+        ConnectivityManager cm =
+                (ConnectivityManager) activity.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 
     @Override public CloudMarketAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -117,13 +126,18 @@ public class CloudMarketAdapter extends RecyclerView.Adapter<CloudMarketAdapter.
 
         holder.setClickListener(new CloudMarketAdapter.ItemClickListener() {
             @Override public void onClickItem(int pos) {
-             //   caList.remove(pos);
-               // notifyItemRemoved(position);
-                Bundle bundle =new Bundle();
-                bundle.putString("curcat", caList.get(pos));
-            //    Toast.makeText(context, caList.get(pos).split("@.#")[0], Toast.LENGTH_SHORT).show();
-                NavController navController = Navigation.findNavController(activity, R.id.nav_host_fragment);
-                navController.navigate(R.id.nav_cur_cat_companies_fragment, bundle);
+               if(isOnline()) {
+                   //   caList.remove(pos);
+                   // notifyItemRemoved(position);
+                   Bundle bundle = new Bundle();
+                   bundle.putString("curcat", caList.get(pos));
+                   //    Toast.makeText(context, caList.get(pos).split("@.#")[0], Toast.LENGTH_SHORT).show();
+                   NavController navController = Navigation.findNavController(activity, R.id.nav_host_fragment);
+                   navController.navigate(R.id.nav_cur_cat_companies_fragment, bundle);
+               }
+               else{
+                   Toast.makeText(context, "Перевірте інтернет", Toast.LENGTH_SHORT).show();
+               }
             }
 
             @Override public void onLongClickItem(int pos) {

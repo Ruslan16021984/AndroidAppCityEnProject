@@ -5,6 +5,8 @@ import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -42,9 +44,9 @@ import encityproject.rightcodeit.com.encityproject.R;
 public class TotalFragment extends Fragment {
 
     private int port = 4656;
-    private String ip = "192.168.1.46";
+    //private String ip = "192.168.1.46";
     //private String ip = "192.168.1.103";
-    //private String ip = "35.232.178.112";
+    private String ip = "35.232.178.112";
     private TextView tvTotalName;
     private TextView tvTotalPhone, tvTotalCats, tvAbout;
     private CheckBox cbTotal;
@@ -63,6 +65,12 @@ public class TotalFragment extends Fragment {
         // Required empty public constructor
     }
 
+    public boolean isOnline() {
+        ConnectivityManager cm =
+                (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
 
 
     @Override
@@ -161,6 +169,7 @@ public class TotalFragment extends Fragment {
         btnTotalNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(isOnline()){
                 if(cbTotal.isChecked()) {
                     btnTotalNext.setClickable(false);
                     ObjectAnimator buttonAnimator = ObjectAnimator.ofFloat(ivTotal, "translationY", 0f, -2000f);
@@ -224,6 +233,10 @@ public class TotalFragment extends Fragment {
                 }
                 else{
                     Toast.makeText(getContext(), "Підтвердіть Вашу згоду", Toast.LENGTH_SHORT).show();
+                }
+                }
+                else{
+                    Toast.makeText(getContext(), "Перевірте інтернет", Toast.LENGTH_SHORT).show();
                 }
             }
         });

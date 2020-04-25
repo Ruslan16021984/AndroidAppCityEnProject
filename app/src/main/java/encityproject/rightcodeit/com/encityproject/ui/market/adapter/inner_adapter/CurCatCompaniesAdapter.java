@@ -3,6 +3,8 @@ package encityproject.rightcodeit.com.encityproject.ui.market.adapter.inner_adap
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
@@ -44,6 +46,13 @@ public class CurCatCompaniesAdapter extends RecyclerView.Adapter<CurCatCompanies
         this.caList = caList;
         this.activity = activity;
         this.cat=cat;
+    }
+
+    public boolean isOnline() {
+        ConnectivityManager cm =
+                (ConnectivityManager) activity.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 
     @Override public CurCatCompaniesAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -122,14 +131,19 @@ public class CurCatCompaniesAdapter extends RecyclerView.Adapter<CurCatCompanies
 
         holder.setClickListener(new CloudMarketAdapter.ItemClickListener() {
             @Override public void onClickItem(int pos) {
-                //   caList.remove(pos);
-                // notifyItemRemoved(position);
-                Bundle bundle = new Bundle();
-                bundle.putString("curcomp", caList.get(pos));
-                bundle.putString("cat", cat);
-                Toast.makeText(context, caList.get(pos).split("@.#")[0], Toast.LENGTH_SHORT).show();
-                NavController navController = Navigation.findNavController(activity, R.id.nav_host_fragment);
-                navController.navigate(R.id.nav_current_cat_fragment, bundle);
+                if(isOnline()) {
+                    //   caList.remove(pos);
+                    // notifyItemRemoved(position);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("curcomp", caList.get(pos));
+                    bundle.putString("cat", cat);
+                    //   Toast.makeText(context, caList.get(pos).split("@.#")[0], Toast.LENGTH_SHORT).show();
+                    NavController navController = Navigation.findNavController(activity, R.id.nav_host_fragment);
+                    navController.navigate(R.id.nav_current_cat_fragment, bundle);
+                }
+                else{
+                    Toast.makeText(context, "Перевірте інтернет", Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override public void onLongClickItem(int pos) {

@@ -2,6 +2,8 @@ package encityproject.rightcodeit.com.encityproject.ui.registration;
 
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -35,9 +37,9 @@ import encityproject.rightcodeit.com.encityproject.ui.market.model.CategoryModel
 public class CatChoiceFragment extends Fragment {
 
     private int port = 4656;
-    private String ip = "192.168.1.46";
+    //private String ip = "192.168.1.46";
     //private String ip = "192.168.1.103";
-    //private String ip = "35.232.178.112";
+    private String ip = "35.232.178.112";
     private RecyclerView recyclerView, recyclerViewService;
     private ArrayList<String> categoryList, catsListStore, catsListService;
     private ArrayList<ArrayList<String>> categoryFromServerList;
@@ -49,6 +51,13 @@ public class CatChoiceFragment extends Fragment {
 
     public CatChoiceFragment() {
         // Required empty public constructor
+    }
+
+    public boolean isOnline() {
+        ConnectivityManager cm =
+                (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 
 
@@ -74,8 +83,13 @@ public class CatChoiceFragment extends Fragment {
         bunRole= bundle.getString("role");
        bunPhone= bundle.getString("phone");
 
-       GetAllCategories getAllCategories = new GetAllCategories();
-       getAllCategories.execute("getcats"+"@.#"+"null");
+        if (isOnline()) {
+            GetAllCategories getAllCategories = new GetAllCategories();
+            getAllCategories.execute("getcats" + "@.#" + "null");
+        }
+        else{
+            Toast.makeText(getContext(), "Перевірте інтернет", Toast.LENGTH_SHORT).show();
+        }
         /*categoryList = new ArrayList<>();
         categoryList.add("Стройматеріали");
         categoryList.add("Продукти");
@@ -197,20 +211,24 @@ public class CatChoiceFragment extends Fragment {
                 btnCatChoice.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if(catChoiceAdapter.getItemsForReturn().size()>0 || catChoiceAdapterService.getItemsForReturn().size()>0) {
-                            //Toast.makeText(getContext(), catChoiceAdapter.getItemsForReturn().toString(), Toast.LENGTH_SHORT).show();
-                            Bundle bundle = new Bundle();
-                            bundle.putStringArrayList("catstore", catsListStore);
-                            bundle.putStringArrayList("catservice", catsListService);
-                            bundle.putString("role", bunRole);
-                            bundle.putString("phone", bunPhone);
-                            bundle.putIntegerArrayList("checkedcatstore", catChoiceAdapter.getItemsForReturn());
-                            bundle.putIntegerArrayList("checkedcatservice", catChoiceAdapterService.getItemsForReturn());
-                            NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
-                            navController.navigate(R.id.nav_form_company_fragment, bundle);
+                        if(isOnline()) {
+                            if (catChoiceAdapter.getItemsForReturn().size() > 0 || catChoiceAdapterService.getItemsForReturn().size() > 0) {
+                                //Toast.makeText(getContext(), catChoiceAdapter.getItemsForReturn().toString(), Toast.LENGTH_SHORT).show();
+                                Bundle bundle = new Bundle();
+                                bundle.putStringArrayList("catstore", catsListStore);
+                                bundle.putStringArrayList("catservice", catsListService);
+                                bundle.putString("role", bunRole);
+                                bundle.putString("phone", bunPhone);
+                                bundle.putIntegerArrayList("checkedcatstore", catChoiceAdapter.getItemsForReturn());
+                                bundle.putIntegerArrayList("checkedcatservice", catChoiceAdapterService.getItemsForReturn());
+                                NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+                                navController.navigate(R.id.nav_form_company_fragment, bundle);
+                            } else {
+                                Toast.makeText(getContext(), "Оберіть категорію", Toast.LENGTH_SHORT).show();
+                            }
                         }
-                        else {
-                            Toast.makeText(getContext(), "Оберіть категорію", Toast.LENGTH_SHORT).show();
+                        else{
+                            Toast.makeText(getContext(), "Перевірте інтернет", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

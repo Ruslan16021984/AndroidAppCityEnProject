@@ -5,6 +5,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.CalendarContract;
@@ -50,9 +52,9 @@ import encityproject.rightcodeit.com.encityproject.ui.registration.CatChoiceFrag
 public class EntranceMarketFragment extends Fragment {
 
     private int port = 4656;
-    private String ip = "192.168.1.46";
+    //private String ip = "192.168.1.46";
     //private String ip = "192.168.1.103";
-    //private String ip = "35.232.178.112";
+    private String ip = "35.232.178.112";
     private ArrayList<ArrayList<String>> categoryFromServerList;
     private ArrayList<String> categoryList, catsListStore, catsListService;
     private SlidingTabLayout slidingTabLayout;
@@ -69,6 +71,13 @@ public class EntranceMarketFragment extends Fragment {
 
     public EntranceMarketFragment() {
         // Required empty public constructor
+    }
+
+    public boolean isOnline() {
+        ConnectivityManager cm =
+                (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 
 
@@ -89,10 +98,15 @@ public class EntranceMarketFragment extends Fragment {
 
         llQuickOrder=view.findViewById(R.id.llQuickOrder);
         llQuickOrder.setVisibility(View.INVISIBLE);
-        GetAllCategories getAllCategories = new GetAllCategories();
-        getAllCategories.execute("getcats"+"@.#"+"null");
 
-                return view;
+        if(isOnline()) {
+            GetAllCategories getAllCategories = new GetAllCategories();
+            getAllCategories.execute("getcats" + "@.#" + "null");
+        }
+        else {
+            Toast.makeText(getContext(), "Перевірте інтернет", Toast.LENGTH_SHORT).show();
+        }
+        return view;
 
     }
 

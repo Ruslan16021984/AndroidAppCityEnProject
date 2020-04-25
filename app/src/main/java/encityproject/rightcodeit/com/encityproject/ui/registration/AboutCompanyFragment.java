@@ -1,6 +1,9 @@
 package encityproject.rightcodeit.com.encityproject.ui.registration;
 
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -8,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -31,6 +35,13 @@ public class AboutCompanyFragment extends Fragment {
 
     public AboutCompanyFragment() {
         // Required empty public constructor
+    }
+
+    public boolean isOnline() {
+        ConnectivityManager cm =
+                (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 
 
@@ -57,6 +68,7 @@ public class AboutCompanyFragment extends Fragment {
         btnAboutNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(isOnline()){
                 if(etAbout.getText().length()>5){
                     Bundle bundle = new Bundle();
                     bundle.putString("about", etAbout.getText().toString());
@@ -71,6 +83,10 @@ public class AboutCompanyFragment extends Fragment {
                     bundle.putString("nameCompany", name);
                     NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
                     navController.navigate(R.id.nav_total_fragment, bundle);
+                }
+                }
+                else{
+                    Toast.makeText(getContext(), "Перевірте інтернет", Toast.LENGTH_SHORT).show();
                 }
             }
         });

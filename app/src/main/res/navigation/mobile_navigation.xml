@@ -187,6 +187,18 @@
      android:label="Моя робота"
      tools:layout="@layout/fragment_work_basket" />
 
+ <fragment
+     android:id="@+id/nav_message_fragment"
+     android:name="encityproject.rightcodeit.com.encityproject.ui.registration.cloudMarket.MessageCommunication.MessageFragment"
+     android:label="Листування"
+     tools:layout="@layout/fragment_message" />
+
+ <fragment
+     android:id="@+id/nav_message_company_fragment"
+     android:name="encityproject.rightcodeit.com.encityproject.ui.registration.cloudMarket.MessageCommunication.MessageCompanyFragment"
+     android:label="Листування"
+     tools:layout="@layout/fragment_message" />
+
  <!--
      <fragment
          android:id="@+id/nav_share"

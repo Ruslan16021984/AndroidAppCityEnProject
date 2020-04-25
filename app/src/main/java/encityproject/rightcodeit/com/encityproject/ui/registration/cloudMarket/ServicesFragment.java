@@ -1,6 +1,7 @@
 package encityproject.rightcodeit.com.encityproject.ui.registration.cloudMarket;
 
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import encityproject.rightcodeit.com.encityproject.ui.market.model.CategoryModel
 /**
  * A simple {@link Fragment} subclass.
  */
+@SuppressLint("ValidFragment")
 public class ServicesFragment extends Fragment {
     private CloudMarketAdapter adapter = null;
     private RecyclerView recyclerView;

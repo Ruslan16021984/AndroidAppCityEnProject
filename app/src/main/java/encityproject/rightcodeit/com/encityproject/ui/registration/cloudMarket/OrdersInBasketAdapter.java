@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -21,6 +23,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.navigation.NavController;
@@ -44,20 +47,22 @@ public class OrdersInBasketAdapter extends RecyclerView.Adapter<OrdersInBasketAd
     private ArrayList<String> caList;
     private String newOrClosed;
     private int port = 4656;
-    private String ip = "192.168.1.46";
+    //private String ip = "192.168.1.46";
     //private String ip = "192.168.1.103";
-    //private String ip = "35.232.178.112";
+    private String ip = "35.232.178.112";
     private SharedPreferences prefer;
     private SharedPreferences.Editor editor;
     private static final String APP_PREFERENCES = "ensettings";
+    private ArrayList<String> listSms;
 
 
 
-    public OrdersInBasketAdapter(Context mContext, Activity activity , ArrayList<String> caList, String newOrClosed) {
+    public OrdersInBasketAdapter(Context mContext, Activity activity , ArrayList<String> caList, String newOrClosed, ArrayList<String> listSms) {
         this.context = mContext;
         this.caList = caList;
         this.activity = activity;
         this.newOrClosed=newOrClosed;
+        this.listSms=listSms;
         prefer=context.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
 
     }
@@ -67,14 +72,57 @@ public class OrdersInBasketAdapter extends RecyclerView.Adapter<OrdersInBasketAd
         return new OrdersInBasketAdapter.ViewHolder(v);
     }
 
-    @Override public void onBindViewHolder(OrdersInBasketAdapter.ViewHolder holder, int position) {
+    public boolean isOnline() {
+        ConnectivityManager cm =
+                (ConnectivityManager) activity.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
 
-        //numorder0, description1, namecompany2, telseller3, status4, createdate5, enddate6
+
+    @Override public void onBindViewHolder(OrdersInBasketAdapter.ViewHolder holder, int position) {
+//numorder, description, namecompany, telseller, status, createdate, enddate, ratefromclient, ratefromseller
+        //numorder0, description1, namecompany2, telseller3, status4, createdate5, enddate6,ratefromclient7, ratefromseller8
         /*final CategoryModel catMod = caList.get(position);*/
         final String catMod = caList.get(position);
-        holder.tvNumOrder.setText(catMod.split("@.#")[0]);
+        int count=0;
+        for(int t=0;t<listSms.size();t++){
+            Log.d("countSms", catMod.split("@.#")[0]);
+            if(catMod.split("@.#")[0].equals(listSms.get(t))){
+                Log.d("countSmYES", listSms.get(t));
+                count=count+1;
+            }
+        }
+        if(count>0){
+            holder.ivSms.setVisibility(View.VISIBLE);
+            holder.tvSms.setText("+"+String.valueOf(count));
+            //holder.tvNumOrder.setTextColor(Color.BLACK);
+        }
+        else{
+            holder.tvSms.setVisibility(View.INVISIBLE);
+            holder.ivSms.setVisibility(View.INVISIBLE);
+        }
+        if(catMod.split("@.#")[0].length()>8) {
+            holder.tvNumOrder.setText(catMod.split("@.#")[0].substring(5, 13));
+        }
+        else{
+            holder.tvNumOrder.setText(catMod.split("@.#")[0]);
+        }
         holder.tvAboutOrder.setText(catMod.split("@.#")[1]);
-        holder.tvStatus.setText(catMod.split("@.#")[4]);
+        if(catMod.split("@.#")[4].equals("wait")){
+            holder.tvStatus.setText("обробляється");
+        }
+        else if(catMod.split("@.#")[4].equals("open")){
+            holder.tvStatus.setText("в роботі");
+        }
+        else if(catMod.split("@.#")[4].equals("canceled")){
+            holder.tvStatus.setText("вiдмінено");
+        }
+        else if(catMod.split("@.#")[4].equals("completed")){
+            holder.tvStatus.setText("виконано");
+        }
+        holder.tvStartOrder.setText(catMod.split("@.#")[5].substring(0,16));
+        holder.tvEndOrder.setText(catMod.split("@.#")[6].substring(0,16));
 
         /*switch (position) {
             case 0:
@@ -155,9 +203,11 @@ public class OrdersInBasketAdapter extends RecyclerView.Adapter<OrdersInBasketAd
                 TextView tvMyAsk= ve.findViewById(R.id.tvMyAsk);
                 Button btnQuickConfirm = ve.findViewById(R.id.btnQuickConfirm);
                 Button btnQuickCancel = ve.findViewById(R.id.btnQuickCancel);
-                if(newOrClosed.equals("completed")){
+                Button btnCancalByClient=ve.findViewById(R.id.btnCancalByClient);
+              /*  if(newOrClosed.equals("completed")){
                     btnQuickConfirm.setVisibility(View.INVISIBLE);
-                }
+                }*/
+                ImageView ivMessage = ve.findViewById(R.id.ivMessage);
                 TextView tvMyAbout= ve.findViewById(R.id.tvMyAbout);
                 TextView tvMyComp=ve.findViewById(R.id.tvMyComp);
                 TextView tvMyDate1=ve.findViewById(R.id.tvMyDate1);
@@ -166,13 +216,51 @@ public class OrdersInBasketAdapter extends RecyclerView.Adapter<OrdersInBasketAd
                 TextView tvMyTel=ve.findViewById(R.id.tvMyTel);
                 ImageView ivCall = ve.findViewById(R.id.imageViewCall);
 
-                tvMyAsk.setText(tvMyAsk.getText()+catMod.split("@.#")[0]);
-                tvMyStatus.setText(tvMyStatus.getText()+": "+catMod.split("@.#")[4]);
+                if(catMod.split("@.#")[4].equals("wait")){
+                    btnCancalByClient.setVisibility(View.VISIBLE);
+                    btnQuickConfirm.setVisibility(View.GONE);
+                    tvMyStatus.setText("обробляється");
+                    tvMyComp.setText(catMod.split("@.#")[2]);
+                }
+                else if(catMod.split("@.#")[4].equals("open")){
+                    btnCancalByClient.setVisibility(View.GONE);
+                    btnQuickConfirm.setVisibility(View.VISIBLE);
+                    tvMyStatus.setText("в роботі");
+                    tvMyComp.setText(catMod.split("@.#")[2]);
+                }
+                else if(catMod.split("@.#")[4].equals("canceled")){
+                    btnCancalByClient.setVisibility(View.GONE);
+                    btnQuickConfirm.setVisibility(View.GONE);
+                    tvMyStatus.setText("відмінено");
+                    tvMyComp.setText(catMod.split("@.#")[2]);
+                }
+                else if(catMod.split("@.#")[4].equals("completed")){
+                    btnCancalByClient.setVisibility(View.GONE);
+                    btnQuickConfirm.setVisibility(View.GONE);
+                    tvMyStatus.setText("виконано");
+                    tvMyComp.setText(catMod.split("@.#")[2]);
+                }
+
+                if(catMod.split("@.#")[0].length()>8) {
+                    tvMyAsk.setText(tvMyAsk.getText()+catMod.split("@.#")[0].substring(5, 13));
+                }
+                else{
+                    tvMyAsk.setText(tvMyAsk.getText()+catMod.split("@.#")[0]);
+                }
+           //     tvMyAsk.setText(tvMyAsk.getText()+catMod.split("@.#")[0]);
+                /*if(catMod.split("@.#")[4].equals("wait") ){
+                    tvMyStatus.setText("обробляється");
+                    tvMyComp.setText(catMod.split("@.#")[2]);
+                }else if{
+                    tvMyStatus.setText("в роботі");
+                    tvMyComp.setText(catMod.split("@.#")[2]);
+                }*/
+                //tvMyStatus.setText(tvMyStatus.getText()+": "+catMod.split("@.#")[4]);
                 tvMyAbout.setText(catMod.split("@.#")[1]);
-                tvMyComp.setText(tvMyComp.getText()+": "+catMod.split("@.#")[2]);
-                tvMyDate1.setText(tvMyDate1.getText()+": "+catMod.split("@.#")[5].substring(0,19));
-                tvMyDate2.setText(tvMyDate2.getText()+": "+catMod.split("@.#")[6].substring(0,19));
-                tvMyTel.setText(tvMyTel.getText()+": "+"+380"+catMod.split("@.#")[3]);
+            //    tvMyComp.setText(tvMyComp.getText()+": "+catMod.split("@.#")[2]);
+                tvMyDate1.setText(catMod.split("@.#")[5].substring(0,16));
+                tvMyDate2.setText(catMod.split("@.#")[6].substring(0,16));
+                tvMyTel.setText("+380"+catMod.split("@.#")[3]);
 
 
                 builder
@@ -180,6 +268,23 @@ public class OrdersInBasketAdapter extends RecyclerView.Adapter<OrdersInBasketAd
                         .setCancelable(false)
                 ;
                 final AlertDialog alert2 = builder.create();
+
+                ivMessage.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if(isOnline()) {
+                            alert2.dismiss();
+                            Bundle bundle = new Bundle();
+                            bundle.putString("numorder", catMod.split("@.#")[0]);
+                            bundle.putString("aboutorder", catMod.split("@.#")[1]);
+                            NavController navController = Navigation.findNavController(activity, R.id.nav_host_fragment);
+                            navController.navigate(R.id.nav_message_fragment, bundle);
+                        }
+                        else{
+                            Toast.makeText(context, "Перевірте інтернет", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
 
                 ivCall.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -192,13 +297,33 @@ public class OrdersInBasketAdapter extends RecyclerView.Adapter<OrdersInBasketAd
                     }
                 });
 
+                btnCancalByClient.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if(isOnline()) {
+                            alert2.dismiss();
+                            ConfirmByClient confirmByClient = new ConfirmByClient("Ви відмінили замовлення");
+                            confirmByClient.execute("cancelordercli" + "@.#" + prefer.getString("auth", "") +
+                                    "@.#" + catMod.split("@.#")[0] + "@.#" + "5");
+                        }
+                        else{
+                            Toast.makeText(context, "Перевірте інтернет", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
                 btnQuickConfirm.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        alert2.dismiss();
-                       ConfirmByClient confirmByClient = new ConfirmByClient();
-                       confirmByClient.execute("confbyclient"+"@.#"+prefer.getString("auth","")+
-                               "@.#"+catMod.split("@.#")[0]+"@.#"+"5");
+                        if(isOnline()) {
+                            alert2.dismiss();
+                            ConfirmByClient confirmByClient = new ConfirmByClient("Ви підтвердили виконання замовлення");
+                            confirmByClient.execute("confbyclientnorate" + "@.#" + prefer.getString("auth", "") +
+                                    "@.#" + catMod.split("@.#")[0] + "@.#" + "5");
+                        }
+                        else{
+                            Toast.makeText(context, "Перевірте інтернет", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
 
@@ -229,8 +354,8 @@ public class OrdersInBasketAdapter extends RecyclerView.Adapter<OrdersInBasketAd
             implements View.OnClickListener, View.OnLongClickListener {
 
         private LinearLayout lytContainer;
-        private ImageView iv;
-        private TextView tvNumOrder, tvStatus, tvAboutOrder;
+        private ImageView iv, ivSms;
+        private TextView tvNumOrder, tvStatus, tvAboutOrder, tvStartOrder, tvEndOrder, tvSms;
         private OrdersInBasketAdapter.ItemClickListener mListener;
 
         public ViewHolder(View itemView) {
@@ -240,6 +365,10 @@ public class OrdersInBasketAdapter extends RecyclerView.Adapter<OrdersInBasketAd
             tvNumOrder = (TextView) itemView.findViewById(R.id.tvNumOrder);
             tvAboutOrder = itemView.findViewById(R.id.tvAboutOrder);
             tvStatus=itemView.findViewById(R.id.tvStatus);
+            tvStartOrder=itemView.findViewById(R.id.tvStartOrder);
+            tvEndOrder=itemView.findViewById(R.id.tvEndOrder);
+        //    tvSms=itemView.findViewById(R.id.tvSms);
+          //  ivSms=itemView.findViewById(R.id.ivSms);
 
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
@@ -270,6 +399,11 @@ public class OrdersInBasketAdapter extends RecyclerView.Adapter<OrdersInBasketAd
         private PrintWriter pw = null;
         private InputStream is = null;
         private String fromServer="";
+        private String strText;
+
+        public ConfirmByClient(String strText) {
+            this.strText=strText;
+        }
 
         @Override
         protected Socket doInBackground(String... params) {
@@ -303,13 +437,14 @@ public class OrdersInBasketAdapter extends RecyclerView.Adapter<OrdersInBasketAd
             super.onPostExecute(socket);
             //pbListPhones.setVisibility(View.INVISIBLE);
             //fromServer="ok";
+            Log.d("1804 From: ", fromServer);
             if(fromServer.equals("ok")){
                 final AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 LayoutInflater inflater = (LayoutInflater) context.getSystemService( Context.LAYOUT_INFLATER_SERVICE );
                 View ve = inflater.inflate( R.layout.dialog_ordered_to_comp, null );
 
                 TextView tv=ve.findViewById(R.id.tvConfClient);
-                tv.setText("Ви підтвердили виконання замовлення");
+                tv.setText(strText);
                 Button btn = ve.findViewById(R.id.btnQuickConfirmOK);
 
                 builder

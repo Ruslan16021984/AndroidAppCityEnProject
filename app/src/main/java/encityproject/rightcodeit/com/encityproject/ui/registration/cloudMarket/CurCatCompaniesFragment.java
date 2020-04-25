@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -43,9 +45,9 @@ import encityproject.rightcodeit.com.encityproject.ui.market.model.CategoryModel
  */
 public class CurCatCompaniesFragment extends Fragment {
     private int port = 4656;
-    private String ip = "192.168.1.46";
+   // private String ip = "192.168.1.46";
     //private String ip = "192.168.1.103";
-    //private String ip = "35.232.178.112";
+    private String ip = "35.232.178.112";
     private CurCatCompaniesAdapter adapter = null;
 
     private RecyclerView recyclerView;
@@ -58,6 +60,13 @@ public class CurCatCompaniesFragment extends Fragment {
 
     public CurCatCompaniesFragment() {
         // Required empty public constructor
+    }
+
+    public boolean isOnline() {
+        ConnectivityManager cm =
+                (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 
 
@@ -84,9 +93,13 @@ public class CurCatCompaniesFragment extends Fragment {
         recyclerView =  view.findViewById(R.id.rvCurCatComp);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 1, GridLayoutManager.VERTICAL, false));
 
-        GetCurCatCompanies getCurCatCompanies = new GetCurCatCompanies();
-        getCurCatCompanies.execute("getcurcat"+"@.#"+curCategory.split("@.#")[0]);
-
+        if(isOnline()) {
+            GetCurCatCompanies getCurCatCompanies = new GetCurCatCompanies();
+            getCurCatCompanies.execute("getcurcat" + "@.#" + curCategory.split("@.#")[0]);
+        }
+        else{
+            Toast.makeText(getContext(), "Перевірте інтернет", Toast.LENGTH_SHORT).show();
+        }
         return view;
     }
 

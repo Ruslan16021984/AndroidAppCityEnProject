@@ -72,8 +72,8 @@ public class PhonesFragment extends Fragment {
         arrayOfContacts = new ArrayOfContacts();
         contactAdapter = new ContactAdapter(getActivity(), arrayOfContacts.getArrayOfContacts());
         listView = view.findViewById(R.id.lv_contactPhones);
-       ArrayList<Contact> ac = new ArrayList<>();
-       ac.add(new Contact("тест", "911"));
+        ArrayList<Contact> ac = new ArrayList<>();
+        ac.add(new Contact("тест", "911"));
         listView.setAdapter(new ContactAdapter(getActivity(), ac));
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

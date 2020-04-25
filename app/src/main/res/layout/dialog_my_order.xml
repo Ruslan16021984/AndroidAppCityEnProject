@@ -9,68 +9,154 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
+        android:padding="5dp"
         android:background="#ffffff"
         android:gravity="center"
         android:orientation="horizontal">
-        <TextView
-            android:id="@+id/tvMyAsk"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Замовлення "
-            android:gravity="center"
-            android:textSize="20sp"
-            android:textColor="@color/colorPrimary"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center|left">
+            <TextView
+                android:id="@+id/tvMyAsk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Замовлення "
+                android:gravity="center"
+                android:textSize="20sp"
+                android:textColor="@color/colorPrimary"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:gravity="right">
+            <ImageView
+                android:id="@+id/ivMessage"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/newmessagepen"
+                android:gravity="center"
+                android:layout_marginLeft="20dp"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/tvMyStatus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Поточний статус замовлення "
-        android:padding="5dp"
-        android:textColor="@color/white"/>
-
-    <TextView
-        android:id="@+id/tvMyDate1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Дата створення "
-        android:padding="5dp"
-        android:textColor="@color/white"/>
-    <TextView
-        android:id="@+id/tvMyDate2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Дата закінчення "
-        android:padding="5dp"
-        android:textColor="@color/white"/>
-
-
-    <TextView
-        android:id="@+id/tvMyComp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Виконує компанія "
-        android:padding="5dp"
-        android:textColor="@color/white"/>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Поточний статус замовлення: "
+            android:textColor="@color/white"
+            android:padding="5dp"/>
+        <TextView
+            android:id="@+id/tvMyStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="нова"
+            android:padding="5dp"
+            android:textColor="@color/colorPrimary"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Дата створення: "
+            android:padding="5dp"
+            android:textColor="@color/white"/>
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src="@drawable/startorder"
+            android:layout_gravity="center"/>
+        <TextView
+            android:id="@+id/tvMyDate1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="12-11"
+            android:padding="5dp"
+            android:textColor="@color/white"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Дата закінчення: "
+            android:padding="5dp"
+            android:textColor="@color/white"/>
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src="@drawable/endorder"
+            android:layout_gravity="center"/>
+        <TextView
+            android:id="@+id/tvMyDate2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="12-11"
+            android:padding="5dp"
+            android:textColor="@color/white"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Виконує компанія: "
+            android:padding="5dp"
+            android:textColor="@color/white"/>
+        <TextView
+            android:id="@+id/tvMyComp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="фірма"
+            android:padding="5dp"
+            android:textColor="@color/colorPrimary"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Телефон: "
+            android:padding="5dp"
+            android:textColor="@color/white"/>
+        <TextView
             android:id="@+id/tvMyTel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Телефон "
+            android:text="06898698"
             android:padding="5dp"
             android:textColor="@color/white"/>
         <ImageView
             android:id="@+id/imageViewCall"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/phonecall" />
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/phonecall"
+            android:layout_gravity="center"/>
     </LinearLayout>
 
     <TextView
@@ -90,32 +176,61 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center">
+        android:gravity="center"
+        android:layout_marginRight="3dp"
+        android:layout_marginLeft="3dp">
 
-        <Button
-            android:id="@+id/btnQuickCancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button_rounded"
-            android:paddingLeft="40dp"
-            android:paddingRight="40dp"
-            android:text="Закрити"
-            android:layout_gravity="center"
-            android:layout_margin="10dp"
-            android:textColor="@color/colorPrimary"
-            />
-        <Button
-            android:id="@+id/btnQuickConfirm"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button_rounded"
-            android:paddingLeft="40dp"
-            android:paddingRight="40dp"
-            android:text="Підтвердити виконання"
-            android:layout_gravity="center"
-            android:layout_margin="10dp"
-            android:textColor="@color/colorPrimary"
-            />
+            <Button
+                android:id="@+id/btnQuickCancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_rounded"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="Закрити"
+                android:layout_gravity="center"
+                android:textColor="@color/colorPrimary"
+                android:layout_weight="1"
+                android:layout_margin="2dp"
+                android:fontFamily="sans-serif-condensed-light"
+                />
+
+
+
+            <Button
+                android:id="@+id/btnCancalByClient"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_rounded"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="Відмінити"
+                android:layout_gravity="center"
+                android:textColor="@color/colorPrimary"
+                android:layout_weight="1"
+                android:layout_margin="2dp"
+                android:fontFamily="sans-serif-condensed-light"
+                />
+
+
+
+
+            <Button
+                android:id="@+id/btnQuickConfirm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_rounded"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="Підтвердити\nвиконання"
+                android:layout_gravity="center"
+                android:textColor="@color/colorPrimary"
+                android:layout_weight="1"
+                android:layout_margin="2dp"
+                android:fontFamily="sans-serif-condensed-light"
+                />
+
+
 
     </LinearLayout>
 

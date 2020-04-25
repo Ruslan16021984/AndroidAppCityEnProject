@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.Icon;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -42,6 +44,13 @@ public class CatAdapter extends RecyclerView.Adapter<CatAdapter.ViewHolder> {
     @Override public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(context).inflate(R.layout.item_category_recycler, parent, false);
         return new ViewHolder(v);
+    }
+
+    public boolean isOnline() {
+        ConnectivityManager cm =
+                (ConnectivityManager) activity.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 
     @Override public void onBindViewHolder(ViewHolder holder, int position) {
@@ -92,9 +101,14 @@ public class CatAdapter extends RecyclerView.Adapter<CatAdapter.ViewHolder> {
 
         holder.setClickListener(new ItemClickListener() {
             @Override public void onClickItem(int pos) {
-                Toast.makeText(context, "clck: " + catMod.getCategoryName(), Toast.LENGTH_SHORT).show();
-                NavController navController = Navigation.findNavController(activity, R.id.nav_host_fragment);
-                navController.navigate(R.id.nav_orders_fragment);
+                if(isOnline()) {
+                    Toast.makeText(context, "clck: " + catMod.getCategoryName(), Toast.LENGTH_SHORT).show();
+                    NavController navController = Navigation.findNavController(activity, R.id.nav_host_fragment);
+                    navController.navigate(R.id.nav_orders_fragment);
+                }
+                else {
+                    Toast.makeText(context, "Перевірте інтернет", Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override public void onLongClickItem(int pos) {

@@ -7,6 +7,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -44,8 +46,8 @@ import encityproject.rightcodeit.com.encityproject.R;
 public class EnterSmsFragment extends Fragment {
 
     private int port = 4656;
-    private String ip = "192.168.1.46";
-    //private String ip = "35.232.178.112";
+   // private String ip = "192.168.1.46";
+    private String ip = "35.232.178.112";
    // private String ip = "192.168.1.103";
     private Button btnEnterSms;
     private EditText etSms;
@@ -60,6 +62,12 @@ public class EnterSmsFragment extends Fragment {
         // Required empty public constructor
     }
 
+    public boolean isOnline() {
+        ConnectivityManager cm =
+                (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -96,42 +104,44 @@ public class EnterSmsFragment extends Fragment {
         btnEnterSms.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(etSms.getText().length()>0){
+                if(isOnline()) {
+                    if (etSms.getText().length() > 0) {
 
-                    /////////////////////////////////////////////////////////////////////////////
-                    ObjectAnimator buttonAnimator = ObjectAnimator.ofFloat(ivRocketEnterSms, "translationX",400f, 1000f);
-                    buttonAnimator.setDuration(1000);
-                    buttonAnimator.start();
-                    /////////////////////////////////////////////////////////////////////////////
-                    buttonAnimator.addListener(new Animator.AnimatorListener() {
-                        @Override
-                        public void onAnimationStart(Animator animator) {
+                        /////////////////////////////////////////////////////////////////////////////
+                        ObjectAnimator buttonAnimator = ObjectAnimator.ofFloat(ivRocketEnterSms, "translationX", 400f, 1000f);
+                        buttonAnimator.setDuration(1000);
+                        buttonAnimator.start();
+                        /////////////////////////////////////////////////////////////////////////////
+                        buttonAnimator.addListener(new Animator.AnimatorListener() {
+                            @Override
+                            public void onAnimationStart(Animator animator) {
 
-                        }
+                            }
 
-                        @Override
-                        public void onAnimationEnd(Animator animator) {
+                            @Override
+                            public void onAnimationEnd(Animator animator) {
 //                                Bundle bundle = new Bundle();
 //                                bundle.putString("role", "client");
 //                                NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
 //                                navController.navigate(R.id.nav_enter_sms, bundle);
-                            SendForRegSms sendForRegSms = new SendForRegSms();
-                            sendForRegSms.execute("sms"+"@.#"+bunPhone+"@.#"+etSms.getText().toString()+"@.#"+bunRole);
-                        }
+                                SendForRegSms sendForRegSms = new SendForRegSms();
+                                sendForRegSms.execute("sms" + "@.#" + bunPhone + "@.#" + etSms.getText().toString() + "@.#" + bunRole);
+                            }
 
-                        @Override
-                        public void onAnimationCancel(Animator animator) {
+                            @Override
+                            public void onAnimationCancel(Animator animator) {
 
-                        }
+                            }
 
-                        @Override
-                        public void onAnimationRepeat(Animator animator) {
+                            @Override
+                            public void onAnimationRepeat(Animator animator) {
 
-                        }
-                    });
-
-
-
+                            }
+                        });
+                    }
+                }
+                else{
+                    Toast.makeText(getContext(), "Перевірте інтернет", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -178,6 +188,7 @@ public class EnterSmsFragment extends Fragment {
             //pbListPhones.setVisibility(View.INVISIBLE);
          //   fromServer="ok";
             if(fromServer.length()>0 && !fromServer.equals("no")){
+            //    Toast.makeText(getContext(), "успех", Toast.LENGTH_SHORT).show();
                 if(fromServer.contains("@.#")){
                     String[] str = fromServer.split("@.#");
                     editor = prefer.edit();
