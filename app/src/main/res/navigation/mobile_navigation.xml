@@ -33,6 +33,16 @@
         tools:layout="@layout/fragment_first_aid_indirect_cardiac_massage" />
 
     <fragment
+        android:id="@+id/nav_firstAid_fragment_bleeding"
+        android:name="encityproject.rightcodeit.com.encityproject.ui.firstAid.firstAidBleedingFragment"
+        tools:layout="@layout/fragment_first_aid_bleeding" />
+
+    <fragment
+        android:id="@+id/nav_firstAid_fragment_fractures"
+        android:name="encityproject.rightcodeit.com.encityproject.ui.firstAid.firstAidFracturesFragment"
+        tools:layout="@layout/fragment_first_aid_fractures" />
+
+    <fragment
         android:id="@+id/nav_weather"
         android:name="encityproject.rightcodeit.com.encityproject.ui.weatherData.WeatherFragment"
         android:label="@string/menu_weather"
