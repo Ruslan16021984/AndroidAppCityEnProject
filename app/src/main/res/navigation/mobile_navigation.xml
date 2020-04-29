@@ -23,9 +23,9 @@
         tools:layout="@layout/fragment_first_aid_algorithm" />
 
     <fragment
-    android:id="@+id/nav_firstAid_fragment_artificial_respiration"
-    android:name="encityproject.rightcodeit.com.encityproject.ui.firstAid.firstAidArtificialRespirationFragment"
-    tools:layout="@layout/fragment_first_aid_artificial_respiration" />
+        android:id="@+id/nav_firstAid_fragment_artificial_respiration"
+        android:name="encityproject.rightcodeit.com.encityproject.ui.firstAid.firstAidArtificialRespirationFragment"
+        tools:layout="@layout/fragment_first_aid_artificial_respiration" />
 
     <fragment
         android:id="@+id/nav_firstAid_fragment_indirect_cardiac_massage"
@@ -41,6 +41,38 @@
         android:id="@+id/nav_firstAid_fragment_fractures"
         android:name="encityproject.rightcodeit.com.encityproject.ui.firstAid.firstAidFracturesFragment"
         tools:layout="@layout/fragment_first_aid_fractures" />
+
+    <fragment
+        android:id="@+id/nav_firstAid_fragment_burns"
+        android:name="encityproject.rightcodeit.com.encityproject.ui.firstAid.firstAidBurnsFragment"
+        tools:layout="@layout/fragment_first_aid_burns" />
+
+    <fragment
+        android:id="@+id/nav_firstAid_fragment_fainting"
+        android:name="encityproject.rightcodeit.com.encityproject.ui.firstAid.firstAidFaintingFragment"
+        tools:layout="@layout/fragment_first_aid_fainting" />
+
+    <fragment
+        android:id="@+id/nav_firstAid_fragment_drowning_and_sunstroke"
+        android:name="encityproject.rightcodeit.com.encityproject.ui.firstAid.firstAidDrowningAndSunstrokeFragment"
+        tools:layout="@layout/fragment_first_aid_drowning_and_sunstroke" />
+
+    <fragment
+        android:id="@+id/nav_firstAid_fragment_hypothermia_and_frostbite"
+        android:name="encityproject.rightcodeit.com.encityproject.ui.firstAid.firstAidHypothermiaAndFrostbiteFragment"
+        tools:layout="@layout/fragment_first_aid_hypothermia_and_frostbite" />
+
+    <fragment
+        android:id="@+id/nav_firstAid_fragment_poisoning"
+        android:name="encityproject.rightcodeit.com.encityproject.ui.firstAid.firstAidPoisoningFragment"
+        tools:layout="@layout/fragment_first_aid_poisoning" />
+
+    <fragment
+        android:id="@+id/nav_firstAid_fragment_first_psychological_aid"
+        android:name="encityproject.rightcodeit.com.encityproject.ui.firstAid.firstAidFirstPsychologicalAidFragment"
+        tools:layout="@layout/fragment_first_aid_first_psychological_aid" />
+
+
 
     <fragment
         android:id="@+id/nav_weather"

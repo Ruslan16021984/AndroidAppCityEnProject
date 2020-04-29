@@ -20,7 +20,12 @@ public class firstAidFragment extends Fragment implements View.OnClickListener {
     private TextView tvIndirectCardiacMassage;
     private TextView tvBleeding;
     private TextView tvFractures;
-
+    private TextView tvBurns;
+    private TextView tvFainting;
+    private TextView tvDrowningAndSunstroke;
+    private TextView tvHypothermiaAndFrostbite;
+    private TextView tvPoisoning;
+    private TextView tvFirstPsychologicalAid;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -32,6 +37,12 @@ public class firstAidFragment extends Fragment implements View.OnClickListener {
         tvIndirectCardiacMassage = v.findViewById(R.id.tv_indirect_cardiac_massage);
         tvBleeding = v.findViewById(R.id.tv_bleeding);
         tvFractures = v.findViewById(R.id.tv_fractures);
+        tvBurns = v.findViewById(R.id.tv_burns);
+        tvFainting = v.findViewById(R.id.tv_fainting);
+        tvDrowningAndSunstroke = v.findViewById(R.id.tv_drowning_and_sunstroke);
+        tvHypothermiaAndFrostbite = v.findViewById(R.id.tv_hypothermia_and_frostbite);
+        tvPoisoning = v.findViewById(R.id.tv_poisoning);
+        tvFirstPsychologicalAid = v.findViewById(R.id.tv_first_psychological_aid);
 
 
         tvAlgorithm.setOnClickListener(this);
@@ -39,6 +50,12 @@ public class firstAidFragment extends Fragment implements View.OnClickListener {
         tvIndirectCardiacMassage.setOnClickListener(this);
         tvBleeding.setOnClickListener(this);
         tvFractures.setOnClickListener(this);
+        tvBurns.setOnClickListener(this);
+        tvFainting.setOnClickListener(this);
+        tvDrowningAndSunstroke.setOnClickListener(this);
+        tvHypothermiaAndFrostbite.setOnClickListener(this);
+        tvPoisoning.setOnClickListener(this);
+        tvFirstPsychologicalAid.setOnClickListener(this);
 
         return v;
     }
@@ -62,6 +79,25 @@ public class firstAidFragment extends Fragment implements View.OnClickListener {
             case (R.id.tv_fractures):
                 navController.navigate(R.id.nav_firstAid_fragment_fractures);
                 break;
+            case (R.id.tv_burns):
+                navController.navigate(R.id.nav_firstAid_fragment_burns);
+                break;
+            case (R.id.tv_fainting):
+                navController.navigate(R.id.nav_firstAid_fragment_fainting);
+                break;
+            case (R.id.tv_drowning_and_sunstroke):
+                navController.navigate(R.id.nav_firstAid_fragment_drowning_and_sunstroke);
+                break;
+            case (R.id.tv_hypothermia_and_frostbite):
+                navController.navigate(R.id.nav_firstAid_fragment_hypothermia_and_frostbite);
+                break;
+            case (R.id.tv_poisoning):
+                navController.navigate(R.id.nav_firstAid_fragment_poisoning);
+                break;
+            case (R.id.tv_first_psychological_aid):
+                navController.navigate(R.id.nav_firstAid_fragment_first_psychological_aid);
+                break;
         }
     }
 }
+
