@@ -22,7 +22,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:gravity="center"
-                android:text="Утопление и солнечный удар"
+                android:text="Первая психологическая помощь"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -31,16 +31,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:text="@string/drowning_and_sunstroke_1"
-                android:textColor="@color/white"
-                android:textSize="12dp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:gravity="center"
-                android:text="Первая помощь при утоплении"
+                android:text="\t На месте катастрофы:"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -49,80 +40,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:text="@string/drowning_and_sunstroke_2"
-                android:textColor="@color/white"
-                android:textSize="12dp" />
-
-
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="4dp"
-                app:cardCornerRadius="8dp"
-                app:cardUseCompatPadding="true">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="200dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/drowning_and_sunstroke_1" />
-
-            </android.support.v7.widget.CardView>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:gravity="center"
-                android:text="Извлеките пострадавшего из воды"
-                android:textColor="@color/white"
-                android:textSize="12dp" />
-
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="4dp"
-                app:cardCornerRadius="8dp"
-                app:cardUseCompatPadding="true">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="200dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/drowning_and_sunstroke_2" />
-
-            </android.support.v7.widget.CardView>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:gravity="center"
-                android:text="Проведите реанимационные мероприятия"
-                android:textColor="@color/white"
-                android:textSize="12dp" />
-
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="4dp"
-                app:cardCornerRadius="8dp"
-                app:cardUseCompatPadding="true">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="200dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/drowning_and_sunstroke_3" />
-
-            </android.support.v7.widget.CardView>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:gravity="center"
-                android:text="Уложите пострадавшего на бок, дождитесь специалистов"
+                android:text="@string/firstAid_fragment_first_psychological_aid_1"
                 android:textColor="@color/white"
                 android:textSize="12dp" />
 
@@ -130,79 +48,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:text="@string/drowning_and_sunstroke_3"
+                android:text="\t Дома, после случившегося:"
                 android:textColor="@color/white"
-                android:textSize="12dp" />
-
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="4dp"
-                app:cardCornerRadius="8dp"
-                app:cardUseCompatPadding="true">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="200dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/drowning_and_sunstroke_4" />
-
-            </android.support.v7.widget.CardView>
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:gravity="center"
-                android:text="Перенесите пострадавшего в тень"
-                android:textColor="@color/white"
-                android:textSize="12dp" />
-
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="4dp"
-                app:cardCornerRadius="8dp"
-                app:cardUseCompatPadding="true">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="200dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/drowning_and_sunstroke_5" />
-
-            </android.support.v7.widget.CardView>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:gravity="center"
-                android:text="Освободите его от одежды"
-                android:textColor="@color/white"
-                android:textSize="12dp" />
-
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="4dp"
-                app:cardCornerRadius="8dp"
-                app:cardUseCompatPadding="true">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="200dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/drowning_and_sunstroke_6" />
-
-            </android.support.v7.widget.CardView>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:gravity="center"
-                android:text="Сделайте охлаждающие компрессы"
+                android:text="@string/firstAid_fragment_first_psychological_aid_2"
                 android:textColor="@color/white"
                 android:textSize="12dp" />
 
