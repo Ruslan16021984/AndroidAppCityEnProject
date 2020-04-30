@@ -124,12 +124,12 @@ public class WorksInBasketAdapterTwoView extends RecyclerView.Adapter<RecyclerVi
                 TextView tvMyAsk= ve.findViewById(R.id.tvMyAsk);
                 Button btnQuickConfirm = ve.findViewById(R.id.btnQuickConfirm);
                 Button btnCancalByCompany = ve.findViewById(R.id.btnCancalByCompany);
-                btnQuickConfirm.setText("Виконати");
+                btnQuickConfirm.setText("В Дію");
                 Button btnQuickCancel = ve.findViewById(R.id.btnQuickCancel);
                 if(newOrClosed.equals("completed")){
                     btnQuickConfirm.setVisibility(View.INVISIBLE);
                 }
-                ImageView ivMessage = ve.findViewById(R.id.ivMessage);
+                Button ivMessage = ve.findViewById(R.id.ivMessage);
                 TextView tvMyAbout= ve.findViewById(R.id.tvMyAbout);
                 TextView tvMyDate1=ve.findViewById(R.id.tvMyDate1);
                 TextView tvMyDate2=ve.findViewById(R.id.tvMyDate2);

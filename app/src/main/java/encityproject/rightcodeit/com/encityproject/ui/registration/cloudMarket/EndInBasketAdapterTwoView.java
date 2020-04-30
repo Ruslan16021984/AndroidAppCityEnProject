@@ -139,7 +139,7 @@ public class EndInBasketAdapterTwoView extends RecyclerView.Adapter<RecyclerView
                 TextView tvMyStatus=ve.findViewById(R.id.tvMyStatus);
                 TextView tvMyTel=ve.findViewById(R.id.tvMyTel);
                 ImageView ivCall = ve.findViewById(R.id.imageViewCall);
-                ImageView ivMessage=ve.findViewById(R.id.ivMessage);
+                Button ivMessage=ve.findViewById(R.id.ivMessage);
 
                 if(caList.get(position).split("@.#")[3].equals("wait")){
                     tvMyStatus.setText("обробляється");

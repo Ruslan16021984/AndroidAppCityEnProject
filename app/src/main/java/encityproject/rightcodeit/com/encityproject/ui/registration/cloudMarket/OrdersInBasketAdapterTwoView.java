@@ -123,7 +123,7 @@ public class OrdersInBasketAdapterTwoView extends RecyclerView.Adapter<RecyclerV
               /*  if(newOrClosed.equals("completed")){
                     btnQuickConfirm.setVisibility(View.INVISIBLE);
                 }*/
-                ImageView ivMessage = ve.findViewById(R.id.ivMessage);
+                Button ivMessage = ve.findViewById(R.id.ivMessage);
                 TextView tvMyAbout= ve.findViewById(R.id.tvMyAbout);
                 TextView tvMyComp=ve.findViewById(R.id.tvMyComp);
                 TextView tvMyDate1=ve.findViewById(R.id.tvMyDate1);

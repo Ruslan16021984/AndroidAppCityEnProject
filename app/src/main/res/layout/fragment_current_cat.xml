@@ -156,8 +156,8 @@
                     android:ems="10"
                     android:fontFamily="sans-serif-condensed"
                     android:inputType="textMultiLine"
-                    android:maxLength="180"
-                    android:maxLines="5"
+                    android:maxLength="500"
+                    android:maxLines="10"
                     android:minLines="5"
                     android:padding="10dp"
                     android:text="" />
@@ -175,8 +175,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:text="Ви можете зробити швидке замовлення у цієї компанії"
-                    android:textColor="#8D8D8D"
+                    android:text="Ви можете зробити швидке замовлення у цієї компанії.\nПісля створення замовлення Вам буде доступно чат-листування"
+                    android:textColor="@color/white"
                     android:textSize="12sp" />
             </LinearLayout>
         </LinearLayout>

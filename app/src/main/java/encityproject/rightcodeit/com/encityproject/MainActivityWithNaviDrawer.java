@@ -33,6 +33,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.BufferedOutputStream;
 import java.io.IOException;
@@ -41,6 +42,7 @@ import java.io.ObjectInputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import encityproject.rightcodeit.com.encityproject.ui.registration.cloudMarket.InmakingBasketAdapter;
 import encityproject.rightcodeit.com.encityproject.ui.registration.cloudMarket.WorksInBasketAdapter;
@@ -51,6 +53,7 @@ public class MainActivityWithNaviDrawer extends AppCompatActivity {
     // private String ip = "192.168.1.46";
     private String ip = "35.232.178.112";
     // private String ip = "192.168.1.103";
+   // private String ip ="192.168.0.103";
 
     private AppBarConfiguration mAppBarConfiguration;
     private SharedPreferences prefer;
@@ -92,10 +95,16 @@ public class MainActivityWithNaviDrawer extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         listSMS=new ArrayList<>();
+/*
+
+        GetOferta getOferta = new GetOferta();
+        getOferta.execute("oferta");
+*/
+
 
         categoryList=new ArrayList<>();
         prefer=getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
-
+     //   Toast.makeText(this, prefer.getString("auth2",""), Toast.LENGTH_SHORT).show();
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
         /*navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -183,6 +192,10 @@ public class MainActivityWithNaviDrawer extends AppCompatActivity {
                     nav_work_basket.setVisible(false);
                 }
                 else if(prefer.getString("role", "").equals("seller")){
+                    MenuItem nav_auth_client = menuNav.findItem(R.id.nav_auth_client_fragment);
+                    nav_auth_client.setVisible(false);
+                    MenuItem nav_basket = menuNav.findItem(R.id.nav_basket_fragment);
+                    nav_basket.setVisible(false);
                     Bundle bundle = new Bundle();
                     bundle.putString("role", prefer.getString("role",""));
                     bundle.putString("phone", prefer.getString("phone",""));
@@ -411,4 +424,50 @@ public class MainActivityWithNaviDrawer extends AppCompatActivity {
 
         }
     }
+
+    class GetOferta extends AsyncTask<String, Void, Socket> {
+        private String linkCheckVApp = "myNull";
+        private Socket socket;
+        private PrintWriter pw = null;
+        private InputStream is = null;
+        private String fromServer="";
+
+        @Override
+        protected Socket doInBackground(String... params) {
+
+            PrintWriter pw;
+            try {
+                socket = new Socket(ip, port);
+
+                pw = new PrintWriter(new BufferedOutputStream(socket.getOutputStream()));
+                pw.write(params[0] + "@.#" + linkCheckVApp + "\n");
+                pw.flush();
+
+                is = socket.getInputStream();
+                Scanner sc = new Scanner(is);
+                fromServer = sc.nextLine();
+
+                is.close();
+            } catch (IOException e) {
+                //e.printStackTrace();
+                Log.d("send phone fo reg", e.getMessage());
+            }
+            finally {
+
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Socket socket) {
+            super.onPostExecute(socket);
+            //pbListPhones.setVisibility(View.INVISIBLE);
+            if(fromServer!=null){
+                Toast.makeText(getApplicationContext(), fromServer, Toast.LENGTH_SHORT).show();
+            }
+
+        }
+    }
+
 }

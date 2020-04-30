@@ -47,7 +47,7 @@ public class OneNewsFragment extends Fragment {
             String imgPathOneNews = fromBundle.split("@")[3];
                         Picasso.get()
                     .load(imgPathOneNews)
-                    .resize(200, 200)
+                    .resize(800, 600)
                     .centerCrop()
                     .into(ivOneNews);
             tvLinkSite.setText("Джерело - "+fromBundle.split("@")[4]);

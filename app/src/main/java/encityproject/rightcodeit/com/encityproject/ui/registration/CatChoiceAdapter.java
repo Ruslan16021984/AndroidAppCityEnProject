@@ -166,7 +166,7 @@ public class CatChoiceAdapter extends RecyclerView.Adapter<CatChoiceAdapter.View
                         }
                     }
                 }
-                Toast.makeText(context, "clck: " + catMod, Toast.LENGTH_SHORT).show();
+             //   Toast.makeText(context, "clck: " + catMod, Toast.LENGTH_SHORT).show();
             }
 
             @Override public void onLongClickItem(int pos) {

@@ -134,7 +134,7 @@ public class InmakingBasketAdapterTwoView extends RecyclerView.Adapter<RecyclerV
                 TextView tvMyStatus=ve.findViewById(R.id.tvMyStatus);
                 TextView tvMyTel=ve.findViewById(R.id.tvMyTel);
                 ImageView ivCall = ve.findViewById(R.id.imageViewCall);
-                ImageView ivMessage=ve.findViewById(R.id.ivMessage);
+                Button ivMessage=ve.findViewById(R.id.ivMessage);
 
                 if(caList.get(position).split("@.#")[4].equals("completed")){
                     btnQuickConfirm.setVisibility(View.INVISIBLE);

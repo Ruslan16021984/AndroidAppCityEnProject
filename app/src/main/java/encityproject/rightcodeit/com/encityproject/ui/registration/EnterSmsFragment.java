@@ -49,6 +49,7 @@ public class EnterSmsFragment extends Fragment {
    // private String ip = "192.168.1.46";
     private String ip = "35.232.178.112";
    // private String ip = "192.168.1.103";
+    //private String ip = "192.168.0.103";
     private Button btnEnterSms;
     private EditText etSms;
     private Bundle bundle;

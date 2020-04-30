@@ -287,6 +287,7 @@ public class TotalFragment extends Fragment {
             //fromServer="ok";
             if(fromServer.length()>4){
                 editor.putString("auth2", fromServer);
+                editor.apply();
                 setHasOptionsMenu(true);
                 NavigationView navigationView = getActivity().findViewById(R.id.nav_view);
                 Menu menuNav = navigationView.getMenu();
