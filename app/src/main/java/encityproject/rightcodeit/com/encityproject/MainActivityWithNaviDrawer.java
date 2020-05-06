@@ -104,7 +104,9 @@ public class MainActivityWithNaviDrawer extends AppCompatActivity {
 
         categoryList=new ArrayList<>();
         prefer=getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
-     //   Toast.makeText(this, prefer.getString("auth2",""), Toast.LENGTH_SHORT).show();
+      // prefer.edit().clear().commit();
+
+        //   Toast.makeText(this, prefer.getString("auth2",""), Toast.LENGTH_SHORT).show();
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
 

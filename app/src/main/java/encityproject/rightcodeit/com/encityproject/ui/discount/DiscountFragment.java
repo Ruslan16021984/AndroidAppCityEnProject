@@ -53,8 +53,8 @@ public class DiscountFragment extends Fragment {
     private MapView mMapView;
     private MapController mMapController;
     private int port = 4656;
-    //private String ip = "192.168.1.46";
-    private String ip = "35.232.178.112";
+    private String ip = "192.168.1.46";
+    //private String ip = "35.232.178.112";
     private ArrayList<Discount> alDisc;
     private ListView listView;
     private ProgressBar pbDisc;
@@ -249,7 +249,7 @@ public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
                 Log.d("DISC ", listDisc.get(i));
                 alDisc.add(new Discount(listDisc.get(i).split(";")[0],listDisc.get(i).split(";")[1],listDisc.get(i).split(";")[2],
                         listDisc.get(i).split(";")[3], listDisc.get(i).split(";")[4],listDisc.get(i).split(";")[5],
-                        listDisc.get(i).split(";")[6],listDisc.get(i).split(";")[7]));
+                        listDisc.get(i).split(";")[6],listDisc.get(i).split(";")[7],listDisc.get(i).split(";")[8]));
             }
 //data111,43,23
             return null;
@@ -282,7 +282,8 @@ public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
                                         alDisc.get(position).getImgPath() + "@" +
                                         alDisc.get(position).getDescription()+"@" +
                                         alDisc.get(position).getStartTime()+"@" +
-                                        alDisc.get(position).getEndTime());
+                                        alDisc.get(position).getEndTime()+"@"+
+                                        alDisc.get(position).getPhone());
 
             //            Toast.makeText(getActivity(), arrayOfDiscount.getArrayOfDiscount().get(position).getDescription() + " " + (position + 1), Toast.LENGTH_LONG).show();
 

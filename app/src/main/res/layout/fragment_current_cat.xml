@@ -7,6 +7,11 @@
     android:background="#3D3D3D"
     tools:context=".ui.registration.AuthCompanyFragment">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -200,5 +205,5 @@
 
 
     </android.support.constraint.ConstraintLayout>
-
+    </ScrollView>
 </FrameLayout>

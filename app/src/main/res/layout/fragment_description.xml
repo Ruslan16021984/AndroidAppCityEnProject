@@ -18,22 +18,47 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <android.support.v7.widget.CardView
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardUseCompatPadding="true"
-                app:cardCornerRadius="8dp"
-                android:layout_margin="8dp">
-                <ImageView
-                    android:id="@+id/iv_item_discount_description"
-                    android:layout_width="match_parent"
-                    android:layout_height="300dp"
-                    android:layout_weight="0.4"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/city"
-                    />
+                android:layout_height="wrap_content">
 
-            </android.support.v7.widget.CardView>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardUseCompatPadding="true"
+                    app:cardCornerRadius="8dp"
+                    android:layout_margin="8dp">
+                    <ImageView
+                        android:id="@+id/iv_item_discount_description"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:layout_weight="0.4"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/city"
+                        />
+
+                </android.support.v7.widget.CardView>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|left"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/button_rounded"
+                    android:padding="10dp">
+                    <TextView
+                        android:id="@+id/tv_price_and_discount_description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="dfssds"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorPrimary"/>
+                </LinearLayout>
+            </FrameLayout>
 
 
 
@@ -60,8 +85,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
-                            android:layout_marginTop="20dp"
+                            android:layout_marginTop="0dp"
                             android:layout_weight="0.9"
+                            android:layout_gravity="center"
                             android:text="Назва товару"
                             android:textColor="#FFFFFF"
                             android:textSize="22sp"
@@ -71,9 +97,10 @@
                             android:id="@+id/iv_mark_description"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:paddingTop="10dp"
+                            android:paddingTop="0dp"
                             android:layout_gravity="center"
                             android:layout_weight="0.1"
+                            android:layout_marginRight="16dp"
                             app:srcCompat="@drawable/mark" />
 
                     </LinearLayout>
@@ -81,28 +108,46 @@
                     <FrameLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
-                        <TextView
+                        <!--<TextView
                             android:id="@+id/tv_price_and_discount_description"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
-                            android:layout_marginTop="10dp"
+                            android:layout_marginTop="0dp"
                             android:text="Ціна і знижка"
                             android:layout_gravity="left"
                             android:textColor="@color/colorPrimary"
-                            android:textSize="22sp" />
+                            android:textSize="22sp" />-->
                         <TextView
                             android:id="@+id/tv_last_time_desc"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
-                            android:layout_marginTop="10dp"
-                            android:paddingRight="5sp"
+                            android:layout_marginTop="0dp"
+                            android:paddingRight="16dp"
                             android:text="Часу"
-                            android:layout_gravity="right|bottom"
+                            android:layout_gravity="left|center"
                             android:textColor="#DA0000"
                             android:textSize="14sp" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="right"
+                            android:layout_marginRight="16dp">
 
+                            <TextView
+                                android:id="@+id/tv_phone_sel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/white"
+                                android:layout_gravity="center"
+                                android:text="235223632"/>
+                            <ImageView
+                                android:id="@+id/iv_call_sel"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:src="@drawable/phonecall"/>
+                        </LinearLayout>
                     </FrameLayout>
 
                     <ScrollView
@@ -111,15 +156,23 @@
                         android:layout_marginStart="16dp"
                         android:paddingTop="16dp">
 
-                        <TextView
-                            android:id="@+id/tv_description_description"
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="bottom"
-                            android:paddingRight="16dp"
-                            android:text="Опис товару"
-                            android:textColor="#FFFFFF"
-                            android:textSize="18sp" />
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+                            <TextView
+                                android:id="@+id/tv_description_description"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="bottom"
+                                android:paddingRight="16dp"
+                                android:text="Опис товару"
+                                android:textColor="#FFFFFF"
+                                />
+
+
+                        </LinearLayout>
+
                     </ScrollView>
 
                 </LinearLayout>

@@ -1,10 +1,12 @@
 package encityproject.rightcodeit.com.encityproject.ui.discount;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.Icon;
 import android.media.Image;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -34,8 +36,8 @@ public class DescriptionFragment extends Fragment {
     private TextView tvNameGoodsDescription;
     private TextView tvPriceAndDiscountDescription;
     private ImageView ivItemDiscountDescription;
-    private ImageView ivMarkDescription;
-    private TextView tvLastTimeDesc;
+    private ImageView ivMarkDescription, ivCallSel;
+    private TextView tvLastTimeDesc, tvPhoheSel;
     private MapController mMapController;
 
     public DescriptionFragment() {
@@ -54,6 +56,8 @@ public class DescriptionFragment extends Fragment {
         ivItemDiscountDescription = (ImageView) v.findViewById(R.id.iv_item_discount_description);
         ivMarkDescription = (ImageView) v.findViewById(R.id.iv_mark_description);
         tvLastTimeDesc = v.findViewById(R.id.tv_last_time_desc);
+        tvPhoheSel=v.findViewById(R.id.tv_phone_sel);
+        ivCallSel=v.findViewById(R.id.iv_call_sel);
         Bundle bundle = this.getArguments();
 
 
@@ -88,6 +92,29 @@ public class DescriptionFragment extends Fragment {
             else {
                 tvPriceAndDiscountDescription.setText("");
             }
+
+            tvPhoheSel.setText("+380"+fromBundle.split("@")[8]);
+            ivCallSel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse
+                            ("tel: " +"+380"+fromBundle.split("@")[8]));
+                    if (intent != null) {
+                        startActivity(intent);
+                    }
+                }
+            });
+            tvPhoheSel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse
+                            ("tel: " +"+380"+fromBundle.split("@")[8]));
+                    if (intent != null) {
+                        startActivity(intent);
+                    }
+                }
+            });
+
 
             Picasso.get()
                     .load(imgPathDescription)

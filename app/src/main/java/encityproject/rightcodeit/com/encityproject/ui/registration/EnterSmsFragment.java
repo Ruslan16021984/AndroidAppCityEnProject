@@ -33,8 +33,10 @@ import androidx.navigation.Navigation;
 import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectInputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import encityproject.rightcodeit.com.encityproject.MainActivityWithNaviDrawer;
@@ -46,8 +48,8 @@ import encityproject.rightcodeit.com.encityproject.R;
 public class EnterSmsFragment extends Fragment {
 
     private int port = 4656;
-   // private String ip = "192.168.1.46";
-    private String ip = "35.232.178.112";
+    private String ip = "192.168.1.46";
+ //   private String ip = "35.232.178.112";
    // private String ip = "192.168.1.103";
     //private String ip = "192.168.0.103";
     private Button btnEnterSms;
@@ -126,7 +128,7 @@ public class EnterSmsFragment extends Fragment {
 //                                NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
 //                                navController.navigate(R.id.nav_enter_sms, bundle);
                                 SendForRegSms sendForRegSms = new SendForRegSms();
-                                sendForRegSms.execute("sms" + "@.#" + bunPhone + "@.#" + etSms.getText().toString() + "@.#" + bunRole);
+                                sendForRegSms.execute("sms1" + "@.#" + bunPhone + "@.#" + etSms.getText().toString() + "@.#" + bunRole);
                             }
 
                             @Override
@@ -167,11 +169,20 @@ public class EnterSmsFragment extends Fragment {
                 pw.write(params[0] + "@.#" + linkCheckVApp + "\n");
                 pw.flush();
 
-                is = socket.getInputStream();
+                /*is = socket.getInputStream();
                 Scanner sc = new Scanner(is);
                 fromServer = sc.nextLine();
 
-                is.close();
+                is.close();*/
+                ObjectInputStream objectInput = new ObjectInputStream(socket.getInputStream());
+                try {
+                    Object object = objectInput.readUnshared();
+                    fromServer =  (String) object;
+                    Log.d("fromSMS1", fromServer);
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                objectInput.close();
             } catch (IOException e) {
                 //e.printStackTrace();
                 Log.d("Ex GetWeather", e.getMessage());
@@ -189,6 +200,7 @@ public class EnterSmsFragment extends Fragment {
             //pbListPhones.setVisibility(View.INVISIBLE);
          //   fromServer="ok";
             if(fromServer.length()>0 && !fromServer.equals("no")){
+                Log.d("sms request", fromServer);
             //    Toast.makeText(getContext(), "успех", Toast.LENGTH_SHORT).show();
                 if(fromServer.contains("@.#")){
                     String[] str = fromServer.split("@.#");
