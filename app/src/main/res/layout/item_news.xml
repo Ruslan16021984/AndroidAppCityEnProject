@@ -5,16 +5,15 @@
     android:id="@+id/cardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardUseCompatPadding="true"
-    app:cardCornerRadius="8dp"
     android:layout_margin="16dp"
+    app:cardCornerRadius="8dp"
+    app:cardUseCompatPadding="true"
     tools:context=".MainActivity">
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        tools:ignore="MissingConstraints"
-        >
+        tools:ignore="MissingConstraints">
 
         <ImageView
             android:id="@+id/iv_item_news"
@@ -28,38 +27,38 @@
 
             >
 
-                <TextView
-                    android:id="@+id/tv_title_news"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="top"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:background="#99404040"
-                    android:gravity="top"
-                    android:paddingLeft="20sp"
-                    android:paddingTop="10sp"
-                    android:paddingRight="20sp"
-                    android:paddingBottom="10sp"
-                    android:text="Назва товару"
-                    android:textColor="#ffffff"
-                    android:textSize="16sp"  />
+            <TextView
+                android:id="@+id/tv_title_news"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="#99404040"
+                android:gravity="top"
+                android:paddingLeft="20sp"
+                android:paddingTop="10sp"
+                android:paddingRight="20sp"
+                android:paddingBottom="10sp"
+                android:text="Назва товару"
+                android:textColor="#ffffff"
+                android:textSize="16sp" />
 
-                <TextView
-                    android:id="@+id/tv_date_and_time_news"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:background="#99404040"
-                    android:gravity="center"
-                    android:paddingLeft="20sp"
-                    android:paddingTop="10sp"
-                    android:paddingRight="20sp"
-                    android:paddingBottom="10sp"
-                    android:textColor="#ffffff"
-                    android:textSize="12sp" />
+            <TextView
+                android:id="@+id/tv_date_and_time_news"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="#99404040"
+                android:gravity="center"
+                android:paddingLeft="20sp"
+                android:paddingTop="10sp"
+                android:paddingRight="20sp"
+                android:paddingBottom="10sp"
+                android:textColor="#ffffff"
+                android:textSize="12sp" />
 
         </FrameLayout>
 

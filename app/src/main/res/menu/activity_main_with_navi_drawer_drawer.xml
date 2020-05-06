@@ -4,6 +4,7 @@
     tools:showIn="navigation_view"
     android:id="@+id/mn1">
 
+
     <group
         android:id="@+id/rg1"
         android:checkableBehavior="single">
@@ -32,6 +33,11 @@
             android:id="@+id/nav_helsi"
             android:icon="@drawable/helsi"
             android:title="@string/menu_helsi" />
+
+        <item
+            android:id="@+id/nav_firstAid"
+            android:icon="@drawable/first_aid"
+            android:title="@string/menu_firstAid" />
 
         <item
             android:id="@+id/nav_news"
