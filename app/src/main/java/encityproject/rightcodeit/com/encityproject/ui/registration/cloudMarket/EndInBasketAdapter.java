@@ -5,8 +5,12 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.Image;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -18,6 +22,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import java.io.BufferedOutputStream;
 import java.io.IOException;
@@ -36,9 +43,9 @@ public class EndInBasketAdapter extends RecyclerView.Adapter<EndInBasketAdapter.
     private ArrayList<String> caList;
     private String newOrClosed;
     private int port = 4656;
-    private String ip = "192.168.1.46";
+    //private String ip = "192.168.1.46";
     //private String ip = "192.168.1.103";
-    //private String ip = "35.232.178.112";
+    private String ip = "35.232.178.112";
     private SharedPreferences prefer;
     private SharedPreferences.Editor editor;
     private static final String APP_PREFERENCES = "ensettings";
@@ -59,14 +66,43 @@ public class EndInBasketAdapter extends RecyclerView.Adapter<EndInBasketAdapter.
         return new EndInBasketAdapter.ViewHolder(v);
     }
 
+    public boolean isOnline() {
+        ConnectivityManager cm =
+                (ConnectivityManager) activity.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
+
+
     @Override public void onBindViewHolder(EndInBasketAdapter.ViewHolder holder, int position) {
         //numorder0, description1, telclient2, status3, createdate4, enddate5
         //numorder0, description1, namecompany2, telseller3, status4, createdate5, enddate6---
         /*final CategoryModel catMod = caList.get(position);*/
+        //numorder0, description1, telclient2, status3, createdate4, enddate5, ratefromclient6, ratefromseller7
         final String catMod = caList.get(position);
-        holder.tvNumOrder.setText(catMod.split("@.#")[0]);
-        holder.tvAboutOrder.setText(catMod.split("@.#")[1]);
-        holder.tvStatus.setText(catMod.split("@.#")[4].substring(0,19));
+        if(catMod.split("@.#")[0].length()>8) {
+            holder.tvNumOrder.setText(catMod.split("@.#")[0].substring(5, 13));
+        }
+        else{
+            holder.tvNumOrder.setText(catMod.split("@.#")[0]);
+        }        holder.tvAboutOrder.setText(catMod.split("@.#")[1]);
+        //holder.tvStatus.setText(catMod.split("@.#")[3]);
+
+        if(catMod.split("@.#")[3].equals("wait")){
+            holder.tvStatus.setText("обробляється");
+        }
+        else if(catMod.split("@.#")[3].equals("open")){
+            holder.tvStatus.setText("в роботі");
+        }
+        else if(catMod.split("@.#")[3].equals("canceled")){
+            holder.tvStatus.setText("вiдмінено");
+        }
+        else if(catMod.split("@.#")[3].equals("completed")){
+            holder.tvStatus.setText("виконано");
+        }
+        holder.tvStartOrder.setText(catMod.split("@.#")[4].substring(0,16));
+        holder.tvEndOrder.setText(catMod.split("@.#")[5].substring(0,16));
+
 
         /*switch (position) {
             case 0:
@@ -142,32 +178,55 @@ public class EndInBasketAdapter extends RecyclerView.Adapter<EndInBasketAdapter.
                 //numorder0, description1, namecompany2, telseller3, status4, createdate5, enddate6
                 final AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 LayoutInflater inflater = (LayoutInflater) context.getSystemService( Context.LAYOUT_INFLATER_SERVICE );
-                View ve = inflater.inflate( R.layout.dialog_my_order, null );
+                View ve = inflater.inflate( R.layout.dialog_my_order_seller, null );
                 //View ve = (LinearLayout) getLayoutInflater().inflate(R.layout.dialog_to_order_company, null);
                 TextView tvMyAsk= ve.findViewById(R.id.tvMyAsk);
                 Button btnQuickConfirm = ve.findViewById(R.id.btnQuickConfirm);
                 btnQuickConfirm.setVisibility(View.INVISIBLE);
                 Button btnQuickCancel = ve.findViewById(R.id.btnQuickCancel);
-                if(newOrClosed.equals("completed")){
+                Button btnCancalByCompany=ve.findViewById(R.id.btnCancalByCompany);
+
+                btnCancalByCompany.setVisibility(View.GONE);
+                btnQuickConfirm.setVisibility(View.GONE);
+                /*if(newOrClosed.equals("completed")){
                     btnQuickConfirm.setVisibility(View.INVISIBLE);
-                }
+                }*/
+
                 TextView tvMyAbout= ve.findViewById(R.id.tvMyAbout);
-                TextView tvMyComp=ve.findViewById(R.id.tvMyComp);
                 TextView tvMyDate1=ve.findViewById(R.id.tvMyDate1);
                 TextView tvMyDate2=ve.findViewById(R.id.tvMyDate2);
                 TextView tvMyStatus=ve.findViewById(R.id.tvMyStatus);
                 TextView tvMyTel=ve.findViewById(R.id.tvMyTel);
                 ImageView ivCall = ve.findViewById(R.id.imageViewCall);
-                //numorder0, description1, telclient2, status3, createdate4, enddate5
+                ImageView ivMessage=ve.findViewById(R.id.ivMessage);
 
-                tvMyAsk.setText(tvMyAsk.getText()+catMod.split("@.#")[0]);
-                tvMyStatus.setText(tvMyStatus.getText()+": "+catMod.split("@.#")[3]);
+                if(catMod.split("@.#")[3].equals("wait")){
+                    tvMyStatus.setText("обробляється");
+                }
+                else if(catMod.split("@.#")[3].equals("open")){
+                    tvMyStatus.setText("в роботі");
+                }
+                else if(catMod.split("@.#")[3].equals("canceled")){
+                    tvMyStatus.setText("відмінено");
+                }
+                else if(catMod.split("@.#")[3].equals("completed")){
+                    tvMyStatus.setText("виконано");
+                }
+
+                //numorder0, description1, telclient2, status3, createdate4, enddate5
+                if(catMod.split("@.#")[0].length()>8) {
+                    tvMyAsk.setText(tvMyAsk.getText()+catMod.split("@.#")[0].substring(5, 13));
+                }
+                else{
+                    tvMyAsk.setText(tvMyAsk.getText()+catMod.split("@.#")[0]);
+                }
+               // tvMyAsk.setText(tvMyAsk.getText()+catMod.split("@.#")[0]);
+                //tvMyStatus.setText(tvMyStatus.getText()+": "+catMod.split("@.#")[3]);
                 tvMyAbout.setText(catMod.split("@.#")[1]);
-                tvMyComp.setVisibility(View.INVISIBLE);
                 // tvMyComp.setText(tvMyComp.getText()+": "+catMod.split("@.#")[2]);
-                tvMyDate1.setText(tvMyDate1.getText()+": "+catMod.split("@.#")[4].substring(0,19));
-                tvMyDate2.setText(tvMyDate2.getText()+": "+catMod.split("@.#")[5].substring(0,19));
-                tvMyTel.setText("Телефон клієнта: "+"+380"+catMod.split("@.#")[2]);
+                tvMyDate1.setText(catMod.split("@.#")[4].substring(0,19));
+                tvMyDate2.setText(catMod.split("@.#")[5].substring(0,19));
+                tvMyTel.setText("+380"+catMod.split("@.#")[2]);
 
 
                 builder
@@ -175,6 +234,23 @@ public class EndInBasketAdapter extends RecyclerView.Adapter<EndInBasketAdapter.
                         .setCancelable(false)
                 ;
                 final AlertDialog alert2 = builder.create();
+
+                ivMessage.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (isOnline()) {
+                            alert2.dismiss();
+                            Bundle bundle = new Bundle();
+                            bundle.putString("numorder", catMod.split("@.#")[0]);
+                            bundle.putString("aboutorder", catMod.split("@.#")[1]);
+                            NavController navController = Navigation.findNavController(activity, R.id.nav_host_fragment);
+                            navController.navigate(R.id.nav_message_company_fragment, bundle);
+                        }
+                        else{
+                            Toast.makeText(context, "Перевірте інтернет", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
 
                 ivCall.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -190,10 +266,16 @@ public class EndInBasketAdapter extends RecyclerView.Adapter<EndInBasketAdapter.
                 btnQuickConfirm.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        alert2.dismiss();
-                        EndByComp endByComp = new EndByComp();
-                        endByComp.execute("endbycomp"+"@.#"+prefer.getString("auth","")+"@.#"+prefer.getString("auth2","")+
-                                "@.#"+catMod.split("@.#")[0]+"@.#"+"5");
+                        if(isOnline()) {
+                            alert2.dismiss();
+                            EndByComp endByComp = new EndByComp();
+                            endByComp.execute("endbycomp" + "@.#" + prefer.getString("auth", "") + "@.#" + prefer.getString("auth2", "") +
+                                    "@.#" + catMod.split("@.#")[0] + "@.#" + "5");
+                        }
+                        else{
+                            Toast.makeText(context, "Перевірте інтернет", Toast.LENGTH_SHORT).show();
+                        }
+
                     }
                 });
 
@@ -225,7 +307,7 @@ public class EndInBasketAdapter extends RecyclerView.Adapter<EndInBasketAdapter.
 
         private LinearLayout lytContainer;
         private ImageView iv;
-        private TextView tvNumOrder, tvStatus, tvAboutOrder;
+        private TextView tvNumOrder, tvStatus, tvAboutOrder, tvStartOrder, tvEndOrder;
         private EndInBasketAdapter.ItemClickListener mListener;
 
         public ViewHolder(View itemView) {
@@ -235,7 +317,8 @@ public class EndInBasketAdapter extends RecyclerView.Adapter<EndInBasketAdapter.
             tvNumOrder = (TextView) itemView.findViewById(R.id.tvNumOrder);
             tvAboutOrder = itemView.findViewById(R.id.tvAboutOrder);
             tvStatus=itemView.findViewById(R.id.tvStatus);
-
+            tvStartOrder=itemView.findViewById(R.id.tvStartOrder);
+            tvEndOrder=itemView.findViewById(R.id.tvEndOrder);
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
         }

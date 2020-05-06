@@ -61,7 +61,7 @@ public class AuthCompanyFragment extends Fragment {
             tvAuthPhone.setText(authPhone);
             tvAuthAbout.setText(authAbout);
             if(prefer.contains("secondphone")){
-                tvAuthPhone.setText(tvAuthPhone.getText().toString()+", +380"+prefer.getString("secondphone","")+"(для клієнтів)");
+                tvAuthPhone.setText("+380"+tvAuthPhone.getText().toString()+"\n"+"+380"+prefer.getString("secondphone","")+"(для клієнтів)");
             }
         }
         btnAuthClose=v.findViewById(R.id.btnAuthClose);

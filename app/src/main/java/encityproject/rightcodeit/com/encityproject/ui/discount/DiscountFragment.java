@@ -298,7 +298,9 @@ public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 
             }
             else{
-                Toast.makeText(getContext(), "Виникли технічні помилки. Вже вирішуемо", Toast.LENGTH_SHORT).show();
+                tvFDisc.setText("Ще немає знижок");
+                tvFDisc.setVisibility(View.VISIBLE);
+               // Toast.makeText(getContext(), "Виникли технічні помилки. Вже вирішуемо", Toast.LENGTH_SHORT).show();
             }
         }
     }

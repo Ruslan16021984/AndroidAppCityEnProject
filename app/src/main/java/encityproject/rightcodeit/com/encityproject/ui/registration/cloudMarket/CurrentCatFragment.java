@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -48,9 +50,9 @@ import encityproject.rightcodeit.com.encityproject.ui.registration.CatChoiceAdap
 public class CurrentCatFragment extends Fragment {
 
     private int port = 4656;
-    private String ip = "192.168.1.46";
+    //private String ip = "192.168.1.46";
     //private String ip = "192.168.1.103";
-    //private String ip = "35.232.178.112";
+    private String ip = "35.232.178.112";
     private String currCopm;
     private TextView tvSingleNameComp, tvAboutCur, tvPhoneCur;
     private ImageView ivCall;
@@ -62,6 +64,14 @@ public class CurrentCatFragment extends Fragment {
 
     public CurrentCatFragment() {
     }
+
+    public boolean isOnline() {
+        ConnectivityManager cm =
+                (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
+
 
 //companyname, about, phone
 
@@ -100,6 +110,7 @@ public class CurrentCatFragment extends Fragment {
             }
         });
 
+        if(isOnline()){
         btnBuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -125,17 +136,26 @@ public class CurrentCatFragment extends Fragment {
                     @Override
                     public void onClick(View view) {
                         if(prefer.contains("auth")){
-                            if(etQuickOrder.getText().length()>5){
+                            if(isOnline()){
+                            if(etQuickOrder.getText().length()>=5){
+                                String s = etQuickOrder.getText().toString();
+                                s=s.replace("\n", "\\n");
+                                Log.d("etOrder", s);
                                 alert2.dismiss();
                                 SendOrderToCompany sendOrderToCompany = new SendOrderToCompany();
-                                sendOrderToCompany.execute("tocomp"+"@.#"+prefer.getString("auth","")+
+                                sendOrderToCompany.execute("neworder"+"@.#"+prefer.getString("auth","")+
                                         "@.#"+prefer.getString("phone","")+
                                         "@.#"+currCopm.split("@.#")[2]+
-                                        "@.#"+etQuickOrder.getText().toString()
-                                        +"@.#"+bundle.getString("cat","").split("@.#")[0]);
+                                        "@.#"+s
+                                        +"@.#"+bundle.getString("cat","").split("@.#")[0]
+                                        +"@.#"+currCopm.split("@.#")[0]);
                             }
                             else{
                                 Toast.makeText(getContext(), "Мінімально 5 символів", Toast.LENGTH_SHORT).show();
+                            }
+                            }
+                            else {
+                                Toast.makeText(getContext(), "Перевірте інтернет", Toast.LENGTH_SHORT).show();
                             }
                         }
                         else {
@@ -159,6 +179,10 @@ public class CurrentCatFragment extends Fragment {
 
             }
         });
+        }
+        else{
+            Toast.makeText(getContext(), "Перевірте інтернет", Toast.LENGTH_SHORT).show();
+        }
 
         return v;
     }

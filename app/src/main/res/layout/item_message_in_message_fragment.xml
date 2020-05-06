@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginEnd="14dp"
+    android:layout_marginTop="14dp"
+    android:id="@+id/lytContainer"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+
+        <LinearLayout
+            android:id="@+id/llMessageMy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="3"
+            android:layout_marginLeft="3dp"
+            android:layout_gravity="right"
+            android:background="@drawable/sms_my_rounded_grey"
+            >
+
+            <TextView
+                android:id="@+id/tvMessageMy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="Привет как дела еать один ворпрос"
+                android:textColor="@color/gray"/>
+        </LinearLayout>
+
+    <!-- <LinearLayout
+         android:id="@+id/llComp"
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         android:orientation="horizontal"
+         android:layout_gravity="left"
+         android:paddingRight="80dp"
+         >
+         <LinearLayout
+             android:layout_width="30dp"
+             android:layout_height="30dp"
+             android:gravity="left">
+             <ImageView
+                 android:id="@+id/ivMessageComp"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:src="@drawable/company"
+                 android:background="@drawable/button_rounded_grey"/>
+         </LinearLayout>
+
+         <LinearLayout
+             android:id="@+id/llMessage"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:orientation="vertical"
+             android:layout_weight="3"
+             android:layout_marginLeft="3dp"
+             android:background="@drawable/sms_from_rounded_grey"
+             >
+
+             <TextView
+                 android:id="@+id/tvMessage"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_margin="5dp"
+                 android:text="Привет как дела еать один ворпрос"
+                 android:textColor="@color/gray"/>
+         </LinearLayout>
+     </LinearLayout>
+
+     <LinearLayout
+         android:id="@+id/llMy"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:orientation="horizontal"
+        android:layout_gravity="right"
+         android:paddingLeft="80dp"
+         >
+
+
+         <LinearLayout
+             android:id="@+id/llMessageMy"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:orientation="vertical"
+             android:layout_weight="3"
+             android:layout_marginLeft="3dp"
+             android:background="@drawable/sms_my_rounded_grey"
+             >
+
+             <TextView
+                 android:id="@+id/tvMessageMy"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_margin="5dp"
+                 android:text="Привет как дела еать один ворпрос"
+                 android:textColor="@color/gray"/>
+         </LinearLayout>
+     </LinearLayout>
+-->
+    <!--
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:gravity="center"
+            android:background="@color/dark_grey">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2">
+                <TextView
+                    android:id="@+id/tvNumOrder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:background="@drawable/button_rounded"
+                    android:layout_gravity="center"
+                    android:paddingLeft="3dp"
+                    android:paddingRight="3dp"
+                    android:text="23452"
+                    android:textColor="@color/colorPrimary"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
+                <TextView
+                    android:id="@+id/tvAboutOrder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:textSize="12sp"
+                    android:minLines="2"
+                    android:maxLines="2"
+                    android:singleLine="true"
+                    android:textColor="@color/white"
+                    tools:text="First test idspf supu xhy ioyopyoc yop gopo pyy y po yo iupy pou iy gut iyfo  i i otgi gti gt ioy 7y609 t o tiu"
+                    />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="right">
+                <TextView
+                    android:id="@+id/tvStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:maxLines="2"
+                    android:minLines="2"
+                    android:textColor="@color/white"
+                    tools:text="open"
+                    />
+            </LinearLayout>
+
+
+
+
+
+        </LinearLayout>
+    -->
+
+</FrameLayout>

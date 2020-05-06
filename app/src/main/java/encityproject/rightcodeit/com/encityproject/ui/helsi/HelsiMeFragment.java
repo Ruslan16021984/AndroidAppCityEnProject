@@ -22,6 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Toast;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -73,9 +74,13 @@ public class HelsiMeFragment extends Fragment {
                 return true;
             }
         });*/
-        warmUpChrome();
-        launchUrl();
-
+        if(isOnline()) {
+            warmUpChrome();
+            launchUrl();
+        }
+        else{
+            Toast.makeText(getContext(), "Перевірте інтернет", Toast.LENGTH_SHORT).show();
+        }
         return null;
     }
 
@@ -124,7 +129,7 @@ public class HelsiMeFragment extends Fragment {
         if (mCustomTabsOpened) {
             mCustomTabsOpened = false;
             NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
-            navController.navigate(R.id.nav_phonesBook, null);
+            navController.navigate(R.id.nav_weather, null);
         }
     }
 }

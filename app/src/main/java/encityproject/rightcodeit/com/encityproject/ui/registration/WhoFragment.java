@@ -3,6 +3,9 @@ package encityproject.rightcodeit.com.encityproject.ui.registration;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -13,6 +16,7 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.BounceInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -32,6 +36,12 @@ public class WhoFragment extends Fragment {
         // Required empty public constructor
     }
 
+    public boolean isOnline() {
+        ConnectivityManager cm =
+                (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -52,6 +62,7 @@ public class WhoFragment extends Fragment {
         btnSellerReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(isOnline()){
                 ObjectAnimator buttonAnimator = ObjectAnimator.ofFloat(ivRocket, "translationX",400f, 1000f);
                 buttonAnimator.setDuration(1000);
                 buttonAnimator.start();
@@ -79,6 +90,10 @@ public class WhoFragment extends Fragment {
 
                     }
                 });
+                }
+                else{
+                    Toast.makeText(getContext(), "Перевірте інтернет", Toast.LENGTH_SHORT).show();
+                }
 
             }
         });
@@ -86,6 +101,7 @@ public class WhoFragment extends Fragment {
         btnClientReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(isOnline()){
                 ObjectAnimator buttonAnimator = ObjectAnimator.ofFloat(ivRocket, "translationX",400f, 1000f);
                 buttonAnimator.setDuration(1000);
                 buttonAnimator.start();
@@ -113,6 +129,10 @@ public class WhoFragment extends Fragment {
 
                     }
                 });
+                }
+                else{
+                    Toast.makeText(getContext(), "Перевірте інтернет", Toast.LENGTH_SHORT).show();
+                }
 
             }
         });
