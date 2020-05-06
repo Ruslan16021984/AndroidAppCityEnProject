@@ -1,6 +1,7 @@
 package encityproject.rightcodeit.com.encityproject.ui.registration.cloudMarket;
 
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
@@ -20,15 +21,18 @@ import encityproject.rightcodeit.com.encityproject.ui.market.model.CategoryModel
 /**
  * A simple {@link Fragment} subclass.
  */
+@SuppressLint("ValidFragment")
 public class ServicesFragment extends Fragment {
     private CloudMarketAdapter adapter = null;
     private RecyclerView recyclerView;
     private ArrayList<CategoryModel> categoryList;
     private Activity activity;
     private Context context;
+    private ArrayList<String> catsListService;
 
-    public ServicesFragment() {
-        // Required empty public constructor
+
+    public ServicesFragment(ArrayList<String> catsListService) {
+        this.catsListService=catsListService;
     }
 
 
@@ -57,7 +61,8 @@ public class ServicesFragment extends Fragment {
         categoryList.add(new CategoryModel("6", "Інші", R.drawable.catother));
 
         //  adapter = new NewAdapter(context,activity ,categoryList);
-        adapter = new CloudMarketAdapter(context,activity ,categoryList);
+        /*adapter = new CloudMarketAdapter(context,activity ,categoryList);*/
+        adapter = new CloudMarketAdapter(context,activity ,catsListService);
 
         recyclerView.setAdapter(adapter);
         return view;

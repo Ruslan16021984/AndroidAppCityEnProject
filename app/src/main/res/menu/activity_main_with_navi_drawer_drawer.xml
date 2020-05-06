@@ -2,10 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view"
+    android:id="@+id/mn1">
 
-    >
 
-    <group android:checkableBehavior="single">
+    <group
+        android:id="@+id/rg1"
+        android:checkableBehavior="single">
         <item
             android:id="@+id/nav_phonesBook"
             android:icon="@drawable/phonecallempty"
@@ -17,8 +19,8 @@
         <item
             android:id="@+id/nav_discount"
             android:icon="@drawable/discount"
-            android:title="@string/menu_discount" />
-        <item
+            android:title="@string/menu_discount"/>
+        <!--<item
             android:id="@+id/nav_bench"
             android:icon="@drawable/bench"
             android:title="@string/menu_bench" />
@@ -26,7 +28,7 @@
             android:id="@+id/nav_busmap"
             android:icon="@drawable/bus"
             android:title="@string/menu_busmap" />
-
+-->
         <item
             android:id="@+id/nav_helsi"
             android:icon="@drawable/helsi"
@@ -43,10 +45,11 @@
             android:title="@string/menu_news" />
     </group>
 
-    <item android:title="Хочу більше">
-        <menu>
+
+    <group
+        android:id="@+id/gr2">
             <!--<item
-                android:id="@+id/nav_share"
+               android:id="@+id/nav_share"
                 android:icon="@drawable/ic_menu_share"
                 android:title="@string/menu_share" />-->
             <item
@@ -60,10 +63,25 @@
                 android:title="Моя компанія" />
 
             <item
+                android:id="@+id/nav_auth_client_fragment"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Мій профіль" />
+
+            <item
                 android:id="@+id/nav_entrance_market"
                 android:icon="@drawable/cloudmarket"
                 android:title="Віртуальний ринок" />
-        </menu>
-    </item>
+
+            <item
+                android:id="@+id/nav_basket_fragment"
+                android:icon="@drawable/cart"
+                android:title="Мої покупки" />
+
+            <item
+                android:id="@+id/nav_work_basket_fragment"
+                android:icon="@drawable/workbasket"
+                android:title="Моя робота" />
+
+    </group>
 
 </menu>

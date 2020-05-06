@@ -41,14 +41,14 @@ public class NewOrdersFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
 
         categoryList = new ArrayList<>();
-        categoryList.add(new CategoryModel("1", "Категория", R.drawable.build));
+        /*categoryList.add(new CategoryModel("1", "Категория", R.drawable.build));
         categoryList.add(new CategoryModel("2", "Категория", R.drawable.foods));
         categoryList.add(new CategoryModel("3", "Категория", R.drawable.service));
-        categoryList.add(new CategoryModel("4", "Категория", R.drawable.pharma));
+        categoryList.add(new CategoryModel("4", "Категория", R.drawable.catpharma));
         categoryList.add(new CategoryModel("5", "Категория", R.drawable.technic));
-        categoryList.add(new CategoryModel("6", "Категория", R.drawable.clothes));
+        categoryList.add(new CategoryModel("6", "Категория", R.drawable.clothes));*/
       //  adapter = new NewAdapter(context,activity ,categoryList);
-        adapter = new CloudMarketAdapter(context,activity ,categoryList);
+      //  adapter = new CloudMarketAdapter(context,activity ,categoryList);
 
         recyclerView.setAdapter(adapter);
         return view;

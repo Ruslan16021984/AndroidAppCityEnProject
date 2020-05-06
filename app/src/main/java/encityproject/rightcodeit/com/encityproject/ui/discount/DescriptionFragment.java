@@ -5,6 +5,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.Icon;
 import android.media.Image;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -22,6 +23,8 @@ import org.osmdroid.views.overlay.Marker;
 import java.sql.Timestamp;
 
 import encityproject.rightcodeit.com.encityproject.R;
+
+import static android.text.Layout.JUSTIFICATION_MODE_INTER_WORD;
 
 public class DescriptionFragment extends Fragment {
     private ArrayOfDiscount arrayOfDiscount;
@@ -62,6 +65,9 @@ public class DescriptionFragment extends Fragment {
             String lon = fromBundle.split("@")[3];
             String imgPathDescription = fromBundle.split("@")[4];
             tvDescription.setText(fromBundle.split("@")[5]);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                tvDescription.setJustificationMode(JUSTIFICATION_MODE_INTER_WORD);
+            }
             if((Timestamp.valueOf(fromBundle.split("@")[7]).getTime()-System.currentTimeMillis())/(1000*60*60*24)>1) {
                 tvLastTimeDesc.setText("Залишилось " + String.valueOf((Timestamp.valueOf(fromBundle.split("@")[7]).getTime()-System.currentTimeMillis()) / (1000 * 60 * 60 * 24)) + " днів");
             }
@@ -74,10 +80,10 @@ public class DescriptionFragment extends Fragment {
                 }
             }
             if(fromBundle.split("@")[1].split(",")[0].length()>0){
-                tvPriceAndDiscountDescription.setText(fromBundle.split("@")[1].split(",")[0]+" грн");
+                tvPriceAndDiscountDescription.setText("Ціна "+fromBundle.split("@")[1].split(",")[0]+" грн");
             }
             else if(fromBundle.split("@")[1].split(",")[1].length()>0){
-                tvPriceAndDiscountDescription.setText(fromBundle.split("@")[1].split(",")[1]+" %");
+                tvPriceAndDiscountDescription.setText("Знижка "+fromBundle.split("@")[1].split(",")[1]+" %");
             }
             else {
                 tvPriceAndDiscountDescription.setText("");
@@ -85,7 +91,7 @@ public class DescriptionFragment extends Fragment {
 
             Picasso.get()
                     .load(imgPathDescription)
-                    .resize(200, 200)
+                    .resize(600, 800)
                     .centerCrop()
                     .into(ivItemDiscountDescription);
 

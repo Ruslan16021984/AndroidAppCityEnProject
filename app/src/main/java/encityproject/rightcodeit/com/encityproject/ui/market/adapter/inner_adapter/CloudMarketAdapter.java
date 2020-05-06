@@ -2,6 +2,9 @@ package encityproject.rightcodeit.com.encityproject.ui.market.adapter.inner_adap
 
 import android.app.Activity;
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -24,16 +27,29 @@ import encityproject.rightcodeit.com.encityproject.ui.market.model.CategoryModel
 public class CloudMarketAdapter extends RecyclerView.Adapter<CloudMarketAdapter.ViewHolder> {
     private Context context;
     private Activity activity;
-    private ArrayList<CategoryModel> caList;
+    /*private ArrayList<CategoryModel> caList;*/
+    private ArrayList<String> caList;
 
-    public CloudMarketAdapter(Context mContext, ArrayList<CategoryModel> caList) {
+    /*public CloudMarketAdapter(Context mContext, ArrayList<CategoryModel> caList) {
         this.context = mContext;
         this.caList = caList;
-    }
-    public CloudMarketAdapter(Context mContext, Activity activity , ArrayList<CategoryModel> caList) {
+    }*/
+    /*public CloudMarketAdapter(Context mContext, Activity activity , ArrayList<CategoryModel> caList) {
         this.context = mContext;
         this.caList = caList;
         this.activity = activity;
+    }*/
+    public CloudMarketAdapter(Context mContext, Activity activity , ArrayList<String> caList) {
+        this.context = mContext;
+        this.caList = caList;
+        this.activity = activity;
+    }
+
+    public boolean isOnline() {
+        ConnectivityManager cm =
+                (ConnectivityManager) activity.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 
     @Override public CloudMarketAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -43,9 +59,12 @@ public class CloudMarketAdapter extends RecyclerView.Adapter<CloudMarketAdapter.
 
     @Override public void onBindViewHolder(CloudMarketAdapter.ViewHolder holder, int position) {
 
-        final CategoryModel catMod = caList.get(position);
-        holder.iv.setBackground(ContextCompat.getDrawable(context, catMod.getPicDraw()));
-        holder.text.setText(catMod.getCategoryName());
+        /*final CategoryModel catMod = caList.get(position);*/
+        final String catMod = caList.get(position);
+        holder.iv.setBackground(ContextCompat.getDrawable(context,
+                activity.getResources().getIdentifier(catMod.split("@.#")[2],"drawable", activity.getPackageName())));
+        //holder.text.setText(catMod.getCategoryName());
+        holder.text.setText(catMod.split("@.#")[1]);
 
         switch (position) {
             case 0:
@@ -107,11 +126,18 @@ public class CloudMarketAdapter extends RecyclerView.Adapter<CloudMarketAdapter.
 
         holder.setClickListener(new CloudMarketAdapter.ItemClickListener() {
             @Override public void onClickItem(int pos) {
-             //   caList.remove(pos);
-               // notifyItemRemoved(position);
-                Toast.makeText(context, caList.get(pos).getCategoryName(), Toast.LENGTH_SHORT).show();
-                NavController navController = Navigation.findNavController(activity, R.id.nav_host_fragment);
-                navController.navigate(R.id.nav_current_cat_fragment);
+               if(isOnline()) {
+                   //   caList.remove(pos);
+                   // notifyItemRemoved(position);
+                   Bundle bundle = new Bundle();
+                   bundle.putString("curcat", caList.get(pos));
+                   //    Toast.makeText(context, caList.get(pos).split("@.#")[0], Toast.LENGTH_SHORT).show();
+                   NavController navController = Navigation.findNavController(activity, R.id.nav_host_fragment);
+                   navController.navigate(R.id.nav_cur_cat_companies_fragment, bundle);
+               }
+               else{
+                   Toast.makeText(context, "Перевірте інтернет", Toast.LENGTH_SHORT).show();
+               }
             }
 
             @Override public void onLongClickItem(int pos) {

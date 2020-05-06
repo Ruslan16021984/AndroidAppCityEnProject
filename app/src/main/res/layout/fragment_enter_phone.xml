@@ -7,6 +7,8 @@
     android:background="#3D3D3D"
     tools:context=".ui.registration.EnterPhoneFragment">
 
+
+
     <ImageView
         android:id="@+id/ivRocket_enter_phone"
         android:layout_width="100dp"
@@ -81,6 +83,69 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvTopEnter"
             app:layout_constraintVertical_bias="0.169" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/btnEnterPhoneNext"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etPhone"
+            app:layout_constraintVertical_bias="0.874">
+
+            <CheckBox
+                android:id="@+id/cbZgoda"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/white"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="Згоден з умовами "/>
+
+            <TextView
+                android:id="@+id/tvZgoda"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Публічної оферти"
+                android:textColor="@color/colorPrimary"/>
+        </LinearLayout>
+
+
     </android.support.constraint.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/llOferta"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/white">
+        <Button
+            android:id="@+id/btnCloseOferta"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:textColor="@color/red"
+            android:layout_gravity="right"
+            android:background="@drawable/closeoferta"/>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvOferta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"/>
+
+        </ScrollView>
+
+
+    </LinearLayout>
 
 </FrameLayout>

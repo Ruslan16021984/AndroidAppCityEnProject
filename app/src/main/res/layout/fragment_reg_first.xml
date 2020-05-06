@@ -23,20 +23,21 @@
             android:id="@+id/tvNameInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Найшвидка реєстрація"
+            android:gravity="center"
+            android:text="Віртуальний ринок\nНайшвидка реєстрація"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.125" />
+            app:layout_constraintVertical_bias="0.097" />
 
         <TextView
             android:id="@+id/tvNameInfo2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Ніяких паролів, e-mail'ів\nта інших забобонів\n\nТільки смартфон"
+            android:text="Ніяких паролів, e-mail'ів\nта інших забобонів\nТільки смартфон"
             android:paddingRight="30dp"
             android:paddingLeft="30dp"
             app:layout_constraintBottom_toBottomOf="parent"

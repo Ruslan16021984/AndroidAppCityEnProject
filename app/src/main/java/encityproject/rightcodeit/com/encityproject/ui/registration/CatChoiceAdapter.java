@@ -42,7 +42,7 @@ public class CatChoiceAdapter extends RecyclerView.Adapter<CatChoiceAdapter.View
 
     @Override public void onBindViewHolder(ViewHolder holder, int position) {
 
-        final String catMod = caList.get(position);
+        final String catMod = caList.get(position).split("@.#")[1];
 
         holder.cbCatSeller.setText(catMod);
 
@@ -166,7 +166,7 @@ public class CatChoiceAdapter extends RecyclerView.Adapter<CatChoiceAdapter.View
                         }
                     }
                 }
-                Toast.makeText(context, "clck: " + catMod, Toast.LENGTH_SHORT).show();
+             //   Toast.makeText(context, "clck: " + catMod, Toast.LENGTH_SHORT).show();
             }
 
             @Override public void onLongClickItem(int pos) {

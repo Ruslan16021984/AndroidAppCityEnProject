@@ -5,6 +5,8 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
@@ -13,10 +15,16 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.text.SpannableString;
+import android.text.style.TextAppearanceSpan;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -384,7 +392,32 @@ public class WeatherFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_weather, container, false);
+        /*NavigationView navigationView = getActivity().findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                if(menuItem.getItemId()==R.id.nav_basket_fragment){
+                    Menu menuNav=navigationView.getMenu();
+                    MenuItem nav = menuNav.findItem(R.id.nav_basket_fragment);
+                    nav.setIcon(R.drawable.helsi);
+                    Drawable drawable = nav.getIcon();
+                    if(drawable != null) {
+                        drawable.mutate();
+                        //  drawable.setColorFilter(getResources().getColor(R.color.red), PorterDuff.Mode.SRC_ATOP);
+                        drawable.setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_ATOP);
+                    }
+                }
+                return false;
+            }
+        });*/
+    /*    NavigationView navigationView = getActivity().findViewById(R.id.nav_view);
 
+        Menu menuNav=navigationView.getMenu();
+        MenuItem nav = menuNav.findItem(R.id.nav_weather);
+        SpannableString s = new SpannableString(nav.getTitle());
+        s.setSpan(new TextAppearanceSpan(getContext(), R.style.TextMenuIsClicked), 0, s.length(), 0);
+        nav.setTitle(s);
+*/
         /*ivLogoDar1 = v.findViewById(R.id.ivLogoDar1);
         Animation anim = AnimationUtils.loadAnimation(getContext(), R.anim.disapp);
         ivLogoDar1.startAnimation(anim);

@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity  {
         Animation anim = AnimationUtils.loadAnimation(this, R.anim.disapp);
         ivLogoDar.startAnimation(anim);
 
+
         anim.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {

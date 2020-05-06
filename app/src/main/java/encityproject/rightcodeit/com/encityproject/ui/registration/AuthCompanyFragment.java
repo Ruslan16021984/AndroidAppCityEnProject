@@ -61,7 +61,7 @@ public class AuthCompanyFragment extends Fragment {
             tvAuthPhone.setText(authPhone);
             tvAuthAbout.setText(authAbout);
             if(prefer.contains("secondphone")){
-                tvAuthPhone.setText(tvAuthPhone.getText().toString()+", +380"+prefer.getString("secondphone","")+"(для клієнтів)");
+                tvAuthPhone.setText("+380"+tvAuthPhone.getText().toString()+"\n"+"+380"+prefer.getString("secondphone","")+"(для клієнтів)");
             }
         }
         btnAuthClose=v.findViewById(R.id.btnAuthClose);
@@ -94,6 +94,10 @@ public class AuthCompanyFragment extends Fragment {
                         nav_auth.setVisible(false);
                         MenuItem nav_cloud_market = menuNav.findItem(R.id.nav_entrance_market);
                         nav_cloud_market.setVisible(false);
+                        MenuItem nav_basket = menuNav.findItem(R.id.nav_basket_fragment);
+                        nav_basket.setVisible(false);
+                        MenuItem nav_work_basket = menuNav.findItem(R.id.nav_work_basket_fragment);
+                        nav_work_basket.setVisible(false);
                         prefer=getContext().getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
                         prefer.edit().clear().commit();
                         Toast.makeText(getContext(), "Вашу Компанію деактивовано", Toast.LENGTH_SHORT).show();

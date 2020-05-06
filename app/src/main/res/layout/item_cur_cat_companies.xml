@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginEnd="14dp"
+    android:layout_marginTop="14dp"
+    android:id="@+id/lytContainer"
+    android:layout_gravity="right"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/dark_grey"
+        android:gravity="center|left">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="17dp"
+            android:layout_marginRight="17dp"
+            android:gravity="center">
+
+            <android.support.v7.widget.CardView
+                android:layout_width="46dp"
+                android:layout_height="46dp"
+                app:cardCornerRadius="23dp"
+                android:padding="5dp"
+                >
+
+                <ImageView
+                    android:id="@+id/ivLogoCat"
+                    android:layout_width="34dp"
+                    android:layout_height="34dp"
+                    android:background="@color/white"
+                    android:layout_margin="5dp"
+                    android:src="@drawable/icook"
+                    android:layout_gravity="center"
+                    />
+            </android.support.v7.widget.CardView>
+
+
+
+            <TextView
+                android:id="@+id/tvNameCurComp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="2"
+                android:minLines="1"
+                android:textColor="@color/white"
+                tools:text="First test"/>
+
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvPhoneCurComp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:ellipsize="end"
+        android:text="14sp"
+        android:layout_gravity="right|bottom"
+        android:gravity="center"
+        android:maxLines="1"
+        android:minLines="1"
+        android:textColor="@color/white"
+        tools:text="First test"/>
+</FrameLayout>

@@ -47,7 +47,7 @@ public class GridCategoryFragment extends Fragment {
         categoryList.add(new CategoryModel("1", "Стройматеріали", R.drawable.build));
         categoryList.add(new CategoryModel("2", "Продукти", R.drawable.foods));
         categoryList.add(new CategoryModel("3", "Послуги", R.drawable.service));
-        categoryList.add(new CategoryModel("4", "Аптека", R.drawable.pharma));
+        categoryList.add(new CategoryModel("4", "Аптека", R.drawable.catpharma));
         categoryList.add(new CategoryModel("5", "Техніка", R.drawable.technic));
         categoryList.add(new CategoryModel("6", "Одежа", R.drawable.clothes));
         adapter = new CatAdapter(context,activity ,categoryList);

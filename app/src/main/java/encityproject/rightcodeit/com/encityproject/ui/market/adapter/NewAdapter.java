@@ -2,6 +2,8 @@ package encityproject.rightcodeit.com.encityproject.ui.market.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -36,6 +38,13 @@ public class NewAdapter extends RecyclerView.Adapter<NewAdapter.ViewHolder> {
     @Override public NewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(context).inflate(R.layout.item_newandorder_recycler, parent, false);
         return new NewAdapter.ViewHolder(v);
+    }
+
+    public boolean isOnline() {
+        ConnectivityManager cm =
+                (ConnectivityManager) activity.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 
     @Override public void onBindViewHolder(NewAdapter.ViewHolder holder, int position) {
@@ -86,8 +95,13 @@ public class NewAdapter extends RecyclerView.Adapter<NewAdapter.ViewHolder> {
 
         holder.setClickListener(new NewAdapter.ItemClickListener() {
             @Override public void onClickItem(int pos) {
-                caList.remove(pos);
-                notifyItemRemoved(position);
+                if(isOnline()) {
+                    caList.remove(pos);
+                    notifyItemRemoved(position);
+                }
+                else{
+                    Toast.makeText(context, "Перевірте інтернет", Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override public void onLongClickItem(int pos) {
