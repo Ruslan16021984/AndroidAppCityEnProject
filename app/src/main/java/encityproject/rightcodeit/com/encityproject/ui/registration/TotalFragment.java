@@ -199,12 +199,14 @@ public class TotalFragment extends Fragment {
                             editor.putString("addcatsindex", totalCatsStoreIndex);
                             editor.apply();
 //authuser, companyname, cats, about, phone
+                            String s = bunAbout;
+                            s=s.replace("\n", "\\n");
                             SendForRegTotal sendForRegTotal = new SendForRegTotal();
                             sendForRegTotal.execute("addnew"+"@.#"+
                                     prefer.getString("auth","")+"@.#"+
                                     bunName+"@.#"+
                                     totalCatsStoreIndex+"@.#"+
-                                    bunAbout+"@.#"+
+                                    s+"@.#"+
                                     bunPhone);
                             // getActivity().supportInvalidateOptionsMenu();
                             /*setHasOptionsMenu(true);

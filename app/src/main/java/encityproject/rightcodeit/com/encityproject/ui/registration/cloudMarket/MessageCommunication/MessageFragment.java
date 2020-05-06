@@ -164,12 +164,16 @@ public class MessageFragment extends Fragment {
                 if(isOnline()){
                 if(etMessage.length()>0) {
                     if (startSms == 1) {
+                        String s = etMessage.getText().toString();
+                        s=s.replace("\n", "\\n");
                         SendMessageToServer sendMessageToServer = new SendMessageToServer();
                         //numorder,author,  auth, text
                         sendMessageToServer.execute("sendmessage" + "@.#" + numOrder + "@.#" + "client" + "@.#" + prefer.getString("auth", "") + "@.#" +
-                                etMessage.getText().toString());
+                                s);
                     }
                 }
+                }else{
+                    Toast.makeText(getContext(),"Перевірте інтернет", Toast.LENGTH_SHORT).show();
                 }
             }
         });

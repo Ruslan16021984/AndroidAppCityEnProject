@@ -161,10 +161,12 @@ public class MessageCompanyFragment extends Fragment {
                     if(isOnline()){
                         if(etMessage.length()>0) {
                             if (startSms == 1) {
+                                String s = etMessage.getText().toString();
+                                s=s.replace("\n", "\\n");
                                 SendMessageToServer sendMessageToServer = new SendMessageToServer();
                                 //numorder,author,  auth, text
                                 sendMessageToServer.execute("sendmessagecomp" + "@.#" + numOrder + "@.#" + "seller" + "@.#" + prefer.getString("auth2", "") + "@.#" +
-                                        etMessage.getText().toString());
+                                        s);
                             }
                         }
                     }

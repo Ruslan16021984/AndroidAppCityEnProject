@@ -50,7 +50,7 @@ import encityproject.rightcodeit.com.encityproject.ui.registration.CatChoiceAdap
 public class CurrentCatFragment extends Fragment {
 
     private int port = 4656;
-   // private String ip = "192.168.1.46";
+    //private String ip = "192.168.1.46";
     //private String ip = "192.168.1.103";
     private String ip = "35.232.178.112";
     private String currCopm;
@@ -136,18 +136,26 @@ public class CurrentCatFragment extends Fragment {
                     @Override
                     public void onClick(View view) {
                         if(prefer.contains("auth")){
-                            if(etQuickOrder.getText().length()>5){
+                            if(isOnline()){
+                            if(etQuickOrder.getText().length()>=5){
+                                String s = etQuickOrder.getText().toString();
+                                s=s.replace("\n", "\\n");
+                                Log.d("etOrder", s);
                                 alert2.dismiss();
                                 SendOrderToCompany sendOrderToCompany = new SendOrderToCompany();
                                 sendOrderToCompany.execute("neworder"+"@.#"+prefer.getString("auth","")+
                                         "@.#"+prefer.getString("phone","")+
                                         "@.#"+currCopm.split("@.#")[2]+
-                                        "@.#"+etQuickOrder.getText().toString()
+                                        "@.#"+s
                                         +"@.#"+bundle.getString("cat","").split("@.#")[0]
                                         +"@.#"+currCopm.split("@.#")[0]);
                             }
                             else{
                                 Toast.makeText(getContext(), "Мінімально 5 символів", Toast.LENGTH_SHORT).show();
+                            }
+                            }
+                            else {
+                                Toast.makeText(getContext(), "Перевірте інтернет", Toast.LENGTH_SHORT).show();
                             }
                         }
                         else {

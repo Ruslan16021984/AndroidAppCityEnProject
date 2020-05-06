@@ -53,7 +53,7 @@ public class MainActivityWithNaviDrawer extends AppCompatActivity {
     // private String ip = "192.168.1.46";
     private String ip = "35.232.178.112";
     // private String ip = "192.168.1.103";
-   // private String ip ="192.168.0.103";
+    //private String ip ="192.168.0.103";
 
     private AppBarConfiguration mAppBarConfiguration;
     private SharedPreferences prefer;
@@ -107,6 +107,22 @@ public class MainActivityWithNaviDrawer extends AppCompatActivity {
      //   Toast.makeText(this, prefer.getString("auth2",""), Toast.LENGTH_SHORT).show();
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
+
+        if(!prefer.contains("join")){
+            Log.d("JOIN", "creating");
+            editor=prefer.edit();
+            editor.putString("join", String.valueOf(System.currentTimeMillis()));
+            editor.apply();
+        }
+        if(isOnline()) {
+            if (prefer.contains("auth") && prefer.contains("join")) {
+                JoinApp joinApp = new JoinApp();
+                joinApp.execute("join" + "@.#" + prefer.getString("join", "") + "@.#" + prefer.getString("auth", ""));
+            } else if (!prefer.contains("auth") && prefer.contains("join")) {
+                JoinApp joinApp = new JoinApp();
+                joinApp.execute("join" + "@.#" + prefer.getString("join", "") + "@.#" + "noAuth");
+            }
+        }
         /*navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -425,7 +441,7 @@ public class MainActivityWithNaviDrawer extends AppCompatActivity {
         }
     }
 
-    class GetOferta extends AsyncTask<String, Void, Socket> {
+    class JoinApp extends AsyncTask<String, Void, Socket> {
         private String linkCheckVApp = "myNull";
         private Socket socket;
         private PrintWriter pw = null;
@@ -462,10 +478,6 @@ public class MainActivityWithNaviDrawer extends AppCompatActivity {
         @Override
         protected void onPostExecute(Socket socket) {
             super.onPostExecute(socket);
-            //pbListPhones.setVisibility(View.INVISIBLE);
-            if(fromServer!=null){
-                Toast.makeText(getApplicationContext(), fromServer, Toast.LENGTH_SHORT).show();
-            }
 
         }
     }
