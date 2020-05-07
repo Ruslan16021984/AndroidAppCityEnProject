@@ -93,28 +93,33 @@ public class DescriptionFragment extends Fragment {
                 tvPriceAndDiscountDescription.setText("");
             }
 
-            tvPhoheSel.setText("+380"+fromBundle.split("@")[8]);
-            ivCallSel.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse
-                            ("tel: " +"+380"+fromBundle.split("@")[8]));
-                    if (intent != null) {
-                        startActivity(intent);
+            if(fromBundle.split("@")[8].length()==9) {
+                tvPhoheSel.setText("+380" + fromBundle.split("@")[8]);
+                ivCallSel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse
+                                ("tel: " + "+380" + fromBundle.split("@")[8]));
+                        if (intent != null) {
+                            startActivity(intent);
+                        }
                     }
-                }
-            });
-            tvPhoheSel.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse
-                            ("tel: " +"+380"+fromBundle.split("@")[8]));
-                    if (intent != null) {
-                        startActivity(intent);
+                });
+                tvPhoheSel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse
+                                ("tel: " + "+380" + fromBundle.split("@")[8]));
+                        if (intent != null) {
+                            startActivity(intent);
+                        }
                     }
-                }
-            });
-
+                });
+            }
+            else {
+                tvPhoheSel.setVisibility(View.GONE);
+                ivCallSel.setVisibility(View.GONE);
+            }
 
             Picasso.get()
                     .load(imgPathDescription)

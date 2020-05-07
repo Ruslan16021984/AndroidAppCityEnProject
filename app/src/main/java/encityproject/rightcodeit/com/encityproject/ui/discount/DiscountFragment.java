@@ -53,8 +53,8 @@ public class DiscountFragment extends Fragment {
     private MapView mMapView;
     private MapController mMapController;
     private int port = 4656;
-    private String ip = "192.168.1.46";
-    //private String ip = "35.232.178.112";
+    //private String ip = "192.168.1.46";
+    private String ip = "35.232.178.112";
     private ArrayList<Discount> alDisc;
     private ListView listView;
     private ProgressBar pbDisc;

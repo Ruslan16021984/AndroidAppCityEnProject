@@ -56,9 +56,9 @@ import static android.text.Layout.JUSTIFICATION_MODE_INTER_WORD;
 public class EnterPhoneFragment extends Fragment {
 
     private int port = 4656;
-    private String ip = "192.168.1.46";
+    //private String ip = "192.168.1.46";
     //private String ip = "192.168.1.103";
-   // private String ip = "35.232.178.112";
+    private String ip = "35.232.178.112";
     //private String ip ="192.168.0.103";
   //  private String ip2 ="192.168.0.103";
     private Button btnEnterPhoneNext;

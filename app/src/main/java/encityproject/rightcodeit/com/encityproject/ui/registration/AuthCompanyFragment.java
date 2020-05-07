@@ -41,9 +41,9 @@ import encityproject.rightcodeit.com.encityproject.ui.registration.cloudMarket.M
 public class AuthCompanyFragment extends Fragment {
 
     private int port = 4656;
-    private String ip = "192.168.1.46";
+    //private String ip = "192.168.1.46";
     //private String ip = "192.168.1.103";
-   // private String ip = "35.232.178.112";
+    private String ip = "35.232.178.112";
 
     private Button btnAuthClose;
     private SharedPreferences prefer;
