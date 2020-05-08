@@ -31,6 +31,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.MediaController;
@@ -39,6 +40,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.luckycatlabs.sunrisesunset.SunriseSunsetCalculator;
 import com.luckycatlabs.sunrisesunset.dto.Location;
@@ -66,6 +70,7 @@ import static android.content.Context.AUDIO_SERVICE;
  * A simple {@link Fragment} subclass.
  */
 public class WeatherFragment extends Fragment {
+    private Button btn_Prognos;
 
     private Uri uri;
     private Handler handlerTime, handlerInet;
@@ -437,6 +442,7 @@ public class WeatherFragment extends Fragment {
 
             }
         });*/
+        btn_Prognos = v.findViewById(R.id.btn_prognos);
 
         ivRot=v.findViewById(R.id.ivDayRotate);
 
@@ -550,6 +556,10 @@ public class WeatherFragment extends Fragment {
                 vvBackground.start();
 
             }
+        });
+        btn_Prognos.setOnClickListener(view -> {
+            NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+            navController.navigate(R.id.nav_example_weather_fragment);
         });
 
         return v;
@@ -767,5 +777,6 @@ public class WeatherFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
     }
+
 
 }

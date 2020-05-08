@@ -23,6 +23,8 @@
     <string name="menu_firstAid">Перша медична допомога</string>
     <string name="btn_usb">Отримати доступ до зарядки</string>
 
+    <string name="api_key_weather">8b74b289dcce4dabda34734197b8deb5</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="bt_center_map_description">center map</string>
