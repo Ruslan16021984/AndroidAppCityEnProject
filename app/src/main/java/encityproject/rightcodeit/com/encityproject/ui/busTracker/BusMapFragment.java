@@ -82,7 +82,7 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Configuration.getInstance().setUserAgentValue(BuildConfig.APPLICATION_ID);
-    }
+}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
