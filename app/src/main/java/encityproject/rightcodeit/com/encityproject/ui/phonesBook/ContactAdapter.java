@@ -55,7 +55,7 @@ public class ContactAdapter extends BaseAdapter {
         if (v == null) {
             LayoutInflater vi;
             vi = LayoutInflater.from(ctx);
-            v = vi.inflate(R.layout.item_contact, null);
+            v = vi.inflate(R.layout.item_contact_with_cardview, null);
         }
 
         TextView tvNameContact = (TextView) v.findViewById(R.id.tv_name_contact);
@@ -67,10 +67,22 @@ public class ContactAdapter extends BaseAdapter {
         split = toSplit.split(",");
         if (split.length > 1) {
             String s1 = "";
-            for (String s : split) {
-                s1 = s1 + s + "\n";
+            ////////////////////////////////////////////////////////////////////
+            String s2 = "";
+            for (int i = 1; i <= split.length; i++) {
+                s1 = s1 + split[i-1] + "\n";
+                if (i == split.length) {
+                    s2 = s1.trim();
+                }
             }
-            tvPhoneNumber.setText(s1);
+            ////////////////////////////////////////////////////////////////////
+
+//            for (String s : split) {
+//                s1 = s1 + s + "\n";
+//            }
+
+//            tvPhoneNumber.setText(s1);
+            tvPhoneNumber.setText(s2);
 //            tvPhoneNumber.setText(split[0] + "\n" + split[1]);
         } else {
             tvPhoneNumber.setText(contact.getPhoneNumber());
