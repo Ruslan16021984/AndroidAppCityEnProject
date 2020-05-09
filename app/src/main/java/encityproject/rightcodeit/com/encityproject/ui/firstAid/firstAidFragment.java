@@ -63,41 +63,41 @@ public class firstAidFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
-        switch (v.getId()) {
-            case (R.id.tv_algorithm):
-                navController.navigate(R.id.nav_firstAid_fragment_algorithm);
-                break;
-            case (R.id.tv_artificial_respiration):
-                navController.navigate(R.id.nav_firstAid_fragment_artificial_respiration);
-                break;
-            case (R.id.tv_indirect_cardiac_massage):
-                navController.navigate(R.id.nav_firstAid_fragment_indirect_cardiac_massage);
-                break;
-            case (R.id.tv_bleeding):
-                navController.navigate(R.id.nav_firstAid_fragment_bleeding);
-                break;
-            case (R.id.tv_fractures):
-                navController.navigate(R.id.nav_firstAid_fragment_fractures);
-                break;
-            case (R.id.tv_burns):
-                navController.navigate(R.id.nav_firstAid_fragment_burns);
-                break;
-            case (R.id.tv_fainting):
-                navController.navigate(R.id.nav_firstAid_fragment_fainting);
-                break;
-            case (R.id.tv_drowning_and_sunstroke):
-                navController.navigate(R.id.nav_firstAid_fragment_drowning_and_sunstroke);
-                break;
-            case (R.id.tv_hypothermia_and_frostbite):
-                navController.navigate(R.id.nav_firstAid_fragment_hypothermia_and_frostbite);
-                break;
-            case (R.id.tv_poisoning):
-                navController.navigate(R.id.nav_firstAid_fragment_poisoning);
-                break;
-            case (R.id.tv_first_psychological_aid):
-                navController.navigate(R.id.nav_firstAid_fragment_first_psychological_aid);
-                break;
-        }
+//        switch (v.getId()) {
+//            case (R.id.tv_algorithm):
+//                navController.navigate(R.id.nav_firstAid_fragment_algorithm);
+//                break;
+//            case (R.id.tv_artificial_respiration):
+//                navController.navigate(R.id.nav_firstAid_fragment_artificial_respiration);
+//                break;
+//            case (R.id.tv_indirect_cardiac_massage):
+//                navController.navigate(R.id.nav_firstAid_fragment_indirect_cardiac_massage);
+//                break;
+//            case (R.id.tv_bleeding):
+//                navController.navigate(R.id.nav_firstAid_fragment_bleeding);
+//                break;
+//            case (R.id.tv_fractures):
+//                navController.navigate(R.id.nav_firstAid_fragment_fractures);
+//                break;
+//            case (R.id.tv_burns):
+//                navController.navigate(R.id.nav_firstAid_fragment_burns);
+//                break;
+//            case (R.id.tv_fainting):
+//                navController.navigate(R.id.nav_firstAid_fragment_fainting);
+//                break;
+//            case (R.id.tv_drowning_and_sunstroke):
+//                navController.navigate(R.id.nav_firstAid_fragment_drowning_and_sunstroke);
+//                break;
+//            case (R.id.tv_hypothermia_and_frostbite):
+//                navController.navigate(R.id.nav_firstAid_fragment_hypothermia_and_frostbite);
+//                break;
+//            case (R.id.tv_poisoning):
+//                navController.navigate(R.id.nav_firstAid_fragment_poisoning);
+//                break;
+//            case (R.id.tv_first_psychological_aid):
+//                navController.navigate(R.id.nav_firstAid_fragment_first_psychological_aid);
+//                break;
+//        }
     }
 }
 

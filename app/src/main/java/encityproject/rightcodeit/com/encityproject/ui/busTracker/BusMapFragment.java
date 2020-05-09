@@ -82,7 +82,7 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Configuration.getInstance().setUserAgentValue(BuildConfig.APPLICATION_ID);
-    }
+}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -280,88 +280,4 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
         super.onResume();
         Configuration.getInstance().load(getContext(), PreferenceManager.getDefaultSharedPreferences(getActivity())); //needed for compass, my location overlays, v6.0.0 and up
     }
-
-
-//метод для прорисовки маршрута автобуса
-    //---------------------------------------
-    private void lineRedDirection1() {
-        List<GeoPoint> geoPoints = new ArrayList<>();
-        geoPoints.add(new GeoPoint(47.49686, 34.64888));
-        geoPoints.add(new GeoPoint(47.49485, 34.65054));
-        geoPoints.add(new GeoPoint(47.49315, 34.65174));
-        geoPoints.add(new GeoPoint(47.4907, 34.6535));
-        geoPoints.add(new GeoPoint(47.48854, 34.65502));
-        geoPoints.add(new GeoPoint(47.48689, 34.65611));
-        geoPoints.add(new GeoPoint(47.48664, 34.65616));
-        geoPoints.add(new GeoPoint(47.48424, 34.6552));
-        geoPoints.add(new GeoPoint(47.48347, 34.65922));
-        geoPoints.add(new GeoPoint(47.48295, 34.66191));
-        geoPoints.add(new GeoPoint(47.48572, 34.66308));
-        geoPoints.add(new GeoPoint(47.48703, 34.6636));
-        geoPoints.add(new GeoPoint(47.49016, 34.66105));
-        geoPoints.add(new GeoPoint(47.4907, 34.66069));
-        geoPoints.add(new GeoPoint(47.49144, 34.66254));
-        geoPoints.add(new GeoPoint(47.49351, 34.6608));
-        geoPoints.add(new GeoPoint(47.4958, 34.65889));
-        geoPoints.add(new GeoPoint(47.49764, 34.65737));
-        geoPoints.add(new GeoPoint(47.49896, 34.6563));
-        geoPoints.add(new GeoPoint(47.49984, 34.65561));
-        geoPoints.add(new GeoPoint(47.49879, 34.65283));
-        geoPoints.add(new GeoPoint(47.49719, 34.64867));
-        geoPoints.add(new GeoPoint(47.49703, 34.64846));
-        geoPoints.add(new GeoPoint(47.49692, 34.64862));
-        geoPoints.add(new GeoPoint(47.49694, 34.64879));
-        geoPoints.add(new GeoPoint(47.49669, 34.64897));
-        Polyline line = new Polyline();   //see note below!
-        line.setPoints(geoPoints);
-        line.setOnClickListener((polyline, mapView, eventPos) -> {
-            Toast.makeText(mapView.getContext(), "polyline with " + polyline.getPoints().size() + "pts was tapped", Toast.LENGTH_LONG).show();
-            return false;
-        });
-        line.setColor(Color.YELLOW);
-        map.getOverlayManager().add(line);
-        map.invalidate();
-    }
-
-    private void lineRedDirection2() {
-        List<GeoPoint> geoPoints = new ArrayList<>();
-        geoPoints.add(new GeoPoint(47.49686, 34.64888));
-        geoPoints.add(new GeoPoint(47.49485, 34.65054));
-        geoPoints.add(new GeoPoint(47.49315, 34.65174));
-        geoPoints.add(new GeoPoint(47.4907, 34.6535));
-        geoPoints.add(new GeoPoint(47.48854, 34.65502));
-        geoPoints.add(new GeoPoint(47.48689, 34.65611));
-        geoPoints.add(new GeoPoint(47.48664, 34.65616));
-        geoPoints.add(new GeoPoint(47.48424, 34.6552));
-        geoPoints.add(new GeoPoint(47.48347, 34.65922));
-        geoPoints.add(new GeoPoint(47.48295, 34.66191));
-        geoPoints.add(new GeoPoint(47.48572, 34.66308));
-        geoPoints.add(new GeoPoint(47.48703, 34.6636));
-        geoPoints.add(new GeoPoint(47.49016, 34.66105));
-        geoPoints.add(new GeoPoint(47.4907, 34.66069));
-        geoPoints.add(new GeoPoint(47.49144, 34.66254));
-        geoPoints.add(new GeoPoint(47.49351, 34.6608));
-        geoPoints.add(new GeoPoint(47.4958, 34.65889));
-        geoPoints.add(new GeoPoint(47.49764, 34.65737));
-        geoPoints.add(new GeoPoint(47.49896, 34.6563));
-        geoPoints.add(new GeoPoint(47.49984, 34.65561));
-        geoPoints.add(new GeoPoint(47.49879, 34.65283));
-        geoPoints.add(new GeoPoint(47.49719, 34.64867));
-        geoPoints.add(new GeoPoint(47.49703, 34.64846));
-        geoPoints.add(new GeoPoint(47.49692, 34.64862));
-        geoPoints.add(new GeoPoint(47.49694, 34.64879));
-        geoPoints.add(new GeoPoint(47.49669, 34.64897));
-        ;
-        Polyline line = new Polyline();   //see note below!
-        line.setPoints(geoPoints);
-        line.setOnClickListener((polyline, mapView, eventPos) -> {
-            Toast.makeText(mapView.getContext(), "polyline with " + polyline.getPoints().size() + " pts was tapped", Toast.LENGTH_LONG).show();
-            return false;
-        });
-        line.setColor(Color.RED);
-        map.getOverlayManager().add(line);
-        map.invalidate();
-    }
-
-
 }
