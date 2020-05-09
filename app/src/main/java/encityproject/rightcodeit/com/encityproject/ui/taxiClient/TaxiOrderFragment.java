@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -43,78 +44,25 @@ import encityproject.rightcodeit.com.encityproject.R;
  */
 public class TaxiOrderFragment extends Fragment {
     private static final int REQUEST_CODE_PERMISSION_READ_CONTACTS = 123;
-    private ScaleBarOverlay mScaleBarOverlay;
-    private RotationGestureOverlay mRotationGestureOverlay;
-    private MapView map = null;
-    private MapController mapController = null;
-    private MyLocationNewOverlay locationOverlay;
-    private CompassOverlay compassOverlay;
-    private RoadManager roadManager;
-    private Marker hideMarke;
-    private Interpolator interpolator;
+    private CustomMapView mapView;
     public TaxiOrderFragment() {
         // Required empty public constructor
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         Configuration.getInstance().setUserAgentValue(BuildConfig.APPLICATION_ID);
+        Configuration.getInstance().load(getContext(), PreferenceManager.getDefaultSharedPreferences(getActivity()));
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_taxi_order, container, false);
-    }
-    private void createMap() {
-        Log.d("TAG", "createMap()");
-
-        map.setTileSource(TileSourceFactory.MAPNIK);
-        map.setMultiTouchControls(true);
-        map.setTilesScaledToDpi(true);
-        map.setBuiltInZoomControls(true);
-        map.setFlingEnabled(true);
-
-        locationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(getContext()), map);
-        locationOverlay.enableMyLocation();
-        locationOverlay.enableFollowLocation();
-        locationOverlay.setDrawAccuracyEnabled(true);
-        locationOverlay.setOptionsMenuEnabled(true);
-
-        roadManager = new OSRMRoadManager(getContext());
-        final DisplayMetrics dm = this.getResources().getDisplayMetrics();
-        mScaleBarOverlay = new ScaleBarOverlay(map);
-        mScaleBarOverlay.setCentred(true);
-        mScaleBarOverlay.setScaleBarOffset(dm.widthPixels / 2, 10);
-        mRotationGestureOverlay = new RotationGestureOverlay(getContext(), map);
-        mRotationGestureOverlay.setEnabled(true);
-        hideMarke = new Marker(map);
-        compassOverlay = new CompassOverlay(getContext(),
-                new InternalCompassOrientationProvider(getContext()), map);
-        compassOverlay.enableCompass();
-        map.getOverlays().add(mScaleBarOverlay);
-        map.getOverlays().add(compassOverlay);
-        map.getOverlays().add(locationOverlay);
-
-        mapController = (MapController) map.getController();
-        mapController.setZoom(16);
-        final ArrayList<OverlayItem> items = new ArrayList<OverlayItem>();
-
-        items.add(new OverlayItem("Title", "Description", new GeoPoint(0.0d, 0.0d))); // Lat/Lon decimal degrees
-        map.getOverlays().add(new MapEventsOverlay(new MapEventsReceiver() {
-            @Override
-            public boolean singleTapConfirmedHelper(GeoPoint p) {
-                return true;
-            }
-
-            @Override
-            public boolean longPressHelper(GeoPoint p) {
-                return false;
-            }
-        }));
-
+        View v = inflater.inflate(R.layout.fragment_taxi_order, container, false);
+        mapView = new CustomMapView(v, getContext(), this);
+        checkPermition();
+        return v;
     }
     private void checkPermition() {
         int ACCESS_FINE_LOCATION = ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION);
@@ -124,17 +72,31 @@ public class TaxiOrderFragment extends Fragment {
         if (ACCESS_FINE_LOCATION == PackageManager.PERMISSION_GRANTED
                 && ACCESS_COARSE_LOCATION == PackageManager.PERMISSION_GRANTED
                 && WRITE_EXTERNAL_STORAGE == PackageManager.PERMISSION_GRANTED) {
-            createMap();
+
+            mapView.createMap();
         } else {
             Log.d("TAG", "" + "DONT " + Manifest.permission.ACCESS_COARSE_LOCATION);
-            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE},
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
+                            Manifest.permission.ACCESS_COARSE_LOCATION,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     REQUEST_CODE_PERMISSION_READ_CONTACTS);
         }
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        Configuration.getInstance().load(getContext(), PreferenceManager.getDefaultSharedPreferences(getActivity()));
+    public void onPause() {
+        super.onPause();
+        mapView.getMapView().onPause();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                Log.d("TAG", "" + "OK " + Manifest.permission.ACCESS_COARSE_LOCATION);
+                mapView.createMap();
+            }
+        }
     }
 }

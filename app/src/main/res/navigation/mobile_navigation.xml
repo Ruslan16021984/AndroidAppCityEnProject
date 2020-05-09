@@ -201,6 +201,11 @@
         android:name="encityproject.rightcodeit.com.encityproject.ui.weatherData.WeatherAfterFragment"
         android:label="Погода на 5 дней"
         tools:layout="@layout/example_weather_fragment" />
+    <fragment
+        android:id="@+id/nav_taxi_client_fragment"
+        android:name="encityproject.rightcodeit.com.encityproject.ui.taxiClient.TaxiOrderFragment"
+        android:label="Такси"
+        tools:layout="@layout/fragment_taxi_order" />
 
     <!--
         <fragment
