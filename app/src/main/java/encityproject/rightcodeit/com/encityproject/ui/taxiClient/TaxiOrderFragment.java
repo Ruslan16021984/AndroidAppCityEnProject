@@ -1,7 +1,13 @@
 package encityproject.rightcodeit.com.encityproject.ui.taxiClient;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
@@ -15,29 +21,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Interpolator;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import org.osmdroid.bonuspack.BuildConfig;
 import org.osmdroid.bonuspack.routing.OSRMRoadManager;
-import org.osmdroid.bonuspack.routing.RoadManager;
 import org.osmdroid.config.Configuration;
-import org.osmdroid.events.MapEventsReceiver;
-import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
-import org.osmdroid.views.MapController;
-import org.osmdroid.views.MapView;
-import org.osmdroid.views.overlay.MapEventsOverlay;
-import org.osmdroid.views.overlay.Marker;
-import org.osmdroid.views.overlay.OverlayItem;
-import org.osmdroid.views.overlay.ScaleBarOverlay;
-import org.osmdroid.views.overlay.compass.CompassOverlay;
-import org.osmdroid.views.overlay.compass.InternalCompassOrientationProvider;
-import org.osmdroid.views.overlay.gestures.RotationGestureOverlay;
-import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
-import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
-import java.util.ArrayList;
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.util.List;
 
 import encityproject.rightcodeit.com.encityproject.R;
+import encityproject.rightcodeit.com.encityproject.ui.busTracker.GetAddressTask;
+
+import static android.support.constraint.Constraints.TAG;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -45,6 +45,8 @@ import encityproject.rightcodeit.com.encityproject.R;
 public class TaxiOrderFragment extends Fragment {
     private static final int REQUEST_CODE_PERMISSION_READ_CONTACTS = 123;
     private CustomMapView mapView;
+    private EditText etAddress;
+
     public TaxiOrderFragment() {
         // Required empty public constructor
     }
@@ -60,10 +62,13 @@ public class TaxiOrderFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_taxi_order, container, false);
+        etAddress = v.findViewById(R.id.et_address);
         mapView = new CustomMapView(v, getContext(), this);
         checkPermition();
+        findNameHouse();
         return v;
     }
+
     private void checkPermition() {
         int ACCESS_FINE_LOCATION = ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION);
         int ACCESS_COARSE_LOCATION = ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION);
@@ -98,5 +103,32 @@ public class TaxiOrderFragment extends Fragment {
                 mapView.createMap();
             }
         }
+    }
+
+    public void findNameHouse() {
+        LocationManager mLocationManager = (LocationManager)
+                getActivity().getSystemService(Context.LOCATION_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
+                    != PackageManager.PERMISSION_GRANTED
+                    && ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION)
+                    != PackageManager.PERMISSION_GRANTED) {
+                Log.d("TAG", "проверку не прошел");
+                return;
+            }
+        }
+        Log.d("TAG", "прошел");
+        Location locationGPS = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        GeoPoint myPosition = new GeoPoint(locationGPS.getLatitude(), locationGPS.getLongitude());
+        Float latit = new BigDecimal(locationGPS.getLatitude()).setScale(4, BigDecimal.ROUND_HALF_UP).floatValue();
+        Float longi = new BigDecimal(locationGPS.getLongitude()).setScale(4, BigDecimal.ROUND_HALF_UP).floatValue();
+
+        Log.d(TAG, locationGPS.getLatitude() + " " + locationGPS.getLongitude());
+        new GetAddressTask(this).execute(String.valueOf(latit), String.valueOf(longi));
+    }
+
+    public void callBackDataFromAsyncTask(String address) {
+        Toast.makeText(getActivity(), "" + address, Toast.LENGTH_LONG).show();
+        etAddress.setText(address);
     }
 }
