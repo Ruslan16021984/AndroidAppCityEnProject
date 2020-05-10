@@ -1,12 +1,18 @@
 package encityproject.rightcodeit.com.encityproject.ui.taxiClient;
 
 import android.content.Context;
+import android.location.Location;
+import android.location.LocationManager;
 import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Interpolator;
+import android.widget.Toast;
 
+import org.osmdroid.bonuspack.location.GeocoderNominatim;
+import org.osmdroid.bonuspack.location.NominatimPOIProvider;
+import org.osmdroid.bonuspack.location.POI;
 import org.osmdroid.bonuspack.routing.OSRMRoadManager;
 import org.osmdroid.bonuspack.routing.RoadManager;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
@@ -39,6 +45,7 @@ public class CustomMapView {
     private RoadManager roadManager;
     private Marker hideMarke;
     private Interpolator interpolator;
+    private NominatimPOIProvider poiProvider;
 
     public CustomMapView(View view, Context context, Fragment fragment) {
         this.view = view;
@@ -80,6 +87,7 @@ public class CustomMapView {
 
         final ArrayList<OverlayItem> items = new ArrayList<OverlayItem>();
     }
+
 
     public MapView getMapView() {
         return mapView;
