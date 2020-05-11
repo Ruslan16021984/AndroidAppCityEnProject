@@ -559,8 +559,9 @@ public class WeatherFragment extends Fragment {
         });
         btn_Prognos.setOnClickListener(view -> {
             NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
-            navController.navigate(R.id.nav_example_weather_fragment);
+            navController.navigate(R.id.nav_hourly_forecast_fragment);
         });
+
 
         return v;
     }

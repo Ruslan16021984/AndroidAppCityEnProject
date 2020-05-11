@@ -44,7 +44,8 @@ public class WeatherAfterFragment extends Fragment {
         apiWeatherService.listAll().enqueue(new Callback<Example>() {
             @Override
             public void onResponse(Call<Example> call, Response<Example> response) {
-                textView.setText(response.body().getList().get(1).getMain().toString());
+                textView.setText(response.body().getList().get(2).getMain().toString());
+              //  textView.setText(s);
             }
 
             @Override

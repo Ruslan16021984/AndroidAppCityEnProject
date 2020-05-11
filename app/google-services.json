@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "987470355506",
+    "firebase_url": "https://encityproject.firebaseio.com",
+    "project_id": "encityproject",
+    "storage_bucket": "encityproject.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:987470355506:android:aae23295644c75dee2302b",
+        "android_client_info": {
+          "package_name": "encityproject.rightcodeit.com.encityproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "987470355506-hoeg44o1jkri1tdgkrumpcaceth2oi7q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "encityproject.rightcodeit.com.encityproject",
+            "certificate_hash": "e1e2de9c0d2e352b6f686968df6eb9e4d5d2ff14"
+          }
+        },
+        {
+          "client_id": "987470355506-njpu5rhnlbmtvanc4hakt46joapeik3k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBg1LXdKfrGIKbTz311El6HLZtpjtR4efA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "987470355506-njpu5rhnlbmtvanc4hakt46joapeik3k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

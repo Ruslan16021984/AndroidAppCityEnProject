@@ -207,6 +207,13 @@
         android:label="Такси"
         tools:layout="@layout/fragment_taxi_order" />
 
+    <fragment
+        android:id="@+id/nav_hourly_forecast_fragment"
+        android:name="encityproject.rightcodeit.com.encityproject.ui.weatherData.HourlyForecastFragment"
+        android:label="Прогноз"
+        tools:layout="@layout/fragment_hourly_forecast" />
+
+
     <!--
         <fragment
             android:id="@+id/nav_share"
