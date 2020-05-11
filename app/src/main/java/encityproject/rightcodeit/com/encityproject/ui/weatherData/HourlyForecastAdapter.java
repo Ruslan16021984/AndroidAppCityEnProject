@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,8 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -25,6 +28,7 @@ public class HourlyForecastAdapter extends RecyclerView.Adapter<HourlyForecastAd
     private Context context;
     private ArrayList<HourlyParametr> caList;
     private ArrayList<Integer> itemsForReturn=new ArrayList<>();
+
 
     public ArrayList<Integer> getItemsForReturn() {
         return itemsForReturn;
@@ -54,7 +58,7 @@ public class HourlyForecastAdapter extends RecyclerView.Adapter<HourlyForecastAd
         day = String.valueOf(calendar.get(Calendar.DAY_OF_MONTH));
         month = String.valueOf(calendar.get(Calendar.MONTH)+1);
         dayOfWeek = String.valueOf(calendar.get(Calendar.DAY_OF_WEEK));
-        tvDateToday.setText(textDayOfWeek(dayOfWeek) +", " + day + " " + textMouthofYear(month) + " "+ timeHHMM);
+        tvDateToday.setText(textDayOfWeek(dayOfWeek) +"\n" + day + " " + textMouthofYear(month) + " "+ timeHHMM);
     }
 
     private String textMouthofYear(String monthOfYear)
@@ -118,11 +122,17 @@ public class HourlyForecastAdapter extends RecyclerView.Adapter<HourlyForecastAd
 
     @Override public void onBindViewHolder(ViewHolder holder, int position) {
 
+        Picasso.get()
+                .load("http://openweathermap.org/img/wn/"+caList.get(position).getIcon()+"@2x.png")
+                .resize(600, 800)
+                .centerCrop()
+                .into(holder.ivFC);
+
+        Log.d("imageICON","http://openweathermap.org/img/wn/"+caList.get(position).getIcon()+"@2x.png" );
         holder.tvTempFC.setText(String.valueOf(round((caList.get(position).getTemp()-273.15),1))+(char) 0x00B0);
         holder.tvHumFC.setText(String.valueOf(caList.get(position).getHum())+" %");
         //holder.tvPresFC.setText(String.valueOf(caList.get(position).getPres())+ " мм.рт.ст");
         holder.tvPresFC.setText(String.valueOf(round(((caList.get(position).getPres()*100) / 133.322)-1, 1))+" мм.рт.ст");
-
       //  holder.tvDateFC.setText(String.valueOf(new Date(((caList.get(position).getTime()+10800000)*1000))));
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis((caList.get(position).getTime()+10800)*1000);
@@ -170,5 +180,5 @@ public class HourlyForecastAdapter extends RecyclerView.Adapter<HourlyForecastAd
     public interface ItemClickListener {
         void onClickItem(int pos);
         void onLongClickItem(int pos);
-    }
+    }   
 }

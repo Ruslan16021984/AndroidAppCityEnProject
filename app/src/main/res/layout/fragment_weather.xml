@@ -334,15 +334,7 @@
                             android:text=""
                             android:alpha="0.8"
                             android:textColor="#404040"/>
-                        <Button
-                            android:id="@+id/btn_prognos"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="прогноз на 5 дней"
-                            android:layout_marginLeft="16dp"
-                            android:layout_marginRight="16dp"
-                            android:background="@color/black_semi_transparent"/>
-                        <!--android:textSize="24sp"/>-->
+
                     </LinearLayout>
                 </LinearLayout>
                 <LinearLayout
@@ -392,7 +384,17 @@
             android:background="@color/colorPrimaryDark"
             android:src="@drawable/offlogo"
             />-->
-
+        <TextView
+            android:id="@+id/btn_prognos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Прогноз на 5 діб"
+            android:layout_gravity="bottom|right"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:padding="10dp"
+            android:background="@drawable/button_rounded"/>
+        <!--android:textSize="24sp"/>-->
     </FrameLayout>
 
 

@@ -51,6 +51,7 @@ public class HourlyForecastFragment extends Fragment {
                 HPlist=createForecast(response.body().getList());
                 hourlyForecastAdapter=new HourlyForecastAdapter(getContext(), HPlist);
                 recyclerView.setAdapter(hourlyForecastAdapter);
+
             }
 
             @Override
@@ -68,7 +69,7 @@ public class HourlyForecastFragment extends Fragment {
     private ArrayList<HourlyParametr> createForecast(List<ListAll> response){
         ArrayList<HourlyParametr> reList=new ArrayList<>();
         for(int i=0; i<response.size();i++){
-            HourlyParametr hourlyParametr = new HourlyParametr(R.drawable.humidity,
+            HourlyParametr hourlyParametr = new HourlyParametr(response.get(i).getWeather().get(0).getIcon(),
                     response.get(i).getMain().getTemp(),
                     response.get(i).getMain().getHumidity(),
                     response.get(i).getMain().getPressure(),

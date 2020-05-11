@@ -70,7 +70,7 @@ import static android.content.Context.AUDIO_SERVICE;
  * A simple {@link Fragment} subclass.
  */
 public class WeatherFragment extends Fragment {
-    private Button btn_Prognos;
+    private TextView btn_Prognos;
 
     private Uri uri;
     private Handler handlerTime, handlerInet;

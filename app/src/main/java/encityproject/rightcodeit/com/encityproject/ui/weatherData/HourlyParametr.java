@@ -1,13 +1,13 @@
 package encityproject.rightcodeit.com.encityproject.ui.weatherData;
 
 public class HourlyParametr {
-    private int icon;
+    private String icon;
     private double Temp;
     private double Hum;
     private double Pres;
     private long time;
 
-    public HourlyParametr(int icon, double temp, double hum, double pres, long time) {
+    public HourlyParametr(String icon, double temp, double hum, double pres, long time) {
         this.icon = icon;
         Temp = temp;
         Hum = hum;
@@ -15,11 +15,11 @@ public class HourlyParametr {
         this.time = time;
     }
 
-    public int getIcon() {
+    public String getIcon() {
         return icon;
     }
 
-    public void setIcon(int icon) {
+    public void setIcon(String icon) {
         this.icon = icon;
     }
 
