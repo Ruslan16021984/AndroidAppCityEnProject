@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="colorLightGreen">#C8E4C9</color>
+    <color name="colorLightGrey">#C5C5C5</color>
     <color name="colorPrimary">#00E613</color>
     <color name="colorDarkBack">#3D3D3D</color>
     <color name="colorPrimaryDark">#283741</color>

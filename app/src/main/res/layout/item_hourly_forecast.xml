@@ -6,14 +6,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <android.support.v7.widget.CardView
-        android:id="@+id/cv"
+        android:id="@+id/cvForecast"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         app:cardCornerRadius="10dp"
         android:padding="5dp"
         android:layout_margin="5dp"
+        android:backgroundTint="@color/colorLightGreen"
         >
         <android.support.constraint.ConstraintLayout
+            android:id="@+id/clForecast"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 

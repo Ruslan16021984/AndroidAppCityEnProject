@@ -9,8 +9,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import encityproject.rightcodeit.com.encityproject.R;
@@ -66,17 +69,47 @@ public class HourlyForecastFragment extends Fragment {
         return view;
     }
 
+    private int currentDateAndTime(Calendar calendar, SimpleDateFormat sdf)
+    {
+      int day =calendar.get(Calendar.DAY_OF_MONTH);
+      return day;
+    }
+
     private ArrayList<HourlyParametr> createForecast(List<ListAll> response){
         ArrayList<HourlyParametr> reList=new ArrayList<>();
+        int day=0;
+        int color=0;
         for(int i=0; i<response.size();i++){
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis((response.get(i).getDt())*1000);
+            Calendar calendarLast = Calendar.getInstance();
+            if(i==0) {
+                day = currentDateAndTime(calendar, new SimpleDateFormat("HH:mm"));
+                color=R.color.colorLightGreen;
+            }
+            if(i>0){
+                calendarLast.setTimeInMillis((response.get(i-1).getDt())*1000);
+                if(currentDateAndTime(calendar,new SimpleDateFormat("HH:mm"))==currentDateAndTime(calendarLast,new SimpleDateFormat("HH:mm"))){
+                    color=color;
+                }
+                else{
+                    if(color==R.color.colorLightGreen){
+                        color=R.color.colorLightGrey;
+                    }
+                    else if(color==R.color.colorLightGrey){
+                        color=R.color.colorLightGreen;
+                    }
+                }
+            }
             HourlyParametr hourlyParametr = new HourlyParametr(response.get(i).getWeather().get(0).getIcon(),
                     response.get(i).getMain().getTemp(),
                     response.get(i).getMain().getHumidity(),
                     response.get(i).getMain().getPressure(),
-                    response.get(i).getDt());
+                    response.get(i).getDt(), color);
             reList.add(hourlyParametr);
         }
         return reList;
     }
+
 
 }

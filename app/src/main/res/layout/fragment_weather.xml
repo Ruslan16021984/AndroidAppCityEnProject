@@ -116,6 +116,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Енергодар"
+                    android:fontFamily="sans-serif-thin"
                     android:alpha="0.8"
                     android:textColor="#404040"
                     android:textSize="30sp" />
@@ -159,6 +160,7 @@
                         android:layout_height="wrap_content"
                         android:alpha="0.8"
                         android:layout_marginLeft="10dp"
+                        android:fontFamily="sans-serif-thin"
                         android:layout_gravity="center"
                         android:textColor="#404040"
                         android:textSize="80sp"
@@ -170,6 +172,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:alpha="0.8"
+                        android:fontFamily="sans-serif-thin"
                         android:layout_gravity="center"
                         android:textColor="#404040"
                         android:textSize="25sp"
@@ -386,14 +389,18 @@
             />-->
         <TextView
             android:id="@+id/btn_prognos"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Прогноз на 5 діб"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:text="Прогноз\n5 діб"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:fontFamily="sans-serif-thin"
             android:layout_gravity="bottom|right"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="10dp"
             android:padding="10dp"
-            android:background="@drawable/button_rounded"/>
+            android:background="@drawable/button_rounded_forecast"/>
         <!--android:textSize="24sp"/>-->
     </FrameLayout>
 

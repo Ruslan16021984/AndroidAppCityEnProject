@@ -6,13 +6,23 @@ public class HourlyParametr {
     private double Hum;
     private double Pres;
     private long time;
+    private int color;
 
-    public HourlyParametr(String icon, double temp, double hum, double pres, long time) {
+    public HourlyParametr(String icon, double temp, double hum, double pres, long time, int color) {
         this.icon = icon;
-        Temp = temp;
-        Hum = hum;
-        Pres = pres;
+        this.Temp = temp;
+        this.Hum = hum;
+        this.Pres = pres;
         this.time = time;
+        this.color = color;
+    }
+
+    public int getColor() {
+        return color;
+    }
+
+    public void setColor(int color) {
+        this.color = color;
     }
 
     public String getIcon() {

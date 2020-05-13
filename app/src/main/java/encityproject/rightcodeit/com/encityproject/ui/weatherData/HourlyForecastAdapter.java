@@ -1,6 +1,7 @@
 package encityproject.rightcodeit.com.encityproject.ui.weatherData;
 
 import android.content.Context;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -58,7 +59,7 @@ public class HourlyForecastAdapter extends RecyclerView.Adapter<HourlyForecastAd
         day = String.valueOf(calendar.get(Calendar.DAY_OF_MONTH));
         month = String.valueOf(calendar.get(Calendar.MONTH)+1);
         dayOfWeek = String.valueOf(calendar.get(Calendar.DAY_OF_WEEK));
-        tvDateToday.setText(textDayOfWeek(dayOfWeek) +"\n" + day + " " + textMouthofYear(month) + " "+ timeHHMM);
+        tvDateToday.setText(textDayOfWeek(dayOfWeek) +", " + day +"."+ textMouthofYear(month) + "\n"+ timeHHMM);
     }
 
     private String textMouthofYear(String monthOfYear)
@@ -66,29 +67,29 @@ public class HourlyForecastAdapter extends RecyclerView.Adapter<HourlyForecastAd
         int monthYear = Integer.parseInt(monthOfYear);
         String monthString = "";
         switch (monthYear) {
-            case 1:  monthString = "Січня";
+            case 1:  monthString = "01";
                 break;
-            case 2:  monthString = "Лютого";
+            case 2:  monthString = "02";
                 break;
-            case 3:  monthString = "Березня";
+            case 3:  monthString = "03";
                 break;
-            case 4:  monthString = "Квітня";
+            case 4:  monthString = "04";
                 break;
-            case 5:  monthString = "Травня";
+            case 5:  monthString = "05";
                 break;
-            case 6:  monthString = "Червня";
+            case 6:  monthString = "06";
                 break;
-            case 7:  monthString = "Липня";
+            case 7:  monthString = "07";
                 break;
-            case 8:  monthString = "Серпня";
+            case 8:  monthString = "08";
                 break;
-            case 9:  monthString = "Вересня";
+            case 9:  monthString = "09";
                 break;
-            case 10: monthString = "Жовтня";
+            case 10: monthString = "10";
                 break;
-            case 11: monthString = "Листопада";
+            case 11: monthString = "11";
                 break;
-            case 12: monthString = "Грудня";
+            case 12: monthString = "12";
                 break;
         }
         month = monthString;
@@ -100,19 +101,19 @@ public class HourlyForecastAdapter extends RecyclerView.Adapter<HourlyForecastAd
         int dayWeek = Integer.parseInt(dayOfWeek);
         String dayName = "";
         switch (dayWeek) {
-            case 1:  dayName = "Неділя";
+            case 1:  dayName = "Нд";
                 break;
-            case 2:  dayName = "Понеділок";
+            case 2:  dayName = "Пн";
                 break;
-            case 3:  dayName = "Вівторок";
+            case 3:  dayName = "Вт";
                 break;
-            case 4:  dayName = "Середа";
+            case 4:  dayName = "Ср";
                 break;
-            case 5:  dayName = "Четвер";
+            case 5:  dayName = "Чт";
                 break;
-            case 6:  dayName = "П'ятниця";
+            case 6:  dayName = "Пт";
                 break;
-            case 7:  dayName = "Субота";
+            case 7:  dayName = "Сб";
                 break;
         }
         dayOfWeek = dayName;
@@ -137,6 +138,10 @@ public class HourlyForecastAdapter extends RecyclerView.Adapter<HourlyForecastAd
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis((caList.get(position).getTime()+10800)*1000);
         currentDateAndTime(calendar,new SimpleDateFormat("HH:mm"), holder.tvDateFC);
+//        holder.cv.setCardBackgroundColor(caList.get(position).getColor());
+        holder.clForecast.setBackground(ContextCompat.getDrawable(context, caList.get(position).getColor()));
+
+
     }
 
     @Override public int getItemCount() {
@@ -149,6 +154,8 @@ public class HourlyForecastAdapter extends RecyclerView.Adapter<HourlyForecastAd
         private ItemClickListener mListener;
         private TextView tvTempFC, tvHumFC, tvPresFC, tvDateFC;
         private ImageView ivFC;
+        private CardView cv;
+        private ConstraintLayout clForecast;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -158,7 +165,8 @@ public class HourlyForecastAdapter extends RecyclerView.Adapter<HourlyForecastAd
             tvHumFC=itemView.findViewById(R.id.tvHumFC);
             tvPresFC=itemView.findViewById(R.id.tvPresFC);
             tvDateFC=itemView.findViewById(R.id.tvDateFC);
-
+            cv=itemView.findViewById(R.id.cvForecast);
+            clForecast=itemView.findViewById(R.id.clForecast);
          /*   itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);*/
         }
