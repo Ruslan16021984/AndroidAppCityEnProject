@@ -65,7 +65,7 @@ public class NewsAdapter extends BaseAdapter {
 
         Picasso.get()
                 .load(oneNews.getImgLinkNews())
-                .resize(200, 200)
+                .resize(800, 600)
                 .centerCrop()
                 .into(ivImgLinkNews);
 

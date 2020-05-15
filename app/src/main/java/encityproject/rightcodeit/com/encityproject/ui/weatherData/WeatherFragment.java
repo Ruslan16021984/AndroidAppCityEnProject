@@ -94,7 +94,7 @@ public class WeatherFragment extends Fragment {
     private MediaController mediaController;
     private VideoView vvBackground;
     private TextView tvTemp, tvTempSun, tvDateToday, tvPressure, tvCity, tvSunSet, tvSunRise, tvHumidity, tvDayLenght;
-    private ImageView ivPressure, ivHumidity, ivSunRise, ivSunSet, ivDayLenght, ivDayRotate, ivSunSetRotate, ivSunRiseRotate, ivRound, ivNightRotate, ivRot;
+    private ImageView ivPressure, ivHumidity, ivSunRise, ivSunSet, ivDayLenght, ivDayRotate, ivSunSetRotate, ivSunRiseRotate, ivRound, ivNightRotate, ivRot, ivSunLogo;
     private String day, month, dayOfWeek;
     private String timeHHMM;
     String formattedDouble = "0";
@@ -341,9 +341,17 @@ public class WeatherFragment extends Fragment {
                 Log.d("wda", String.valueOf(wd.get(0).getVal2()));*/
                 progessBar.setVisibility(View.INVISIBLE);
 
-                tvTemp.setText(String.valueOf(round(wdTemp.getVal2(), 1)) + (char) 0x00B0);
+                if(wdTemp.getVal2()>wdHP.getVal1()){
+                    tvTempSun.setText(String.valueOf(round(wdTemp.getVal2(), 1)) + (char) 0x00B0);
+                    tvTemp.setText(String.valueOf(round(wdHP.getVal1(), 1)) + (char) 0x00B0);
+                }
+                else{
+                    tvTemp.setText(String.valueOf(round(wdTemp.getVal2(), 1)) + (char) 0x00B0);
+                    tvTempSun.setText(String.valueOf(round(wdHP.getVal1(), 1)) + (char) 0x00B0);
+                }
 
-                tvTempSun.setText(String.valueOf(round(wdHP.getVal1(), 1)) + (char) 0x00B0);
+/*                tvTemp.setText(String.valueOf(round(wdTemp.getVal2(), 1)) + (char) 0x00B0);
+                tvTempSun.setText(String.valueOf(round(wdHP.getVal1(), 1)) + (char) 0x00B0);*/
                 tvHumidity.setText(String.valueOf(round(wdTemp.getVal1(), 1) + " %"));
                 tvPressure.setText(String.valueOf(round((wdHP.getVal2() / 133.322)-1, 1) + " мм рт.ст."));
 
@@ -444,6 +452,9 @@ public class WeatherFragment extends Fragment {
         });*/
         btn_Prognos = v.findViewById(R.id.btn_prognos);
 
+        ivSunLogo = v.findViewById(R.id.ivSunLogo);
+        ivSunLogo.setColorFilter(Color.rgb(255,255,0));
+        ivSunLogo.setAlpha(0.8F);
         ivRot=v.findViewById(R.id.ivDayRotate);
 
         tvCity = v.findViewById(R.id.tvCity);
@@ -686,6 +697,7 @@ public class WeatherFragment extends Fragment {
                     // ivDayRotate.setVisibility(View.GONE);
                     //  ivNightRotate.setVisibility(View.VISIBLE);
                     ivRot.setVisibility(View.VISIBLE);
+                    ivSunLogo.setVisibility(View.INVISIBLE);
 
                     tvCity.setTextColor(Color.WHITE);
                     tvTemp.setTextColor(Color.WHITE);
@@ -760,6 +772,7 @@ public class WeatherFragment extends Fragment {
                     ivRot.startAnimation(anim);
                     ivRot.setRotation(-moveDay);
                     ivRot.setVisibility(View.VISIBLE);
+                    ivSunLogo.setVisibility(View.VISIBLE);
                     tvTempSun.setVisibility(View.VISIBLE);
                     tvTemp.setVisibility(View.VISIBLE);
                     //     Toast.makeText(getApplicationContext(), "else", Toast.LENGTH_LONG).show();

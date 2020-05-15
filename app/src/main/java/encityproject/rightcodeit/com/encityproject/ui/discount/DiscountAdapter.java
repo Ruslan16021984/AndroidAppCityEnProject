@@ -141,7 +141,7 @@ public class DiscountAdapter extends BaseAdapter {
 
         Picasso.get()
                 .load(discount.getImgPath())
-                .resize(200, 200)
+                .resize(800, 600)
                 .centerCrop()
                 .into(ivItemDiscount);
 

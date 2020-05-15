@@ -18,6 +18,7 @@ public class Discount {
     private String startTime;
     private String endTime;
     private String phone;
+    private String instalink;
 //titlesale0, pricesale1, percentsale, lat, lon, linkphoto, bodysale, starttime, endtime, telseller
 
     /*listDisc.get(i).split(";")[0],listDisc.get(i).split(";")[1],listDisc.get(i).split(";")[2],

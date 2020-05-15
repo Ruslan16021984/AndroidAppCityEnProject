@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.FragmentManager;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
@@ -74,13 +75,28 @@ public class HelsiMeFragment extends Fragment {
                 return true;
             }
         });*/
-        if(isOnline()) {
+        /*if(isOnline()) {
             warmUpChrome();
             launchUrl();
         }
         else{
             Toast.makeText(getContext(), "Перевірте інтернет", Toast.LENGTH_SHORT).show();
         }
+*/
+        if(isOnline()){
+            if(!mCustomTabsOpened){
+                warmUpChrome();
+                launchUrl();
+            }
+            else{
+                stopPage();
+            }
+        }
+        else{
+            Toast.makeText(getContext(), "Перевірте інтернет", Toast.LENGTH_SHORT).show();
+        }
+
+
         return null;
     }
 
@@ -119,18 +135,28 @@ public class HelsiMeFragment extends Fragment {
             if (TextUtils.equals(packageName, PACKAGE_NAME))
                 customTabsIntent.intent.setPackage(PACKAGE_NAME);
         }
-        mCustomTabsOpened = true;
+       // mCustomTabsOpened = true;
         customTabsIntent.launchUrl(getContext(), uri);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        if (mCustomTabsOpened) {
-            mCustomTabsOpened = false;
+
+        /*if (mCustomTabsOpened) {*/
+
+            //mCustomTabsOpened = false;
+            mCustomTabsOpened = true;
             NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
             navController.navigate(R.id.nav_weather, null);
-        }
+//        }
+    }
+
+    public void stopPage() {
+        Intent startMain = new Intent(Intent.ACTION_MAIN);
+        startMain.addCategory(Intent.CATEGORY_HOME);
+        startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(startMain);
     }
 }
 

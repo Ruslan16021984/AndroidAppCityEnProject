@@ -249,7 +249,8 @@ public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
                 Log.d("DISC ", listDisc.get(i));
                 alDisc.add(new Discount(listDisc.get(i).split(";")[0],listDisc.get(i).split(";")[1],listDisc.get(i).split(";")[2],
                         listDisc.get(i).split(";")[3], listDisc.get(i).split(";")[4],listDisc.get(i).split(";")[5],
-                        listDisc.get(i).split(";")[6],listDisc.get(i).split(";")[7],listDisc.get(i).split(";")[8]));
+                        listDisc.get(i).split(";")[6],listDisc.get(i).split(";")[7],listDisc.get(i).split(";")[8],
+                        listDisc.get(i).split(";")[9]));
             }
 //data111,43,23
             return null;
@@ -283,7 +284,8 @@ public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
                                         alDisc.get(position).getDescription()+"@" +
                                         alDisc.get(position).getStartTime()+"@" +
                                         alDisc.get(position).getEndTime()+"@"+
-                                        alDisc.get(position).getPhone());
+                                        alDisc.get(position).getPhone()+"@"+
+                                        alDisc.get(position).getInstalink());
 
             //            Toast.makeText(getActivity(), arrayOfDiscount.getArrayOfDiscount().get(position).getDescription() + " " + (position + 1), Toast.LENGTH_LONG).show();
 

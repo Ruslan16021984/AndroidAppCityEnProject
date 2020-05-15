@@ -1,6 +1,7 @@
 package encityproject.rightcodeit.com.encityproject.ui.discount;
 
 import android.app.AlertDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -35,7 +36,7 @@ public class DescriptionFragment extends Fragment {
     private TextView tvDescription;
     private TextView tvNameGoodsDescription;
     private TextView tvPriceAndDiscountDescription;
-    private ImageView ivItemDiscountDescription;
+    private ImageView ivItemDiscountDescription, ivInsta;
     private ImageView ivMarkDescription, ivCallSel;
     private TextView tvLastTimeDesc, tvPhoheSel;
     private MapController mMapController;
@@ -50,7 +51,7 @@ public class DescriptionFragment extends Fragment {
         tvDescription = v.findViewById(R.id.tv_description_description);
 
 //        tvDescription.setText(""); // ставите текс щ прийде з DiscountFragment
-
+        ivInsta=v.findViewById(R.id.ivInsta);
         tvNameGoodsDescription = (TextView) v.findViewById(R.id.tv_name_goods_description);
         tvPriceAndDiscountDescription = (TextView) v.findViewById(R.id.tv_price_and_discount_description);
         ivItemDiscountDescription = (ImageView) v.findViewById(R.id.iv_item_discount_description);
@@ -59,6 +60,7 @@ public class DescriptionFragment extends Fragment {
         tvPhoheSel=v.findViewById(R.id.tv_phone_sel);
         ivCallSel=v.findViewById(R.id.iv_call_sel);
         Bundle bundle = this.getArguments();
+        tvPhoheSel.setVisibility(View.GONE);
 
 
         if (bundle != null) {
@@ -93,6 +95,26 @@ public class DescriptionFragment extends Fragment {
                 tvPriceAndDiscountDescription.setText("");
             }
 
+            if(fromBundle.split("@")[9].length()>10){
+                ivInsta.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Uri uri = Uri.parse(fromBundle.split("@")[9]);
+                        Intent i= new Intent(Intent.ACTION_VIEW,uri);
+                        i.setPackage("com.instagram.android");
+                        try {
+                            startActivity(i);
+                        } catch (ActivityNotFoundException e) {
+                            startActivity(new Intent(Intent.ACTION_VIEW,
+                                    Uri.parse("http://instagram.com/")));
+                        }
+                    }
+                });
+            }
+            else{
+                ivInsta.setVisibility(View.GONE);
+            }
+
             if(fromBundle.split("@")[8].length()==9) {
                 tvPhoheSel.setText("+380" + fromBundle.split("@")[8]);
                 ivCallSel.setOnClickListener(new View.OnClickListener() {
@@ -123,7 +145,7 @@ public class DescriptionFragment extends Fragment {
 
             Picasso.get()
                     .load(imgPathDescription)
-                    .resize(600, 800)
+                    .resize(800, 600)
                     .centerCrop()
                     .into(ivItemDiscountDescription);
 
