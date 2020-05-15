@@ -29,6 +29,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+
 import org.osmdroid.bonuspack.BuildConfig;
 import org.osmdroid.bonuspack.routing.OSRMRoadManager;
 import org.osmdroid.config.Configuration;
@@ -89,6 +92,17 @@ public class TaxiOrderFragment extends Fragment {
         mapView = new CustomMapView(v, getContext(), this);
         checkPermition();
         findNameHouse();
+
+        ivAdressNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                 bundle.putString("place", etAddress.getText().toString());
+                //    Toast.makeText(context, caList.get(pos).split("@.#")[0], Toast.LENGTH_SHORT).show();
+                NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+                navController.navigate(R.id.nav_taxi_confirm_order_fragment, bundle);
+            }
+        });
         return v;
     }
 
