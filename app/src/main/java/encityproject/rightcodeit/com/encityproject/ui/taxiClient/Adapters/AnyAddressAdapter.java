@@ -1,18 +1,16 @@
 package encityproject.rightcodeit.com.encityproject.ui.taxiClient.Adapters;
 
-
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,18 +21,20 @@ import androidx.navigation.Navigation;
 import java.util.ArrayList;
 
 import encityproject.rightcodeit.com.encityproject.R;
-import encityproject.rightcodeit.com.encityproject.ui.market.model.CategoryModel;
-import encityproject.rightcodeit.com.encityproject.ui.taxiClient.Models.AddressOrder;
 
-public class MyAdressAdapter extends RecyclerView.Adapter<MyAdressAdapter.ViewHolder> {
+public class AnyAddressAdapter extends RecyclerView.Adapter<AnyAddressAdapter.ViewHolder> {
     private Context context;
     private Activity activity;
-    private ArrayList<AddressOrder> addList;
+    private ArrayList<String> addList;
+    private Bundle bundle;
+    private AlertDialog alertDialog;
 
-    public MyAdressAdapter(Context mContext, Activity activity , ArrayList<AddressOrder> addList) {
+    public AnyAddressAdapter(Context mContext, Activity activity , ArrayList<String> addList, Bundle bundle, AlertDialog alertDialog) {
         this.context = mContext;
         this.addList = addList;
         this.activity = activity;
+        this.bundle = bundle;
+        this.alertDialog=alertDialog;
     }
 
     public boolean isOnline() {
@@ -45,23 +45,24 @@ public class MyAdressAdapter extends RecyclerView.Adapter<MyAdressAdapter.ViewHo
     }
 
     @Override public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.item_my_adress, parent, false);
+        View v = LayoutInflater.from(context).inflate(R.layout.item_my_adress_door, parent, false);
         return new ViewHolder(v);
     }
 
     @Override public void onBindViewHolder(ViewHolder holder, int position) {
 
-        final String address = addList.get(position).getAddress();
+        final String address = addList.get(position);
         holder.tvMyAdress.setText(address);
 
-        holder.setClickListener(new MyAdressAdapter.ItemClickListener() {
+        holder.setClickListener(new AnyAddressAdapter.ItemClickListener() {
             @Override public void onClickItem(int pos) {
                 if(isOnline()) {
-                    Bundle bundle =new Bundle();
-                    bundle.putString("place", addList.get(position).getAddress());
-                    bundle.putString("door", addList.get(position).getNumDoor());
-                    NavController navController = Navigation.findNavController(activity, R.id.nav_host_fragment);
-                    navController.navigate(R.id.nav_taxi_confirm_order_fragment, bundle);
+                    if(bundle!=null) {
+                        alertDialog.dismiss();
+                        bundle.putString("door", addList.get(position));
+                        NavController navController = Navigation.findNavController(activity, R.id.nav_host_fragment);
+                        navController.navigate(R.id.nav_taxi_confirm_order_fragment, bundle);
+                    }
                 }
                 else{
                     Toast.makeText(context, "Перевірте інтернет", Toast.LENGTH_SHORT).show();
@@ -113,4 +114,5 @@ public class MyAdressAdapter extends RecyclerView.Adapter<MyAdressAdapter.ViewHo
         void onLongClickItem(int pos);
     }
 }
+
 

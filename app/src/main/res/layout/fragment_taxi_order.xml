@@ -156,6 +156,6 @@
             android:layout_height="wrap_content"
             android:background="@drawable/button_rounded"
             android:padding="20dp"
-            android:hint="Address"/>
+            android:hint="AddressOrder"/>
     </LinearLayout>-->
 </LinearLayout>

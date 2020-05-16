@@ -1,7 +1,9 @@
 package encityproject.rightcodeit.com.encityproject.ui.taxiClient;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Address;
@@ -9,6 +11,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -25,8 +28,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Interpolator;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.navigation.NavController;
@@ -46,7 +51,10 @@ import java.util.List;
 import encityproject.rightcodeit.com.encityproject.R;
 import encityproject.rightcodeit.com.encityproject.ui.busTracker.GetAddressTask;
 import encityproject.rightcodeit.com.encityproject.ui.market.adapter.inner_adapter.CloudMarketAdapter;
+import encityproject.rightcodeit.com.encityproject.ui.registration.cloudMarket.WorksInBasketAdapterTwoView;
+import encityproject.rightcodeit.com.encityproject.ui.taxiClient.Adapters.AnyAddressAdapter;
 import encityproject.rightcodeit.com.encityproject.ui.taxiClient.Adapters.MyAdressAdapter;
+import encityproject.rightcodeit.com.encityproject.ui.taxiClient.Models.AddressOrder;
 
 import static android.support.constraint.Constraints.TAG;
 
@@ -60,7 +68,9 @@ public class TaxiOrderFragment extends Fragment {
     private ImageView ivAdressNext, ivMyPlace;
     private RecyclerView rvMyAdress;
     private MyAdressAdapter myAdressAdapter;
-    private ArrayList<String> listAdress;
+    private ArrayList<AddressOrder> listAdress;
+    private GeoPoint myPosition;
+    private LocationManager mLocationManager;
 
     public TaxiOrderFragment() {
         // Required empty public constructor
@@ -78,9 +88,9 @@ public class TaxiOrderFragment extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_taxi_order, container, false);
         listAdress=new ArrayList<>();
-        listAdress.add("Будівельників 14, под'їзд 3");
-        listAdress.add("Молодіжна 6, под'їзд 1");
-        listAdress.add("Не використана");
+        listAdress.add(new AddressOrder("Молодіжна 12","2"));
+        listAdress.add(new AddressOrder("Будівкельників 10","4"));
+        listAdress.add(new AddressOrder("Не використана", ""));
         etAddress = v.findViewById(R.id.et_address);
         ivAdressNext=v.findViewById(R.id.ivAdressNext);
         ivMyPlace=v.findViewById(R.id.ivMyPlace);
@@ -96,14 +106,48 @@ public class TaxiOrderFragment extends Fragment {
         ivAdressNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Bundle bundle = new Bundle();
-                 bundle.putString("place", etAddress.getText().toString());
+                if(etAddress.getText().length()>5) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("place", etAddress.getText().toString());
+                    openDialogNumberDoor(etAddress.getText().toString(), bundle);
+                }
                 //    Toast.makeText(context, caList.get(pos).split("@.#")[0], Toast.LENGTH_SHORT).show();
-                NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
-                navController.navigate(R.id.nav_taxi_confirm_order_fragment, bundle);
+                /*NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+                navController.navigate(R.id.nav_taxi_confirm_order_fragment, bundle);*/
             }
         });
         return v;
+    }
+
+    private void openDialogNumberDoor(String toString, Bundle bundle) {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService( Context.LAYOUT_INFLATER_SERVICE );
+        View v = inflater.inflate( R.layout.dialog_door_house_fragment, null );
+        ArrayList<String> list = new ArrayList<>();
+        list.add("1");
+        list.add("2");
+        list.add("3");
+        list.add("4");
+        list.add("5");
+        list.add("6");
+
+
+
+        builder
+                .setView(v)
+                .setCancelable(true)
+        ;
+        final AlertDialog alert2 = builder.create();
+
+        AnyAddressAdapter mAdapter=new AnyAddressAdapter(getContext(),getActivity(),list, bundle, alert2);
+
+        RecyclerView rvDoor= v.findViewById(R.id.rvDoor);
+
+        rvDoor.setLayoutManager(new GridLayoutManager(getActivity(), 3, GridLayoutManager.VERTICAL, false));
+        rvDoor.setAdapter(mAdapter);
+
+        alert2.show();
+
     }
 
     private void checkPermition() {
@@ -143,7 +187,7 @@ public class TaxiOrderFragment extends Fragment {
     }
 
     public void findNameHouse() {
-        LocationManager mLocationManager = (LocationManager)
+        mLocationManager = (LocationManager)
                 getActivity().getSystemService(Context.LOCATION_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
@@ -155,9 +199,9 @@ public class TaxiOrderFragment extends Fragment {
             }
         }
         Log.d("TAG", "прошел");
-        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10,locationListener);
         Location locationGPS = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        GeoPoint myPosition = new GeoPoint(locationGPS.getLatitude(), locationGPS.getLongitude());
+        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10,locationListener);
+        myPosition = new GeoPoint(locationGPS.getLatitude(), locationGPS.getLongitude());
         Float latit = new BigDecimal(locationGPS.getLatitude()).setScale(4, BigDecimal.ROUND_HALF_UP).floatValue();
         Float longi = new BigDecimal(locationGPS.getLongitude()).setScale(4, BigDecimal.ROUND_HALF_UP).floatValue();
 
@@ -167,13 +211,13 @@ public class TaxiOrderFragment extends Fragment {
 
     public void callBackDataFromAsyncTask(String address) {
    //     Toast.makeText(getActivity(), "" + address, Toast.LENGTH_LONG).show();
-        etAddress.setText(address);
+        etAddress.setText(address.split(",")[0]+" "+address.split(",")[1]);
     }
 
     private final LocationListener locationListener = new LocationListener() {
         @Override
         public void onLocationChanged(Location location) {
-
+            myPosition = new GeoPoint(location.getLatitude(), location.getLongitude());
         }
 
         @Override

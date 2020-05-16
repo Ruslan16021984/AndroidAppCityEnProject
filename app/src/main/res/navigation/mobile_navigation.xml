@@ -219,6 +219,19 @@
         android:label="Таксі"
         tools:layout="@layout/fragment_taxi_confirm_order"/>
 
+    <fragment
+        android:id="@+id/nav_taxi_taken_order_fragment"
+        android:name="encityproject.rightcodeit.com.encityproject.ui.taxiClient.TaxiTakenOrderFragment"
+        android:label="Таксі"
+        tools:layout="@layout/fragment_taxi_taken_order"/>
+
+    <fragment
+        android:id="@+id/nav_taxi_finish_order_fragment"
+        android:name="encityproject.rightcodeit.com.encityproject.ui.taxiClient.TaxiFinishOrderFragment"
+        android:label="Таксі"
+        tools:layout="@layout/fragment_taxi_finish_order"/>
+
+
     <!--
         <fragment
             android:id="@+id/nav_share"
