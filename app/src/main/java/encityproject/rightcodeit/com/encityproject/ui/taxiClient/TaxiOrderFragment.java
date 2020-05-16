@@ -1,6 +1,7 @@
 package encityproject.rightcodeit.com.encityproject.ui.taxiClient;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -56,6 +57,7 @@ import encityproject.rightcodeit.com.encityproject.ui.taxiClient.Adapters.AnyAdd
 import encityproject.rightcodeit.com.encityproject.ui.taxiClient.Adapters.MyAdressAdapter;
 import encityproject.rightcodeit.com.encityproject.ui.taxiClient.Models.AddressOrder;
 
+import static android.content.Context.LOCATION_SERVICE;
 import static android.support.constraint.Constraints.TAG;
 
 /**
@@ -100,8 +102,24 @@ public class TaxiOrderFragment extends Fragment {
         myAdressAdapter = new MyAdressAdapter(getContext(),getActivity() ,listAdress);
         rvMyAdress.setAdapter(myAdressAdapter);
         mapView = new CustomMapView(v, getContext(), this);
+        Float latit = new BigDecimal(47.490459).setScale(4, BigDecimal.ROUND_HALF_UP).floatValue();
+        Float longi = new BigDecimal(34.660989).setScale(4, BigDecimal.ROUND_HALF_UP).floatValue();
+        new GetAddressTask(this).execute(String.valueOf(latit), String.valueOf(longi));
+
         checkPermition();
-        findNameHouse();
+
+        ivMyPlace.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!isGeoDisabled()) {
+                    findNameHouse();
+                }
+                else{
+                    startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                }
+            }
+        });
+
 
         ivAdressNext.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,12 +129,18 @@ public class TaxiOrderFragment extends Fragment {
                     bundle.putString("place", etAddress.getText().toString());
                     openDialogNumberDoor(etAddress.getText().toString(), bundle);
                 }
-                //    Toast.makeText(context, caList.get(pos).split("@.#")[0], Toast.LENGTH_SHORT).show();
-                /*NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
-                navController.navigate(R.id.nav_taxi_confirm_order_fragment, bundle);*/
+
             }
         });
         return v;
+    }
+
+    public boolean isGeoDisabled() {
+        LocationManager mLocationManager = (LocationManager) getContext().getSystemService(LOCATION_SERVICE);
+        boolean mIsGPSEnabled = mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        boolean mIsNetworkEnabled = mLocationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        boolean mIsGeoDisabled = !mIsGPSEnabled && !mIsNetworkEnabled;
+        return mIsGeoDisabled;
     }
 
     private void openDialogNumberDoor(String toString, Bundle bundle) {
@@ -131,8 +155,6 @@ public class TaxiOrderFragment extends Fragment {
         list.add("5");
         list.add("6");
 
-
-
         builder
                 .setView(v)
                 .setCancelable(true)
@@ -140,9 +162,7 @@ public class TaxiOrderFragment extends Fragment {
         final AlertDialog alert2 = builder.create();
 
         AnyAddressAdapter mAdapter=new AnyAddressAdapter(getContext(),getActivity(),list, bundle, alert2);
-
         RecyclerView rvDoor= v.findViewById(R.id.rvDoor);
-
         rvDoor.setLayoutManager(new GridLayoutManager(getActivity(), 3, GridLayoutManager.VERTICAL, false));
         rvDoor.setAdapter(mAdapter);
 
@@ -188,7 +208,7 @@ public class TaxiOrderFragment extends Fragment {
 
     public void findNameHouse() {
         mLocationManager = (LocationManager)
-                getActivity().getSystemService(Context.LOCATION_SERVICE);
+                getActivity().getSystemService(LOCATION_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
                     != PackageManager.PERMISSION_GRANTED
@@ -199,19 +219,40 @@ public class TaxiOrderFragment extends Fragment {
             }
         }
         Log.d("TAG", "прошел");
-        Location locationGPS = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10,locationListener);
-        myPosition = new GeoPoint(locationGPS.getLatitude(), locationGPS.getLongitude());
-        Float latit = new BigDecimal(locationGPS.getLatitude()).setScale(4, BigDecimal.ROUND_HALF_UP).floatValue();
-        Float longi = new BigDecimal(locationGPS.getLongitude()).setScale(4, BigDecimal.ROUND_HALF_UP).floatValue();
+        //Location locationGPS = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        Location locationGPS = getLastKnownLocation();
+        if(locationGPS!=null) {
+        //    mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, locationListener);
+            myPosition = new GeoPoint(locationGPS.getLatitude(), locationGPS.getLongitude());
+            Float latit = new BigDecimal(locationGPS.getLatitude()).setScale(4, BigDecimal.ROUND_HALF_UP).floatValue();
+            Float longi = new BigDecimal(locationGPS.getLongitude()).setScale(4, BigDecimal.ROUND_HALF_UP).floatValue();
 
-        Log.d(TAG, locationGPS.getLatitude() + " " + locationGPS.getLongitude());
-        new GetAddressTask(this).execute(String.valueOf(latit), String.valueOf(longi));
+            Log.d(TAG, locationGPS.getLatitude() + " " + locationGPS.getLongitude());
+            new GetAddressTask(this).execute(String.valueOf(latit), String.valueOf(longi));
+        }
     }
 
     public void callBackDataFromAsyncTask(String address) {
    //     Toast.makeText(getActivity(), "" + address, Toast.LENGTH_LONG).show();
         etAddress.setText(address.split(",")[0]+" "+address.split(",")[1]);
+    }
+
+    private Location getLastKnownLocation() {
+        mLocationManager = (LocationManager) getContext().getSystemService(LOCATION_SERVICE);
+        List<String> providers = mLocationManager.getProviders(true);
+        Location bestLocation = null;
+        for (String provider : providers) {
+            @SuppressLint("MissingPermission")
+            Location l = mLocationManager.getLastKnownLocation(provider);
+            if (l == null) {
+                continue;
+            }
+            if (bestLocation == null || l.getAccuracy() < bestLocation.getAccuracy()) {
+                // Found best last known location: %s", l);
+                bestLocation = l;
+            }
+        }
+        return bestLocation;
     }
 
     private final LocationListener locationListener = new LocationListener() {
