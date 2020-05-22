@@ -1,3 +1,4 @@
+
 package encityproject.rightcodeit.com.encityproject.ui.taxiClient;
 
 import android.Manifest;
@@ -60,9 +61,7 @@ import encityproject.rightcodeit.com.encityproject.ui.taxiClient.Models.AddressO
 import static android.content.Context.LOCATION_SERVICE;
 import static android.support.constraint.Constraints.TAG;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class TaxiOrderFragment extends Fragment {
     private static final int REQUEST_CODE_PERMISSION_READ_CONTACTS = 123;
     private CustomMapView mapView;
@@ -108,6 +107,7 @@ public class TaxiOrderFragment extends Fragment {
 
         checkPermition();
 
+        //запустить gps и показать на карте маркер клиента
         ivMyPlace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -121,6 +121,7 @@ public class TaxiOrderFragment extends Fragment {
         });
 
 
+        //переход к выбору подъезда и затем подтверждение заказа в TaxiConfirmFragment
         ivAdressNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -193,6 +194,7 @@ public class TaxiOrderFragment extends Fragment {
     public void onPause() {
         super.onPause();
         mapView.getMapView().onPause();
+
     }
 
     @Override

@@ -50,7 +50,7 @@ public class TaxiFinishOrderFragment extends Fragment implements View.OnClickLis
         ivCarPoint4.setOnClickListener(this);
         ivCarPoint5.setOnClickListener(this);
 
-
+//ставим рейтинг за заказ
         btnMarkOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

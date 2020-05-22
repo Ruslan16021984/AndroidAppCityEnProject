@@ -12,8 +12,7 @@
         app:cardCornerRadius="10dp"
         android:padding="5dp"
         android:layout_margin="5dp"
-        android:backgroundTint="@color/colorLightGreen"
-        >
+        android:backgroundTint="@color/colorLightGreen">
         <android.support.constraint.ConstraintLayout
             android:id="@+id/clForecast"
             android:layout_width="match_parent"
@@ -21,8 +20,8 @@
 
             <ImageView
                 android:id="@+id/ivFC"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:src="@drawable/daylenght"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

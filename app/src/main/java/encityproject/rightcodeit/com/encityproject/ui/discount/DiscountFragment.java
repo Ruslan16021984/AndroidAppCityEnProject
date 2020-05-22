@@ -1,15 +1,19 @@
 package encityproject.rightcodeit.com.encityproject.ui.discount;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -38,6 +42,7 @@ import java.io.ObjectInputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.List;
 
 import encityproject.rightcodeit.com.encityproject.BuildConfig;
 import encityproject.rightcodeit.com.encityproject.R;
@@ -47,6 +52,7 @@ import encityproject.rightcodeit.com.encityproject.ui.phonesBook.Contact;
 import encityproject.rightcodeit.com.encityproject.ui.phonesBook.ContactAdapter;
 
 public class DiscountFragment extends Fragment {
+    private static final int REQUEST_CODE_PERMISSION_READ_PHONE_STATE = 1009;
     private ArrayOfDiscount arrayOfDiscount;
     private DiscountAdapter discountAdapter;
     private int index;
@@ -157,6 +163,8 @@ public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         */
         setHasOptionsMenu(true);
 
+//        checkAndRequestPermissions();
+
         listView = v.findViewById(R.id.lv_discounts);
 
 
@@ -263,7 +271,7 @@ public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
             listView.setVisibility(View.VISIBLE);
             pbDisc.setVisibility(View.INVISIBLE);
             if(listDisc.size()>0) {
-                discountAdapter = new DiscountAdapter(getActivity(), alDisc);
+                discountAdapter = new DiscountAdapter(getActivity(), getActivity(), alDisc);
                 listView.setAdapter(discountAdapter);
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
@@ -307,5 +315,37 @@ public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
             }
         }
     }
+
+     /*<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>*/
+
+    private  boolean checkAndRequestPermissions() {
+        boolean status=false;
+        int writeExternalPerm = ContextCompat.checkSelfPermission(getContext(),
+                Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        int fineLocPermition = ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION);
+       // int readPhoneStatePerm = ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_PHONE_STATE);
+        List<String> listPermissionsNeeded = new ArrayList<>();
+        if (writeExternalPerm != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        }
+       /* if (fineLocPermition != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.ACCESS_COARSE_LOCATION);
+        }*/
+    /*    if (readPhoneStatePerm != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.READ_PHONE_STATE);
+        }*/
+        if (!listPermissionsNeeded.isEmpty()) {
+            ActivityCompat.requestPermissions(getActivity(), listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]),210);
+            return true;
+        }
+
+        return status;
+    }
+
 
 }

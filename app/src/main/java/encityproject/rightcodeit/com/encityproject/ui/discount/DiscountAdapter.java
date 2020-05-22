@@ -1,8 +1,13 @@
 package encityproject.rightcodeit.com.encityproject.ui.discount;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.os.Build;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +30,7 @@ import org.osmdroid.views.overlay.OverlayItem;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.List;
 
 import encityproject.rightcodeit.com.encityproject.BuildConfig;
 import encityproject.rightcodeit.com.encityproject.R;
@@ -32,10 +38,12 @@ import encityproject.rightcodeit.com.encityproject.R;
 public class DiscountAdapter extends BaseAdapter {
 
     private Context ctx;
+    private Activity activity;
     LayoutInflater lInflater;
     ArrayList<Discount> discounts;
 
-    public DiscountAdapter(Context context, ArrayList<Discount> contacts) {
+    public DiscountAdapter(Activity activity, Context context, ArrayList<Discount> contacts) {
+        this.activity=activity;
         this.ctx = context;
         this.discounts = contacts;
         lInflater = (LayoutInflater) ctx
@@ -67,7 +75,7 @@ public class DiscountAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         View v = convertView;
-        final Discount discount = getDiscount(position);
+        Discount discount = getDiscount(position);
 
         if (v == null) {
             LayoutInflater vi;
@@ -84,39 +92,16 @@ public class DiscountAdapter extends BaseAdapter {
         ivMark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
-                LayoutInflater inflater = LayoutInflater.from(ctx);
-                View vOpenStreetMap = inflater.inflate(R.layout.custom_dialog_open_street_map, null);
-
-          //      Toast.makeText(ctx.getApplicationContext(), "Hello! " + (position + 1), Toast.LENGTH_LONG).show();
-
-                // String coordinates = arrayOfDiscount.getArrayOfDiscount().get(position).getCoordinates();
-
-                //Координаты можно писать классически
-                Configuration.getInstance().setUserAgentValue(BuildConfig.APPLICATION_ID);
-                MapView mMapView = vOpenStreetMap.findViewById(R.id.mapview);
-                mMapView.setTileSource(TileSourceFactory.DEFAULT_TILE_SOURCE);
-                mMapView.setBuiltInZoomControls(true);
-                mMapView.setMultiTouchControls(true);
-                MapController mMapController = (MapController) mMapView.getController();
-                mMapController.setZoom(17);
-                GeoPoint gPt = new GeoPoint(Double.parseDouble(discount.getLan()), Double.parseDouble(discount.getLon()));
-                mMapController.setCenter(gPt);
-                Marker startMarker = new Marker(mMapView);
-                startMarker.setPosition(gPt);
-                startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-                startMarker.setIcon(ctx.getResources().getDrawable(R.drawable.mark));
-                mMapView.getOverlays().add(startMarker);
-
-                builder
-                        .setView(vOpenStreetMap)
-                        .setCancelable(true);
-                final AlertDialog alert = builder.create();
-                alert.show();
+                if(checkAndRequestPermissions()){
+                    showOnMap(discount);
+                }
+                else {
+                   showOnMap(discount);
+                }
             }
         });
 
-        if((Timestamp.valueOf(discount.getEndTime()).getTime()-System.currentTimeMillis())/(1000*60*60*24)>1) {
+        if((Timestamp.valueOf(discount.getEndTime()).getTime()-System.currentTimeMillis())/(1000*60*60*24)>=1) {
             tvLastTime.setText("Залишилось " + String.valueOf((Timestamp.valueOf(discount.getEndTime()).getTime() -System.currentTimeMillis()) / (1000 * 60 * 60 * 24)) + " днів");
         }
         else{
@@ -146,5 +131,61 @@ public class DiscountAdapter extends BaseAdapter {
                 .into(ivItemDiscount);
 
         return v;
+    }
+
+    private  boolean checkAndRequestPermissions() {
+        boolean status=false;
+        int writeExternalPerm = ContextCompat.checkSelfPermission(ctx,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        int fineLocPermition = ContextCompat.checkSelfPermission(ctx, Manifest.permission.ACCESS_COARSE_LOCATION);
+        // int readPhoneStatePerm = ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_PHONE_STATE);
+        List<String> listPermissionsNeeded = new ArrayList<>();
+        if (writeExternalPerm != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        }
+       /* if (fineLocPermition != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.ACCESS_COARSE_LOCATION);
+        }*/
+    /*    if (readPhoneStatePerm != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.READ_PHONE_STATE);
+        }*/
+        if (!listPermissionsNeeded.isEmpty()) {
+            ActivityCompat.requestPermissions(activity, listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]),210);
+            return true;
+        }
+
+        return status;
+    }
+
+    private void showOnMap(Discount discount){
+        AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
+        LayoutInflater inflater = LayoutInflater.from(ctx);
+        View vOpenStreetMap = inflater.inflate(R.layout.custom_dialog_open_street_map, null);
+
+        //      Toast.makeText(ctx.getApplicationContext(), "Hello! " + (position + 1), Toast.LENGTH_LONG).show();
+
+        // String coordinates = arrayOfDiscount.getArrayOfDiscount().get(position).getCoordinates();
+
+        //Координаты можно писать классически
+        Configuration.getInstance().setUserAgentValue(BuildConfig.APPLICATION_ID);
+        MapView mMapView = vOpenStreetMap.findViewById(R.id.mapview);
+        mMapView.setTileSource(TileSourceFactory.DEFAULT_TILE_SOURCE);
+        mMapView.setBuiltInZoomControls(true);
+        mMapView.setMultiTouchControls(true);
+        MapController mMapController = (MapController) mMapView.getController();
+        mMapController.setZoom(17);
+        GeoPoint gPt = new GeoPoint(Double.parseDouble(discount.getLan()), Double.parseDouble(discount.getLon()));
+        mMapController.setCenter(gPt);
+        Marker startMarker = new Marker(mMapView);
+        startMarker.setPosition(gPt);
+        startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+        startMarker.setIcon(ctx.getResources().getDrawable(R.drawable.mark));
+        mMapView.getOverlays().add(startMarker);
+
+        builder
+                .setView(vOpenStreetMap)
+                .setCancelable(true);
+        final AlertDialog alert = builder.create();
+        alert.show();
     }
 }

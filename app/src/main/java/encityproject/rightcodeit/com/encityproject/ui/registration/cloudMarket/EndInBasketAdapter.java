@@ -50,15 +50,12 @@ public class EndInBasketAdapter extends RecyclerView.Adapter<EndInBasketAdapter.
     private SharedPreferences.Editor editor;
     private static final String APP_PREFERENCES = "ensettings";
 
-
-
     public EndInBasketAdapter(Context mContext, Activity activity , ArrayList<String> caList, String newOrClosed) {
         this.context = mContext;
         this.caList = caList;
         this.activity = activity;
         this.newOrClosed=newOrClosed;
         prefer=context.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
-
     }
 
     @Override public EndInBasketAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

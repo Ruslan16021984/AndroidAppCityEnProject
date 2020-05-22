@@ -52,8 +52,11 @@ public class TaxiTakenOrderFragment extends Fragment {
 
         btnCancelTaxi=view.findViewById(R.id.btnCancelTaxi);
         llBtnCallDriver=view.findViewById(R.id.llBtnCallDriver);
+//В этом фрагменте клиент видит машину такси на карте, после взятия заказа таксистом.
+        //после подтверждения выполнения заказа таксистом, клиента перенаправляет на оценку поездки в TaxiFinishOrderFragment
 
-        //bottom handler imitation take order
+        //bottom handler imitation take order. Ждем взятие заказа такси
+        //удалить хендлер, это имитация
         Handler h = new Handler();
         h.postDelayed(new Runnable() {
             @Override
@@ -65,6 +68,7 @@ public class TaxiTakenOrderFragment extends Fragment {
             }
         },5000);
 
+        //отменить поездку пока таксист не взял заказ. После взятия заказа нельзя
         btnCancelTaxi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -72,6 +76,7 @@ public class TaxiTakenOrderFragment extends Fragment {
             }
         });
 
+        //звонок таксисту
         llBtnCallDriver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

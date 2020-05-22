@@ -63,6 +63,8 @@ public class TaxiConfirmOrderFragment extends Fragment {
             tvInfoOrder2.setText("Рекомендуєма ціна по місту 40 грн");
         }
 
+        //Подтверждаем поездку. Высылаем на сервер. И ждем взятие заказ таксистом
+        //Хендлером эмуляция взятия заказа. Нужно удалить ее
         btnConfirmTaxi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

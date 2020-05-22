@@ -14,6 +14,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.GravityCompat;
 import android.text.SpannableString;
 import android.text.style.TextAppearanceSpan;
 import android.util.Log;
@@ -110,6 +111,7 @@ public class MainActivityWithNaviDrawer extends AppCompatActivity {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
 
+
         if(!prefer.contains("join")){
             Log.d("JOIN", "creating");
             editor=prefer.edit();
@@ -147,8 +149,10 @@ public class MainActivityWithNaviDrawer extends AppCompatActivity {
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                  R.id.nav_weather, R.id.nav_phonesBook,R.id.nav_discount,
                 /*R.id.nav_bench, R.id.nav_busmap,*/ R.id.nav_helsi, R.id.nav_news, R.id.nav_reg, R.id.nav_auth_company_fragment,
-                R.id.nav_auth_client_fragment, R.id.nav_entrance_market, R.id.nav_basket_fragment, R.id.nav_work_basket_fragment,
-                R.id.nav_taxi_client_fragment/*,*R.id.nav_share, R.id.nav_send*/)
+                R.id.nav_auth_client_fragment, R.id.nav_entrance_market, R.id.nav_basket_fragment, R.id.nav_work_basket_fragment
+                ,
+                R.id.nav_taxi_client_fragment
+                /*,*R.id.nav_share, R.id.nav_send*/)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
