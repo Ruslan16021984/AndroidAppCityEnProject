@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -55,6 +56,7 @@ public class HourlyForecastFragment extends Fragment {
                 hourlyForecastAdapter=new HourlyForecastAdapter(getContext(), HPlist);
                 recyclerView.setAdapter(hourlyForecastAdapter);
 
+               // Toast.makeText(getContext(), String.valueOf(response.body().getList().get(1).getWind().getSpeed()), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -105,7 +107,9 @@ public class HourlyForecastFragment extends Fragment {
                     response.get(i).getMain().getTemp(),
                     response.get(i).getMain().getHumidity(),
                     response.get(i).getMain().getPressure(),
-                    response.get(i).getDt(), color);
+                    response.get(i).getDt(),
+                    color,
+                    response.get(i).getWind().getSpeed());
             reList.add(hourlyParametr);
         }
         return reList;

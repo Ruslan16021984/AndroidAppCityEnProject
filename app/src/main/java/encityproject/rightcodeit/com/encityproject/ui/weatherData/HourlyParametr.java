@@ -7,14 +7,24 @@ public class HourlyParametr {
     private double Pres;
     private long time;
     private int color;
+    private double windSpeed;
 
-    public HourlyParametr(String icon, double temp, double hum, double pres, long time, int color) {
+    public HourlyParametr(String icon, double temp, double hum, double pres, long time, int color, double windSpeed) {
         this.icon = icon;
         this.Temp = temp;
         this.Hum = hum;
         this.Pres = pres;
         this.time = time;
         this.color = color;
+        this.windSpeed=windSpeed;
+    }
+
+    public double getWindSpeed() {
+        return windSpeed;
+    }
+
+    public void setWindSpeed(double windSpeed) {
+        this.windSpeed = windSpeed;
     }
 
     public int getColor() {

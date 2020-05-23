@@ -140,6 +140,7 @@ public class HourlyForecastAdapter extends RecyclerView.Adapter<HourlyForecastAd
         currentDateAndTime(calendar,new SimpleDateFormat("HH:mm"), holder.tvDateFC);
 //        holder.cv.setCardBackgroundColor(caList.get(position).getColor());
         holder.clForecast.setBackground(ContextCompat.getDrawable(context, caList.get(position).getColor()));
+        holder.tvWind.setText(String.valueOf(caList.get(position).getWindSpeed())+" м/с");
 
 
     }
@@ -152,7 +153,7 @@ public class HourlyForecastAdapter extends RecyclerView.Adapter<HourlyForecastAd
             implements View.OnClickListener, View.OnLongClickListener {
 
         private ItemClickListener mListener;
-        private TextView tvTempFC, tvHumFC, tvPresFC, tvDateFC;
+        private TextView tvTempFC, tvHumFC, tvPresFC, tvDateFC, tvWind;
         private ImageView ivFC;
         private CardView cv;
         private ConstraintLayout clForecast;
@@ -160,6 +161,7 @@ public class HourlyForecastAdapter extends RecyclerView.Adapter<HourlyForecastAd
         public ViewHolder(View itemView) {
             super(itemView);
 
+            tvWind=itemView.findViewById(R.id.tvWind);
             ivFC=itemView.findViewById(R.id.ivFC);
             tvTempFC=itemView.findViewById(R.id.tvTempFC);
             tvHumFC=itemView.findViewById(R.id.tvHumFC);
