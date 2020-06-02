@@ -47,9 +47,14 @@ import java.util.Scanner;
 
 import encityproject.rightcodeit.com.encityproject.ui.registration.cloudMarket.InmakingBasketAdapter;
 import encityproject.rightcodeit.com.encityproject.ui.registration.cloudMarket.WorksInBasketAdapter;
+import encityproject.rightcodeit.com.encityproject.ui.taxiClient.Models.mvp.MainPresenter;
+import encityproject.rightcodeit.com.encityproject.ui.taxiClient.Models.mvp.SocketContruct;
+import io.reactivex.disposables.CompositeDisposable;
+import ua.naiksoftware.stomp.Stomp;
+import ua.naiksoftware.stomp.StompClient;
 
-public class MainActivityWithNaviDrawer extends AppCompatActivity {
-
+public class MainActivityWithNaviDrawer extends AppCompatActivity implements SocketContruct.View {
+    private SocketContruct.Presenter mPresenter;
     private int port = 4656;
     // private String ip = "192.168.1.46";
     private String ip = "35.232.178.112";
@@ -65,6 +70,7 @@ public class MainActivityWithNaviDrawer extends AppCompatActivity {
     private Menu menuNav;
     private ArrayList<String> categoryList;
     private String phone;
+
 
     public boolean isOnline() {
         ConnectivityManager cm =
@@ -92,9 +98,9 @@ public class MainActivityWithNaviDrawer extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_with_navi_drawer);
+        mPresenter = new MainPresenter(this);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         listSMS=new ArrayList<>();
 /*
 
@@ -273,6 +279,11 @@ public class MainActivityWithNaviDrawer extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+
+    }
+
+    @Override
+    public void showData() {
 
     }
 
@@ -489,4 +500,13 @@ public class MainActivityWithNaviDrawer extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mPresenter.onDestroy();
+    }
+
+    public SocketContruct.Presenter getmPresenter() {
+        return mPresenter;
+    }
 }

@@ -1,7 +1,7 @@
 package encityproject.rightcodeit.com.encityproject.ui.taxiClient.Models;
 
 public class TaxiWorker {
-    private String loginClient= "";
+    private String loginClient= "укеекь676756а354п45645е45е";
     private String login;
     private String uuId;
     private Double latit;

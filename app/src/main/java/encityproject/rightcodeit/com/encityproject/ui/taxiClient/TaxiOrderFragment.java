@@ -8,12 +8,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.location.Address;
-import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -24,36 +21,24 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Interpolator;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 
 import org.osmdroid.bonuspack.BuildConfig;
-import org.osmdroid.bonuspack.routing.OSRMRoadManager;
 import org.osmdroid.config.Configuration;
 import org.osmdroid.util.GeoPoint;
 
-import java.io.IOException;
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import encityproject.rightcodeit.com.encityproject.MainActivityWithNaviDrawer;
 import encityproject.rightcodeit.com.encityproject.R;
 import encityproject.rightcodeit.com.encityproject.ui.busTracker.GetAddressTask;
-import encityproject.rightcodeit.com.encityproject.ui.market.adapter.inner_adapter.CloudMarketAdapter;
-import encityproject.rightcodeit.com.encityproject.ui.registration.cloudMarket.WorksInBasketAdapterTwoView;
 import encityproject.rightcodeit.com.encityproject.ui.taxiClient.Adapters.AnyAddressAdapter;
 import encityproject.rightcodeit.com.encityproject.ui.taxiClient.Adapters.MyAdressAdapter;
 import encityproject.rightcodeit.com.encityproject.ui.taxiClient.Models.AddressOrder;
@@ -63,6 +48,8 @@ import static android.support.constraint.Constraints.TAG;
 
 
 public class TaxiOrderFragment extends Fragment {
+    private static final String TAG1 = "TAG";
+    private MainActivityWithNaviDrawer activity;
     private static final int REQUEST_CODE_PERMISSION_READ_CONTACTS = 123;
     private CustomMapView mapView;
     private EditText etAddress;
@@ -72,7 +59,6 @@ public class TaxiOrderFragment extends Fragment {
     private ArrayList<AddressOrder> listAdress;
     private GeoPoint myPosition;
     private LocationManager mLocationManager;
-
     public TaxiOrderFragment() {
         // Required empty public constructor
     }
@@ -88,6 +74,7 @@ public class TaxiOrderFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_taxi_order, container, false);
+        activity = (MainActivityWithNaviDrawer) getActivity();
         listAdress=new ArrayList<>();
         listAdress.add(new AddressOrder("Молодіжна 12","2"));
         listAdress.add(new AddressOrder("Будівкельників 10","4"));
@@ -278,4 +265,5 @@ public class TaxiOrderFragment extends Fragment {
 
         }
     };
+
 }
