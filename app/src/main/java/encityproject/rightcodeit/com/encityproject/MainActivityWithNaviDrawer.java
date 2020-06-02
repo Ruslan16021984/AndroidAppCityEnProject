@@ -47,9 +47,11 @@ import java.util.Scanner;
 
 import encityproject.rightcodeit.com.encityproject.ui.registration.cloudMarket.InmakingBasketAdapter;
 import encityproject.rightcodeit.com.encityproject.ui.registration.cloudMarket.WorksInBasketAdapter;
+import encityproject.rightcodeit.com.encityproject.ui.taxiClient.Models.UtlClass;
 import encityproject.rightcodeit.com.encityproject.ui.taxiClient.Models.mvp.MainPresenter;
 import encityproject.rightcodeit.com.encityproject.ui.taxiClient.Models.mvp.SocketContruct;
 import io.reactivex.disposables.CompositeDisposable;
+import lombok.experimental.UtilityClass;
 import ua.naiksoftware.stomp.Stomp;
 import ua.naiksoftware.stomp.StompClient;
 

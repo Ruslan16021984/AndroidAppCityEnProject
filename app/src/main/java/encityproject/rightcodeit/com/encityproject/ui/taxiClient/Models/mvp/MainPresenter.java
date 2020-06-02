@@ -78,12 +78,13 @@ public class MainPresenter implements SocketContruct.Presenter {
         mRepository.getCompositeDisposable().add(dispLifecycle);
         mRepository.getStompClient().connect();
     }
-
+//todo: изменить AddressOrder на клиент
     @Override
     public void sendRequestClient(AddressOrder addressOrder) {
         mRepository.getCompositeDisposable().add(mRepository.getStompClient().send("/app/requestTaxi", mGson.toJson(new AddressOrder("Молодіжна 12", "2")))
                 .compose(applySchedulers())
                 .subscribe(() -> {
+                    //todo: клиент становиться на прослушку и получает координаты и с инфой
                     Log.d(TAG, "STOMP echo send successfully");
                 }, throwable -> {
                     Log.e(TAG, "Error send STOMP echo", throwable);
