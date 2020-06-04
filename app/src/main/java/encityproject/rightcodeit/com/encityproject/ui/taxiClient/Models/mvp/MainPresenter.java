@@ -9,7 +9,7 @@ import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
 
-import encityproject.rightcodeit.com.encityproject.ui.taxiClient.Models.AddressOrder;
+import encityproject.rightcodeit.com.encityproject.ui.taxiClient.Models.TaxiClient;
 import encityproject.rightcodeit.com.encityproject.ui.taxiClient.Models.TaxiWorker;
 import io.reactivex.CompletableTransformer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -21,6 +21,7 @@ public class MainPresenter implements SocketContruct.Presenter {
     private static final String TAG = "MainPresenter";
     private SocketContruct.View mView;
     private SocketContruct.Repository mRepository;
+    private TaxiWorker taxiWorker = new TaxiWorker();
 
     private String message;
 
@@ -42,6 +43,7 @@ public class MainPresenter implements SocketContruct.Presenter {
                     TaxiWorker taxiWorker = new TaxiWorker();
                     String taxi = topicMessage.getPayload();
                     taxiWorker = mGson.fromJson(taxi, TaxiWorker.class);
+                    if (map!=null && marker!=null)
                     SocketContruct.Presenter.animateMarker(map, marker, new GeoPoint(taxiWorker.getLatit(), taxiWorker.getLongit()));
                 }, throwable -> {
                     Log.e(TAG, "Error on subscribe topic", throwable);
@@ -78,16 +80,16 @@ public class MainPresenter implements SocketContruct.Presenter {
         mRepository.getCompositeDisposable().add(dispLifecycle);
         mRepository.getStompClient().connect();
     }
-//todo: изменить AddressOrder на клиент
+
     @Override
-    public void sendRequestClient(AddressOrder addressOrder) {
-        mRepository.getCompositeDisposable().add(mRepository.getStompClient().send("/app/requestTaxi", mGson.toJson(new AddressOrder("Молодіжна 12", "2")))
+    public void sendRequestClient(TaxiClient taxiClient) {
+        mRepository.getCompositeDisposable().add(mRepository.getStompClient().send("/app/requestTaxi", mGson.toJson(taxiClient))
                 .compose(applySchedulers())
                 .subscribe(() -> {
-                    //todo: клиент становиться на прослушку и получает координаты и с инфой
-                    Log.d(TAG, "STOMP echo send successfully");
+                    Log.d(TAG, "sendRequestClient()---->>>>>send successfully");
+
                 }, throwable -> {
-                    Log.e(TAG, "Error send STOMP echo", throwable);
+                    Log.e(TAG, "sendRequestClient() ------>>>>>>Error send STOMP echo", throwable);
                     toast(throwable.getMessage());
                 }));
     }

@@ -13,6 +13,8 @@ import org.osmdroid.views.Projection;
 import org.osmdroid.views.overlay.Marker;
 
 import encityproject.rightcodeit.com.encityproject.ui.taxiClient.Models.AddressOrder;
+import encityproject.rightcodeit.com.encityproject.ui.taxiClient.Models.TaxiClient;
+import encityproject.rightcodeit.com.encityproject.ui.taxiClient.Models.TaxiWorker;
 import io.reactivex.CompletableTransformer;
 import io.reactivex.disposables.CompositeDisposable;
 import ua.naiksoftware.stomp.StompClient;
@@ -26,8 +28,7 @@ public interface SocketContruct {
         void stompTopic(final MapView map, final Marker marker);
 
         void connectStomp();
-
-        void sendRequestClient(AddressOrder addressOrder);
+        void sendRequestClient(TaxiClient taxiClient);
 
         void toast(String text);
 

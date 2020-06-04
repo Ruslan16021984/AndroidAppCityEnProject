@@ -13,9 +13,13 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+
 import encityproject.rightcodeit.com.encityproject.MainActivityWithNaviDrawer;
 import encityproject.rightcodeit.com.encityproject.R;
 import encityproject.rightcodeit.com.encityproject.ui.taxiClient.Models.AddressOrder;
+import encityproject.rightcodeit.com.encityproject.ui.taxiClient.Models.TaxiClient;
 import encityproject.rightcodeit.com.encityproject.ui.taxiClient.Models.mvp.MainPresenter;
 import encityproject.rightcodeit.com.encityproject.ui.taxiClient.Models.mvp.SocketContruct;
 
@@ -34,6 +38,7 @@ public class TaxiConfirmOrderFragment extends Fragment {
     private int time;
     private String place;
     private String door;
+    private TaxiClient taxiClient;
 
     public TaxiConfirmOrderFragment() {
         // Required empty public constructor
@@ -45,6 +50,8 @@ public class TaxiConfirmOrderFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_taxi_confirm_order, container, false);
+        //todo: клиенту добавить всю инфу кроме адреса - это минимум телефон
+        taxiClient = new TaxiClient();
         activity = (MainActivityWithNaviDrawer) getActivity();
         llConfirmTaxi = view.findViewById(R.id.llComfirmTaxi);
         flSearch = view.findViewById(R.id.flSearch);
@@ -65,6 +72,8 @@ public class TaxiConfirmOrderFragment extends Fragment {
             door = bundle.getString("door", "");
             tvInfoOrder1.setText(place + ", під'їзд " + door);
             tvInfoOrder2.setText("Рекомендуєма ціна по місту 40 грн");
+            //todo: еще нужно добавить номер телефона и тд.
+            taxiClient.setTextAddress(place + ", під'їзд " + door);
         }
 
         //Подтверждаем поездку. Высылаем на сервер. И ждем взятие заказ таксистом
@@ -95,8 +104,10 @@ public class TaxiConfirmOrderFragment extends Fragment {
 //                        }
 //                    }
 //                });
-               activity.getmPresenter().connectStomp();
-                activity.getmPresenter().sendRequestClient(new AddressOrder(place, door));
+                activity.getmPresenter().connectStomp();
+                activity.getmPresenter().sendRequestClient(taxiClient);
+                NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+                navController.navigate(R.id.nav_taxi_taken_order_fragment, bundle);
                 Log.e(TAG, "onClick: " + place + " - " + door);
             }
         });

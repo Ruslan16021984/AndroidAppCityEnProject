@@ -60,7 +60,7 @@ public class TaxiOrderFragment extends Fragment {
     private GeoPoint myPosition;
     private LocationManager mLocationManager;
     public TaxiOrderFragment() {
-        // Required empty public constructor
+
     }
 
     @Override
