@@ -50,7 +50,6 @@ public class TaxiConfirmOrderFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_taxi_confirm_order, container, false);
-        //todo: клиенту добавить всю инфу кроме адреса - это минимум телефон
         taxiClient = new TaxiClient();
         activity = (MainActivityWithNaviDrawer) getActivity();
         llConfirmTaxi = view.findViewById(R.id.llComfirmTaxi);
