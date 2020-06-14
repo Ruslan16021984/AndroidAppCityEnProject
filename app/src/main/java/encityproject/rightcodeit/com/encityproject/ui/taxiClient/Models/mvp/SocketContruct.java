@@ -1,5 +1,6 @@
 package encityproject.rightcodeit.com.encityproject.ui.taxiClient.Models.mvp;
 
+import android.app.Activity;
 import android.graphics.Point;
 import android.os.Handler;
 import android.os.SystemClock;
@@ -17,6 +18,7 @@ import encityproject.rightcodeit.com.encityproject.ui.taxiClient.Models.TaxiClie
 import encityproject.rightcodeit.com.encityproject.ui.taxiClient.Models.TaxiWorker;
 import io.reactivex.CompletableTransformer;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 import ua.naiksoftware.stomp.StompClient;
 
 public interface SocketContruct {
@@ -25,7 +27,9 @@ public interface SocketContruct {
     }
 
     interface Presenter {
+        Disposable getDispTopic();
         void stompTopic(final MapView map, final Marker marker);
+        void stompStartTopic(Activity activity);
 
         void connectStomp();
         void sendRequestClient(TaxiClient taxiClient);

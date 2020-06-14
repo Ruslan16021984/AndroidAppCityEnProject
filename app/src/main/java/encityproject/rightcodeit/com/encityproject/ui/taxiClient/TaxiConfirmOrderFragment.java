@@ -72,6 +72,7 @@ public class TaxiConfirmOrderFragment extends Fragment {
             tvInfoOrder1.setText(place + ", під'їзд " + door);
             tvInfoOrder2.setText("Рекомендуєма ціна по місту 40 грн");
             //todo: еще нужно добавить номер телефона и тд.
+            taxiClient.setPhone("0668705440");
             taxiClient.setTextAddress(place + ", під'їзд " + door);
         }
 
@@ -105,8 +106,8 @@ public class TaxiConfirmOrderFragment extends Fragment {
 //                });
                 activity.getmPresenter().connectStomp();
                 activity.getmPresenter().sendRequestClient(taxiClient);
-                NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
-                navController.navigate(R.id.nav_taxi_taken_order_fragment, bundle);
+                activity.getmPresenter().stompStartTopic(getActivity());
+
                 Log.e(TAG, "onClick: " + place + " - " + door);
             }
         });

@@ -1,6 +1,10 @@
 package encityproject.rightcodeit.com.encityproject.ui.taxiClient.Models.mvp;
 
+import android.app.Activity;
 import android.util.Log;
+
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -9,6 +13,7 @@ import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
 
+import encityproject.rightcodeit.com.encityproject.R;
 import encityproject.rightcodeit.com.encityproject.ui.taxiClient.Models.TaxiClient;
 import encityproject.rightcodeit.com.encityproject.ui.taxiClient.Models.TaxiWorker;
 import io.reactivex.CompletableTransformer;
@@ -22,6 +27,7 @@ public class MainPresenter implements SocketContruct.Presenter {
     private SocketContruct.View mView;
     private SocketContruct.Repository mRepository;
     private TaxiWorker taxiWorker = new TaxiWorker();
+    private Disposable dispTopic;
 
     private String message;
 
@@ -33,23 +39,44 @@ public class MainPresenter implements SocketContruct.Presenter {
 
 
     }
+
     @Override
     public void stompTopic(final MapView map, final Marker marker) {
-        Disposable dispTopic = mRepository.getStompClient().topic("/user/taxiOnline/greetings")
+        Disposable dispTopic = mRepository.getStompClient().topic("/user/requestclient/greetings")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(topicMessage -> {
                     Log.d(TAG, "Received " + topicMessage.getPayload());
-                    TaxiWorker taxiWorker = new TaxiWorker();
+                    TaxiWorker taxiWorker;
                     String taxi = topicMessage.getPayload();
                     taxiWorker = mGson.fromJson(taxi, TaxiWorker.class);
-                    if (map!=null && marker!=null)
-                    SocketContruct.Presenter.animateMarker(map, marker, new GeoPoint(taxiWorker.getLatit(), taxiWorker.getLongit()));
+                    if (map != null && marker != null)
+                        SocketContruct.Presenter.animateMarker(map, marker, new GeoPoint(taxiWorker.getLatit(), taxiWorker.getLongit()));
                 }, throwable -> {
                     Log.e(TAG, "Error on subscribe topic", throwable);
                 });
 
         mRepository.getCompositeDisposable().add(dispTopic);
+    }
+
+    @Override
+    public void stompStartTopic(Activity activity) {
+        dispTopic = mRepository.getStompClient().topic("/user/requestclient/greetings")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(topicMessage -> {
+                    Log.d(TAG, "Received " + topicMessage.getPayload());
+                    NavController navController = Navigation.findNavController(activity, R.id.nav_host_fragment);
+                    navController.navigate(R.id.nav_taxi_taken_order_fragment);
+                }, throwable -> {
+                    Log.e(TAG, "Error on subscribe topic", throwable);
+                });
+
+    }
+
+    @Override
+    public Disposable getDispTopic() {
+        return dispTopic;
     }
 
     @Override
@@ -117,7 +144,8 @@ public class MainPresenter implements SocketContruct.Presenter {
     @Override
     public void onDestroy() {
         mRepository.getStompClient().disconnect();
-        if (mRepository.getCompositeDisposable() != null) mRepository.getCompositeDisposable().dispose();
+        if (mRepository.getCompositeDisposable() != null)
+            mRepository.getCompositeDisposable().dispose();
 
     }
 

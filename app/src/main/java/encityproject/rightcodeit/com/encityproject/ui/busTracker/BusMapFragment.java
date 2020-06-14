@@ -123,10 +123,11 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
             @Override
             public void messageArrived(String topic, MqttMessage mqttMessage) throws Exception {
                 Log.w("Debug",mqttMessage.toString());
-                //TODO здесь приходят координаты автобуса
+
                 hideMarke.setPosition(new GeoPoint(47.496618, 34.649008));
                 map.getOverlays().add(hideMarke);
                 map.invalidate();
+                //TODO здесь приходят координаты автобуса
                 animateMarker(map, hideMarke, new GeoPoint(Float.valueOf(mqttMessage.toString()),Float.valueOf(mqttMessage.toString())));
 
             }

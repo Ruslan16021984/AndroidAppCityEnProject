@@ -94,17 +94,18 @@ public class TaxiTakenOrderFragment extends Fragment {
         checkPermition();
         hideMarke = new Marker(mapView.getMapView());
         //bottom handler imitation take order
+        activity.getmPresenter().getDispTopic().dispose();
         activity.getmPresenter().stompTopic(mapView.getMapView(), hideMarke);
         Handler h = new Handler();
-        h.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Bundle bundle = new Bundle();
-                //    bundle.putString("place", etAddress.getText().toString());
-                NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
-                navController.navigate(R.id.nav_taxi_finish_order_fragment, bundle);
-            }
-        }, 5000);
+//        h.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                Bundle bundle = new Bundle();
+//                //    bundle.putString("place", etAddress.getText().toString());
+//                NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+//                navController.navigate(R.id.nav_taxi_finish_order_fragment, bundle);
+//            }
+//        }, 5000);
 
         btnCancelTaxi.setOnClickListener(new View.OnClickListener() {
             @Override
