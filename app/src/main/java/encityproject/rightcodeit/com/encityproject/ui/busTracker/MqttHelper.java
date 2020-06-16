@@ -16,13 +16,15 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 public class MqttHelper {
     public MqttAndroidClient mqttAndroidClient;
 
-    final String serverUri = "tcp://m12.cloudmqtt.com:11111";
+    //final String serverUri = "tcp://m12.cloudmqtt.com:11111";
+    final String serverUri = "tcp://ru-mqtt.flespi.io";
+
 
     final String clientId = "ExampleAndroidClient";
-    final String subscriptionTopic = "sensor/+";
+    final String subscriptionTopic = "flespi/message/gw/channels/19582/359633101118334";
 
-    final String username = "xxxxxxx";
-    final String password = "yyyyyyyyyy";
+    final String username = "FlespiToken 5p5lgo4wTz8M3ERN0cEMMvFireRrzF2vUVEY7ykQVhsML7pz8RbKbFQsJvI60ypL";
+   // final String password = "yyyyyyyyyy";
 
     public MqttHelper(Context context){
         mqttAndroidClient = new MqttAndroidClient(context, serverUri, clientId);
@@ -59,7 +61,7 @@ public class MqttHelper {
         mqttConnectOptions.setAutomaticReconnect(true);
         mqttConnectOptions.setCleanSession(false);
         mqttConnectOptions.setUserName(username);
-        mqttConnectOptions.setPassword(password.toCharArray());
+     //   mqttConnectOptions.setPassword(password.toCharArray());
 
         try {
 

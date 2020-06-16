@@ -58,7 +58,7 @@
 
 
     </android.support.constraint.ConstraintLayout>
-    <ImageView
+    <!--<ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@drawable/busroute"
@@ -73,7 +73,7 @@
         android:textColor="@color/colorPrimary"
         android:background="#404040"
         android:padding="20sp"
-        android:gravity="center"/>
+        android:gravity="center"/>-->
 
 
 

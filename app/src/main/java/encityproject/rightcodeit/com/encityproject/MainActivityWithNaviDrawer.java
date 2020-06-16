@@ -156,7 +156,7 @@ public class MainActivityWithNaviDrawer extends AppCompatActivity implements Soc
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                  R.id.nav_weather, R.id.nav_phonesBook,R.id.nav_discount,
-                /*R.id.nav_bench, R.id.nav_busmap,*/ R.id.nav_helsi, R.id.nav_news, R.id.nav_reg, R.id.nav_auth_company_fragment,
+                /*R.id.nav_bench,*/ R.id.nav_busmap, R.id.nav_helsi, R.id.nav_news, R.id.nav_reg, R.id.nav_auth_company_fragment,
                 R.id.nav_auth_client_fragment, R.id.nav_entrance_market, R.id.nav_basket_fragment, R.id.nav_work_basket_fragment
                 ,
                 R.id.nav_taxi_client_fragment

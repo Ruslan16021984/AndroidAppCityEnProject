@@ -27,10 +27,13 @@ import android.view.animation.LinearInterpolator;
 import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallbackExtended;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.json.JSONObject;
 import org.osmdroid.api.IGeoPoint;
 import org.osmdroid.bonuspack.BuildConfig;
 import org.osmdroid.bonuspack.routing.OSRMRoadManager;
@@ -53,11 +56,15 @@ import org.osmdroid.views.overlay.gestures.RotationGestureOverlay;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 import encityproject.rightcodeit.com.encityproject.R;
 import encityproject.rightcodeit.com.encityproject.ui.busTracker.MqttHelper;
+
+import static android.content.Context.LOCATION_SERVICE;
+import static android.support.constraint.Constraints.TAG;
 
 public class BusMapFragment extends Fragment implements View.OnClickListener{
     private MqttHelper mqttHelper;
@@ -77,6 +84,9 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
     private ArrayList<GeoPoint> geoPoints;
     private long start;
     private long duration;
+    private GeoPoint myPosition;
+    private LocationManager mLocationManager;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -107,6 +117,31 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
         return view;
     }
 
+    public void findGPS(double lat, double lon) {
+        mLocationManager = (LocationManager)
+                getActivity().getSystemService(LOCATION_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
+                    != PackageManager.PERMISSION_GRANTED
+                    && ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION)
+                    != PackageManager.PERMISSION_GRANTED) {
+                Log.d("TAG", "проверку не прошел");
+                return;
+            }
+        }
+        Log.d("TAG", "прошел");
+        //Location locationGPS = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+      //  Location locationGPS = getLastKnownLocation();
+
+            //    mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, locationListener);
+       //     myPosition = new GeoPoint(locationGPS.getLatitude(), locationGPS.getLongitude());
+            Float latit = new BigDecimal(lat).setScale(4, BigDecimal.ROUND_HALF_UP).floatValue();
+            Float longi = new BigDecimal(lon).setScale(4, BigDecimal.ROUND_HALF_UP).floatValue();
+
+
+
+    }
+
     private void startMqtt() {
         mqttHelper = new MqttHelper(getContext());
         mqttHelper.setCallback(new MqttCallbackExtended() {
@@ -122,13 +157,19 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
 
             @Override
             public void messageArrived(String topic, MqttMessage mqttMessage) throws Exception {
-                Log.w("Debug",mqttMessage.toString());
-
-                hideMarke.setPosition(new GeoPoint(47.496618, 34.649008));
+              //  Log.w("Debug",mqttMessage.toString());
+                Log.d("bus", mqttMessage.toString());
+                JsonObject jsonObject = new JsonParser().parse(mqttMessage.toString()).getAsJsonObject();
+             //   hideMarke.setPosition(new GeoPoint(47.496618, 34.649008));
+               hideMarke.setPosition(new GeoPoint(
+                        Double.parseDouble(jsonObject.get("position.latitude").getAsString()),
+                        Double.parseDouble(jsonObject.get("position.longitude").getAsString())));
+               /* findGPS(Double.parseDouble(jsonObject.get("position.latitude").getAsString()),
+                        Double.parseDouble(jsonObject.get("position.longitude").getAsString()));*/
                 map.getOverlays().add(hideMarke);
                 map.invalidate();
                 //TODO здесь приходят координаты автобуса
-                animateMarker(map, hideMarke, new GeoPoint(Float.valueOf(mqttMessage.toString()),Float.valueOf(mqttMessage.toString())));
+              //  animateMarker(map, hideMarke, new GeoPoint(Float.valueOf(mqttMessage.toString()),Float.valueOf(mqttMessage.toString())));
 
             }
 
@@ -180,6 +221,8 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
                 && ACCESS_COARSE_LOCATION == PackageManager.PERMISSION_GRANTED
                 && WRITE_EXTERNAL_STORAGE == PackageManager.PERMISSION_GRANTED) {
             createMap();
+            Float latit = new BigDecimal(47.490459).setScale(4, BigDecimal.ROUND_HALF_UP).floatValue();
+            Float longi = new BigDecimal(34.660989).setScale(4, BigDecimal.ROUND_HALF_UP).floatValue();
         } else {
             Log.d("TAG", "" + "DONT " + Manifest.permission.ACCESS_COARSE_LOCATION);
             ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE},
