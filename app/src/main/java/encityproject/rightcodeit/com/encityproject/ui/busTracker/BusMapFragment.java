@@ -3,7 +3,6 @@ package encityproject.rightcodeit.com.encityproject.ui.busTracker;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.graphics.Point;
 import android.location.Location;
 import android.location.LocationManager;
@@ -24,7 +23,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
-import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.google.gson.JsonObject;
@@ -33,7 +31,6 @@ import com.google.gson.JsonParser;
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallbackExtended;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
-import org.json.JSONObject;
 import org.osmdroid.api.IGeoPoint;
 import org.osmdroid.bonuspack.BuildConfig;
 import org.osmdroid.bonuspack.routing.OSRMRoadManager;
@@ -48,7 +45,6 @@ import org.osmdroid.views.Projection;
 import org.osmdroid.views.overlay.MapEventsOverlay;
 import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.OverlayItem;
-import org.osmdroid.views.overlay.Polyline;
 import org.osmdroid.views.overlay.ScaleBarOverlay;
 import org.osmdroid.views.overlay.compass.CompassOverlay;
 import org.osmdroid.views.overlay.compass.InternalCompassOrientationProvider;
@@ -58,13 +54,10 @@ import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.List;
 
 import encityproject.rightcodeit.com.encityproject.R;
-import encityproject.rightcodeit.com.encityproject.ui.busTracker.MqttHelper;
 
 import static android.content.Context.LOCATION_SERVICE;
-import static android.support.constraint.Constraints.TAG;
 
 public class BusMapFragment extends Fragment implements View.OnClickListener{
     private MqttHelper mqttHelper;
@@ -76,7 +69,7 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
     private MyLocationNewOverlay locationOverlay;
     private CompassOverlay compassOverlay;
     private RoadManager roadManager;
-    private Marker hideMarke;
+    private Marker busMarker_1;
     private Interpolator interpolator;
     private FloatingActionButton fubBusTrack1;
     private FloatingActionButton fubBusTrack2;
@@ -161,15 +154,14 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
                 Log.d("bus", mqttMessage.toString());
                 JsonObject jsonObject = new JsonParser().parse(mqttMessage.toString()).getAsJsonObject();
              //   hideMarke.setPosition(new GeoPoint(47.496618, 34.649008));
-               hideMarke.setPosition(new GeoPoint(
-                        Double.parseDouble(jsonObject.get("position.latitude").getAsString()),
-                        Double.parseDouble(jsonObject.get("position.longitude").getAsString())));
+                Double latit = Double.parseDouble(jsonObject.get("position.latitude").getAsString());
+                Double longit = Double.parseDouble(jsonObject.get("position.longitude").getAsString());
                /* findGPS(Double.parseDouble(jsonObject.get("position.latitude").getAsString()),
                         Double.parseDouble(jsonObject.get("position.longitude").getAsString()));*/
-                map.getOverlays().add(hideMarke);
+                map.getOverlays().add(busMarker_1);
                 map.invalidate();
                 //TODO здесь приходят координаты автобуса
-              //  animateMarker(map, hideMarke, new GeoPoint(Float.valueOf(mqttMessage.toString()),Float.valueOf(mqttMessage.toString())));
+                animateMarker(map, busMarker_1, new GeoPoint(latit,longit));
 
             }
 
@@ -252,7 +244,8 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
         mScaleBarOverlay.setScaleBarOffset(dm.widthPixels / 2, 10);
         mRotationGestureOverlay = new RotationGestureOverlay(getContext(), map);
         mRotationGestureOverlay.setEnabled(true);
-        hideMarke = new Marker(map);
+        busMarker_1 = new Marker(map);
+        busMarker_1.setIcon(getResources().getDrawable(R.drawable.ic_directions_bus_red_24dp));
         compassOverlay = new CompassOverlay(getContext(),
                 new InternalCompassOrientationProvider(getContext()), map);
         compassOverlay.enableCompass();
