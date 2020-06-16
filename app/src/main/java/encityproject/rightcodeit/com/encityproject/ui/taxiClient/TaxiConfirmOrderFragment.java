@@ -106,6 +106,7 @@ public class TaxiConfirmOrderFragment extends Fragment {
 //                });
                 activity.getmPresenter().connectStomp();
                 activity.getmPresenter().sendRequestClient(taxiClient);
+                Log.e(TAG, "sendRequestClient(taxiClient): ");
                 activity.getmPresenter().stompStartTopic(getActivity());
 
                 Log.e(TAG, "onClick: " + place + " - " + door);

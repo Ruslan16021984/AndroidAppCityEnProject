@@ -2,6 +2,7 @@ package encityproject.rightcodeit.com.encityproject.ui.taxiClient.Models.mvp;
 
 import android.app.Activity;
 import android.util.Log;
+import android.util.TimeUtils;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -12,13 +13,19 @@ import com.google.gson.GsonBuilder;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
+import org.reactivestreams.Publisher;
+
+import java.util.Timer;
+import java.util.concurrent.TimeUnit;
 
 import encityproject.rightcodeit.com.encityproject.R;
 import encityproject.rightcodeit.com.encityproject.ui.taxiClient.Models.TaxiClient;
 import encityproject.rightcodeit.com.encityproject.ui.taxiClient.Models.TaxiWorker;
 import io.reactivex.CompletableTransformer;
+import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 public class MainPresenter implements SocketContruct.Presenter {
@@ -42,7 +49,7 @@ public class MainPresenter implements SocketContruct.Presenter {
 
     @Override
     public void stompTopic(final MapView map, final Marker marker) {
-        Disposable dispTopic = mRepository.getStompClient().topic("/user/requestclient/greetings")
+        Disposable dispTopic = mRepository.getStompClient().topic("/user/taxiOnline/greetings")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(topicMessage -> {
@@ -61,15 +68,17 @@ public class MainPresenter implements SocketContruct.Presenter {
 
     @Override
     public void stompStartTopic(Activity activity) {
-        dispTopic = mRepository.getStompClient().topic("/user/requestclient/greetings")
+        Log.e(TAG, "=======>>>>>>>>>>зашли в метод ---->>> stompStartTopic(Activity activity) ");
+        dispTopic = mRepository.getStompClient().topic("/user/taxiOnline/greetings")
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread()).timeout(30, TimeUnit.SECONDS).take(1)
                 .subscribe(topicMessage -> {
-                    Log.d(TAG, "Received " + topicMessage.getPayload());
+                    Log.e(TAG, "/user/taxiOnline/greetings" + topicMessage.getPayload());
                     NavController navController = Navigation.findNavController(activity, R.id.nav_host_fragment);
                     navController.navigate(R.id.nav_taxi_taken_order_fragment);
                 }, throwable -> {
-                    Log.e(TAG, "Error on subscribe topic", throwable);
+//                    todo:здесь по истечении 30 сек. если не приходит сообщение тогда нужно выполнить нужные действия
+                    Log.e(TAG, "stompStartTopic ", throwable);
                 });
 
     }

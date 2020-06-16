@@ -94,6 +94,7 @@ public class TaxiTakenOrderFragment extends Fragment {
         checkPermition();
         hideMarke = new Marker(mapView.getMapView());
         //bottom handler imitation take order
+        activity= (MainActivityWithNaviDrawer) getActivity();
         activity.getmPresenter().getDispTopic().dispose();
         activity.getmPresenter().stompTopic(mapView.getMapView(), hideMarke);
         Handler h = new Handler();
