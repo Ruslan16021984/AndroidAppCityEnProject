@@ -3,6 +3,7 @@ package encityproject.rightcodeit.com.encityproject.ui.taxiClient;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -39,6 +40,7 @@ public class TaxiConfirmOrderFragment extends Fragment {
     private String place;
     private String door;
     private TaxiClient taxiClient;
+    private Handler h;
 
     public TaxiConfirmOrderFragment() {
         // Required empty public constructor
@@ -63,7 +65,7 @@ public class TaxiConfirmOrderFragment extends Fragment {
         tvTimerWait.setVisibility(View.INVISIBLE);
         btnConfirmTaxi = view.findViewById(R.id.btnConfirmTaxi);
         mapView = new CustomMapView(view, getContext(), this);
-        time = 60;
+        time = 10;
 
         Bundle bundle = getArguments();
         if (bundle != null) {
@@ -86,24 +88,24 @@ public class TaxiConfirmOrderFragment extends Fragment {
                 tvTimerWait.setVisibility(View.VISIBLE);
                 llBlack.setBackgroundColor(getResources().getColor(R.color.black));
                 llBlack.setAlpha(0.5F);
-                //bottom handler imitation take order
-//                Handler h = new Handler();
-//                h.post(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        time=time-1;
-//                        tvTimerWait.setText(time+" сек");
-//                        h.postDelayed(this, 1000);
-//                        //imitation time for take order by driver
-//                        if(time==55) {
-//                            Bundle bundle = new Bundle();
-//                            //    bundle.putString("place", etAddress.getText().toString());
-//                            NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
-//                            navController.navigate(R.id.nav_taxi_taken_order_fragment, bundle);
-//                            h.removeCallbacksAndMessages(null);
-//                        }
-//                    }
-//                });
+//                bottom handler imitation take order
+                h = new Handler();
+                h.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        time=time-1;
+                        tvTimerWait.setText(time+" сек");
+                        h.postDelayed(this, 1000);
+                        //imitation time for take order by driver
+                        if(time==0) {
+                            Bundle bundle = new Bundle();
+                            //    bundle.putString("place", etAddress.getText().toString());
+                            NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+                            navController.navigate(R.id.nav_taxi_confirm_order_fragment, bundle);
+                            h.removeCallbacksAndMessages(null);
+                        }
+                    }
+                });
                 activity.getmPresenter().connectStomp();
                 activity.getmPresenter().sendRequestClient(taxiClient);
                 Log.e(TAG, "sendRequestClient(taxiClient): ");
@@ -119,6 +121,13 @@ public class TaxiConfirmOrderFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.d(TAG, "onDestroy()");
+        Log.d(TAG, "onDestroy() ---- h.removeCallbacksAndMessages(null)");
+        h.removeCallbacksAndMessages(null);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.e(TAG, "onStop()");
     }
 }

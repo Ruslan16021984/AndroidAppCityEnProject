@@ -1,6 +1,7 @@
 package encityproject.rightcodeit.com.encityproject.ui.taxiClient.Models.mvp;
 
 import android.app.Activity;
+import android.os.Bundle;
 import android.util.Log;
 import android.util.TimeUtils;
 
@@ -71,7 +72,7 @@ public class MainPresenter implements SocketContruct.Presenter {
         Log.e(TAG, "=======>>>>>>>>>>зашли в метод ---->>> stompStartTopic(Activity activity) ");
         dispTopic = mRepository.getStompClient().topic("/user/taxiOnline/greetings")
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread()).timeout(30, TimeUnit.SECONDS).take(1)
+                .observeOn(AndroidSchedulers.mainThread()).take(1)
                 .subscribe(topicMessage -> {
                     Log.e(TAG, "/user/taxiOnline/greetings" + topicMessage.getPayload());
                     NavController navController = Navigation.findNavController(activity, R.id.nav_host_fragment);
@@ -79,6 +80,9 @@ public class MainPresenter implements SocketContruct.Presenter {
                 }, throwable -> {
 //                    todo:здесь по истечении 30 сек. если не приходит сообщение тогда нужно выполнить нужные действия
                     Log.e(TAG, "stompStartTopic ", throwable);
+                    Bundle bundle = new Bundle();
+//                    NavController navController = Navigation.findNavController(activity, R.id.nav_host_fragment);
+//                    navController.navigate(R.id.nav_taxi_confirm_order_fragment);
                 });
 
     }
