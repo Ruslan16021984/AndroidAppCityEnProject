@@ -134,7 +134,7 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
 
 
     }
-
+//todo этот метод в дальнейшем должен быть с параметрами чтобы можно было прослеживать определенные автобусы
     private void startMqtt() {
         mqttHelper = new MqttHelper(getContext());
         mqttHelper.setCallback(new MqttCallbackExtended() {
@@ -162,6 +162,10 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
                 map.invalidate();
                 //TODO здесь приходят координаты автобуса
                 animateMarker(map, busMarker_1, new GeoPoint(latit,longit));
+                //TODO это временное решение для проверки метода  animateTo
+//                GeoPoint myPosition = new GeoPoint(latit,longit);
+//                map.getController().animateTo(myPosition);
+
 
             }
 
@@ -300,6 +304,7 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
                 map.postInvalidate();
             }
         });
+
     }
 
     @Override

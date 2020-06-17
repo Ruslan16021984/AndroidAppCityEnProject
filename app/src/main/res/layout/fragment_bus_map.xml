@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:fab="http://schemas.android.com/tools">
-
     <android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        xmlns:fab="http://schemas.android.com/apk/res-auto">
 
         <org.osmdroid.views.MapView android:id="@+id/map"
             android:layout_width="match_parent"
@@ -15,6 +11,8 @@
 
 
         <com.getbase.floatingactionbutton.FloatingActionsMenu
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -22,7 +20,8 @@
             fab:fab_addButtonColorNormal="@color/pink"
             fab:fab_addButtonColorPressed="@color/pink_pressed"
             fab:fab_addButtonPlusIconColor="@color/white"
-            fab:fab_labelStyle="@style/customFab"
+            fab:fab_labelStyle="@style/menu_labels_style"
+            fab:fab_labelsPosition="left"
             android:layout_marginBottom="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginEnd="16dp">
@@ -58,24 +57,3 @@
 
 
     </android.support.constraint.ConstraintLayout>
-    <!--<ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/busroute"
-        android:scaleType="centerCrop"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Очікуйте на появлення\nу Вашому місті навесні\n2020 року"
-        android:layout_gravity="center"
-        android:textSize="24sp"
-        android:textColor="@color/colorPrimary"
-        android:background="#404040"
-        android:padding="20sp"
-        android:gravity="center"/>-->
-
-
-
-
-</FrameLayout>
