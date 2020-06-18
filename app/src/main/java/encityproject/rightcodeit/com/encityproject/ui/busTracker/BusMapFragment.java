@@ -56,6 +56,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import encityproject.rightcodeit.com.encityproject.R;
+import encityproject.rightcodeit.com.encityproject.ui.busTracker.model.DataRouteBusAndBusStop;
 
 import static android.content.Context.LOCATION_SERVICE;
 
@@ -74,6 +75,8 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
     private FloatingActionButton fubBusTrack1;
     private FloatingActionButton fubBusTrack2;
     private FloatingActionButton fubBusTrack3;
+    private FloatingActionButton fubBusTrack4;
+    private FloatingActionButton fubBusTrack5;
     private ArrayList<GeoPoint> geoPoints;
     private long start;
     private long duration;
@@ -97,6 +100,10 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
         fubBusTrack2.setOnClickListener(this);
         fubBusTrack3 = view.findViewById(R.id.fab_action3);
         fubBusTrack3.setOnClickListener(this);
+        fubBusTrack4 = view.findViewById(R.id.fab_action4);
+        fubBusTrack4.setOnClickListener(this);
+        fubBusTrack5 = view.findViewById(R.id.fab_action5);
+        fubBusTrack5.setOnClickListener(this);
         geoPoints = new ArrayList<>();
         duration = 2500;
         start = SystemClock.uptimeMillis();
@@ -180,30 +187,16 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.fab_action1:
-                Log.d("TAG", "ic_center_map");
-                LocationManager mLocationManager = (LocationManager)
-                        getActivity().getSystemService(Context.LOCATION_SERVICE);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
-                            != PackageManager.PERMISSION_GRANTED
-                            && ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION)
-                            != PackageManager.PERMISSION_GRANTED) {
-                        Log.d("TAG", "проверку не прошел");
-                        return;
-                    }
-                }
-                Log.d("TAG", "прошел");
-                Location locationGPS = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                GeoPoint myPosition = new GeoPoint(locationGPS.getLatitude(), locationGPS.getLongitude());
-                map.getController().animateTo(myPosition);
+               DataRouteBusAndBusStop.routeBusTwo(map);
                 break;
             case R.id.fab_action2:
-                Log.d("TAG", "ic_follow_me");
-                if (!locationOverlay.isFollowLocationEnabled()) {
-                    locationOverlay.enableFollowLocation();
-                } else {
-                    locationOverlay.disableFollowLocation();
-                }
+                DataRouteBusAndBusStop.routeBusThree(map);
+                break;
+            case R.id.fab_action3:
+                DataRouteBusAndBusStop.routeBusFour(map);
+                break;
+            case R.id.fab_action5:
+                DataRouteBusAndBusStop.routeBusFive(map);
                 break;
         }
     }

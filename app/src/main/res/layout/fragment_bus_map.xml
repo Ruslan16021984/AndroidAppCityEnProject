@@ -52,6 +52,24 @@
                 app:fab_size="mini"
                 app:fab_icon="@drawable/ic_directions_bus_black_24dp"
                 app:fab_title="@string/bus_3"/>
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_action4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:fab_colorNormal="@color/pink"
+                app:fab_colorPressed="@color/pink_pressed"
+                app:fab_size="mini"
+                app:fab_icon="@drawable/ic_directions_bus_black_24dp"
+                app:fab_title="@string/bus_4"/>
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_action5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:fab_colorNormal="@color/pink"
+                app:fab_colorPressed="@color/pink_pressed"
+                app:fab_size="mini"
+                app:fab_icon="@drawable/ic_directions_bus_black_24dp"
+                app:fab_title="@string/bus_5"/>
         </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
 
