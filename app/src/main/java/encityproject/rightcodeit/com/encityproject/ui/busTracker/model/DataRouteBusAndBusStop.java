@@ -1,6 +1,10 @@
 package encityproject.rightcodeit.com.encityproject.ui.busTracker.model;
 
+import android.graphics.Color;
+
 import org.osmdroid.util.GeoPoint;
+import org.osmdroid.views.MapView;
+import org.osmdroid.views.overlay.Polyline;
 
 import java.util.ArrayList;
 
@@ -23,7 +27,7 @@ public class DataRouteBusAndBusStop {
         return arrayListBusStopTwo;
     }
 
-    public ArrayList<GeoPoint> routeBusTwo() {
+    public static void routeBusTwo(MapView map) {
         ArrayList<GeoPoint> arrayListRouteBusTwo = new ArrayList<>();
         arrayListRouteBusTwo.add(new GeoPoint(47.496961, 34.648737)); // кольцо
         arrayListRouteBusTwo.add(new GeoPoint(47.486703, 34.656126)); // поворот возле дома Престиж
@@ -35,7 +39,11 @@ public class DataRouteBusAndBusStop {
         arrayListRouteBusTwo.add(new GeoPoint(47.499788, 34.655494)); // от совеременника по алее роз
         arrayListRouteBusTwo.add(new GeoPoint(47.497171, 34.648595)); // от алеи роз на кольцо
         arrayListRouteBusTwo.add(new GeoPoint(47.496961, 34.648737)); // кольцо
-        return arrayListRouteBusTwo;
+        Polyline line = new Polyline();
+        line.setPoints(arrayListRouteBusTwo);
+        line.setColor(Color.YELLOW);
+        map.getOverlayManager().add(line);
+        map.invalidate();
     }
 
 
@@ -58,7 +66,7 @@ public class DataRouteBusAndBusStop {
         return arrayListBusStopThree;
     }
 
-    public void routeBusThree() {
+    public static void routeBusThree(MapView map) {
 
         ArrayList<GeoPoint> arrayListRouteBusThree = new ArrayList<>();
         arrayListRouteBusThree.add(new GeoPoint(47.496961, 34.648737)); // кольцо
@@ -71,6 +79,11 @@ public class DataRouteBusAndBusStop {
         arrayListRouteBusThree.add(new GeoPoint(47.503377, 34.647468)); // поворот возле калибри
         arrayListRouteBusThree.add(new GeoPoint(47.500478, 34.645848)); // поворот перед церквой
         arrayListRouteBusThree.add(new GeoPoint(47.496961, 34.648737)); // кольцо
+        Polyline line = new Polyline();
+        line.setPoints(arrayListRouteBusThree);
+        line.setColor(Color.YELLOW);
+        map.getOverlayManager().add(line);
+        map.invalidate();
     }
 
 
@@ -98,7 +111,7 @@ public class DataRouteBusAndBusStop {
         return arrayListBusStopFour;
     }
 
-    public ArrayList<GeoPoint> routeBusFour() {
+    public static void routeBusFour(MapView map) {
 
         ArrayList<GeoPoint> arrayListRouteBusFour = new ArrayList<>();
         arrayListRouteBusFour.add(new GeoPoint(47.496961, 34.648737)); // кольцо
@@ -124,7 +137,11 @@ public class DataRouteBusAndBusStop {
         arrayListRouteBusFour.add(new GeoPoint(47.4957672, 34.6428599)); // поворот на кольцо
         arrayListRouteBusFour.add(new GeoPoint(47.497171, 34.648595)); // от алеи роз на кольцо
         arrayListRouteBusFour.add(new GeoPoint(47.496961, 34.648737)); // кольцо
-        return arrayListRouteBusFour;
+        Polyline line = new Polyline();
+        line.setPoints(arrayListRouteBusFour);
+        line.setColor(Color.YELLOW);
+        map.getOverlayManager().add(line);
+        map.invalidate();
     }
 
 
@@ -147,7 +164,7 @@ public class DataRouteBusAndBusStop {
         return arrayListBusStopFive;
     }
 
-    public ArrayList<GeoPoint> routeBusFive() {
+    public static void routeBusFive(MapView map) {
 
         ArrayList<GeoPoint> arrayListRouteBusFive = new ArrayList<>();
         arrayListRouteBusFive.add(new GeoPoint(47.496961, 34.648737)); // кольцо
@@ -163,7 +180,11 @@ public class DataRouteBusAndBusStop {
         arrayListRouteBusFive.add(new GeoPoint(47.505482, 34.647567)); // поворот возле оптовика
         arrayListRouteBusFive.add(new GeoPoint(47.500478, 34.645848)); // поворот перед церквой
         arrayListRouteBusFive.add(new GeoPoint(47.496961, 34.648737)); // кольцо
-        return arrayListRouteBusFive;
+        Polyline line = new Polyline();
+        line.setPoints(arrayListRouteBusFive);
+        line.setColor(Color.YELLOW);
+        map.getOverlayManager().add(line);
+        map.invalidate();
     }
 
     // автобус номер 7 , остановки , маршрут
@@ -187,7 +208,7 @@ public class DataRouteBusAndBusStop {
         return arrayListBusStopSeven;
     }
 
-    public ArrayList<GeoPoint> routeBusSeven() {
+    public static void routeBusSeven(MapView map) {
 
         ArrayList<GeoPoint> arrayListRouteBusSeven = new ArrayList<>();
 
@@ -202,7 +223,11 @@ public class DataRouteBusAndBusStop {
         arrayListRouteBusSeven.add(new GeoPoint(47.503377, 34.647468)); // поворот возле калибри
         arrayListRouteBusSeven.add(new GeoPoint(47.500478, 34.645848)); // поворот перед церквой
         arrayListRouteBusSeven.add(new GeoPoint(47.496961, 34.648737)); // кольцо
-        return arrayListRouteBusSeven;
+        Polyline line = new Polyline();
+        line.setPoints(arrayListRouteBusSeven);
+        line.setColor(Color.YELLOW);
+        map.getOverlayManager().add(line);
+        map.invalidate();
     }
 
 
