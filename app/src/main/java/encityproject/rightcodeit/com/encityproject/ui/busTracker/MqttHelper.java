@@ -23,7 +23,7 @@ public class MqttHelper {
     final String clientId = "ExampleAndroidClient";
     final String subscriptionTopic = "flespi/message/gw/channels/19582/359633101118334";
 
-    final String username = "FlespiToken 5p5lgo4wTz8M3ERN0cEMMvFireRrzF2vUVEY7ykQVhsML7pz8RbKbFQsJvI60ypL";
+    final String username = "FlespiToken Nm6kTTKuxlTJft6GCclQANkFtFjgJewnqsx8c7sxi95ms1ST12zsFJVWc23L6nYn";
    // final String password = "yyyyyyyyyy";
 
     public MqttHelper(Context context){
