@@ -231,10 +231,10 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
 
         locationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(getContext()), map);
         locationOverlay.enableMyLocation();
-        locationOverlay.enableFollowLocation();
+//        locationOverlay.enableFollowLocation();
         locationOverlay.setDrawAccuracyEnabled(true);
         locationOverlay.setOptionsMenuEnabled(true);
-
+//47.4886911,34.6576792 centre city
         roadManager = new OSRMRoadManager(getContext());
         final DisplayMetrics dm = this.getResources().getDisplayMetrics();
         mScaleBarOverlay = new ScaleBarOverlay(map);
@@ -251,9 +251,9 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
         map.getOverlays().add(locationOverlay);
 
         mapController = (MapController) map.getController();
-        mapController.setZoom(16);
+        mapController.setZoom(15);
         final ArrayList<OverlayItem> items = new ArrayList<OverlayItem>();
-
+        map.getController().animateTo(new GeoPoint(47.4886911,34.6576792));
         items.add(new OverlayItem("Title", "Description", new GeoPoint(0.0d, 0.0d))); // Lat/Lon decimal degrees
         map.getOverlays().add(new MapEventsOverlay(new MapEventsReceiver() {
             @Override

@@ -35,7 +35,7 @@ public class DataRouteBusAndBusStop {
         arrayListRouteBusTwo.add(new GeoPoint(47.486703, 34.656126)); // поворот возле дома Престиж
         arrayListRouteBusTwo.add(new GeoPoint(47.484222, 34.655152)); // поворот от котеджей на козацкую
         arrayListRouteBusTwo.add(new GeoPoint(47.482946, 34.661864)); // поворот возле чайки
-        arrayListRouteBusTwo.add(new GeoPoint(47.4868165,34.6622018)); // поворот в молитвенный дом
+        arrayListRouteBusTwo.add(new GeoPoint(47.487103, 34.663542)); // поворот в молитвенный дом
         arrayListRouteBusTwo.add(new GeoPoint(47.490695, 34.660603)); // поворот от  7 остановки на мерию
         arrayListRouteBusTwo.add(new GeoPoint(47.493598, 34.668175)); // набережная
         arrayListRouteBusTwo.add(new GeoPoint(47.491395, 34.662459)); // поворот от мерии на таврию
@@ -76,7 +76,7 @@ public class DataRouteBusAndBusStop {
         arrayListRouteBusThree.add(new GeoPoint(47.486703, 34.656126)); // поворот возле дома Престиж
         arrayListRouteBusThree.add(new GeoPoint(47.484222, 34.655152)); // поворот от котеджей на козацкую
         arrayListRouteBusThree.add(new GeoPoint(47.482946, 34.661864)); // поворот возле чайки
-        arrayListRouteBusThree.add(new GeoPoint(47.4868165,34.6622018)); // поворот в молитвенный дом
+        arrayListRouteBusThree.add(new GeoPoint(47.487103, 34.663542)); // поворот в молитвенный дом
         arrayListRouteBusThree.add(new GeoPoint(47.490695, 34.660603)); // поворот от  7 остановки на мерию
         arrayListRouteBusThree.add(new GeoPoint(47.491395, 34.662459)); // поворот от мерии на таврию
         arrayListRouteBusThree.add(new GeoPoint(47.501790, 34.653691)); // поворот перед военкоматом
@@ -122,7 +122,7 @@ public class DataRouteBusAndBusStop {
         arrayListRouteBusFour.add(new GeoPoint(47.486703, 34.656126)); // поворот возле дома Престиж
         arrayListRouteBusFour.add(new GeoPoint(47.484222, 34.655152)); // поворот от котеджей на козацкую
         arrayListRouteBusFour.add(new GeoPoint(47.482946, 34.661864)); // поворот возле чайки\
-        arrayListRouteBusFour.add(new GeoPoint(47.4868165,34.6622018)); // поворот в молитвенный дом
+        arrayListRouteBusFour.add(new GeoPoint(47.487103, 34.663542)); // поворот в молитвенный дом
         arrayListRouteBusFour.add(new GeoPoint(47.490695, 34.660603)); // поворот от  7 остановки на мерию
         arrayListRouteBusFour.add(new GeoPoint(47.491395, 34.662459)); // поворот от мерии на таврию
         arrayListRouteBusFour.add(new GeoPoint(47.499788, 34.655494)); // от совеременника по алее роз
@@ -176,7 +176,7 @@ public class DataRouteBusAndBusStop {
         arrayListRouteBusFive.add(new GeoPoint(47.486703, 34.656126)); // поворот возле дома Престиж
         arrayListRouteBusFive.add(new GeoPoint(47.484222, 34.655152)); // поворот от котеджей на козацкую
         arrayListRouteBusFive.add(new GeoPoint(47.482946, 34.661864)); // поворот возле чайки
-        arrayListRouteBusFive.add(new GeoPoint(47.4868165,34.6622018)); // поворот в молитвенный дом
+        arrayListRouteBusFive.add(new GeoPoint(47.487103, 34.663542)); // поворот в молитвенный дом
         arrayListRouteBusFive.add(new GeoPoint(47.490695, 34.660603)); // поворот от  7 остановки на мерию
         arrayListRouteBusFive.add(new GeoPoint(47.491395, 34.662459)); // поворот от мерии на таврию
         arrayListRouteBusFive.add(new GeoPoint(47.500756, 34.654660)); // поворот возле АТБ
@@ -223,7 +223,7 @@ public class DataRouteBusAndBusStop {
         arrayListRouteBusSeven.add(new GeoPoint(47.479914, 34.653375)); // кладбище
         arrayListRouteBusSeven.add(new GeoPoint(47.484222, 34.655152)); // поворот от котеджей на козацкую
         arrayListRouteBusSeven.add(new GeoPoint(47.482946, 34.661864)); // поворот возле чайки
-        arrayListRouteBusSeven.add(new GeoPoint(47.4868165,34.6622018)); // поворот в молитвенный дом
+        arrayListRouteBusSeven.add(new GeoPoint(47.487103, 34.663542)); // поворот в молитвенный дом
         arrayListRouteBusSeven.add(new GeoPoint(47.490695, 34.660603)); // поворот от  7 остановки на мерию
         arrayListRouteBusSeven.add(new GeoPoint(47.491395, 34.662459)); // поворот от мерии на таврию
         arrayListRouteBusSeven.add(new GeoPoint(47.501790, 34.653691)); // поворот перед военкоматом
