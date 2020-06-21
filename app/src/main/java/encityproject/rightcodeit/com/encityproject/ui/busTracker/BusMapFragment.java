@@ -3,7 +3,6 @@ package encityproject.rightcodeit.com.encityproject.ui.busTracker;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.graphics.Point;
 import android.location.Location;
 import android.location.LocationManager;
@@ -24,7 +23,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
-import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.google.gson.JsonObject;
@@ -33,7 +31,6 @@ import com.google.gson.JsonParser;
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallbackExtended;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
-import org.json.JSONObject;
 import org.osmdroid.api.IGeoPoint;
 import org.osmdroid.bonuspack.BuildConfig;
 import org.osmdroid.bonuspack.routing.OSRMRoadManager;
@@ -48,7 +45,6 @@ import org.osmdroid.views.Projection;
 import org.osmdroid.views.overlay.MapEventsOverlay;
 import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.OverlayItem;
-import org.osmdroid.views.overlay.Polyline;
 import org.osmdroid.views.overlay.ScaleBarOverlay;
 import org.osmdroid.views.overlay.compass.CompassOverlay;
 import org.osmdroid.views.overlay.compass.InternalCompassOrientationProvider;
@@ -58,13 +54,11 @@ import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.List;
 
 import encityproject.rightcodeit.com.encityproject.R;
-import encityproject.rightcodeit.com.encityproject.ui.busTracker.MqttHelper;
+import encityproject.rightcodeit.com.encityproject.ui.busTracker.model.DataRouteBusAndBusStop;
 
 import static android.content.Context.LOCATION_SERVICE;
-import static android.support.constraint.Constraints.TAG;
 
 public class BusMapFragment extends Fragment implements View.OnClickListener{
     private MqttHelper mqttHelper;
@@ -76,11 +70,13 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
     private MyLocationNewOverlay locationOverlay;
     private CompassOverlay compassOverlay;
     private RoadManager roadManager;
-    private Marker hideMarke;
+    private Marker busMarker_1;
     private Interpolator interpolator;
     private FloatingActionButton fubBusTrack1;
     private FloatingActionButton fubBusTrack2;
     private FloatingActionButton fubBusTrack3;
+    private FloatingActionButton fubBusTrack4;
+    private FloatingActionButton fubBusTrack5;
     private ArrayList<GeoPoint> geoPoints;
     private long start;
     private long duration;
@@ -104,6 +100,10 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
         fubBusTrack2.setOnClickListener(this);
         fubBusTrack3 = view.findViewById(R.id.fab_action3);
         fubBusTrack3.setOnClickListener(this);
+        fubBusTrack4 = view.findViewById(R.id.fab_action4);
+        fubBusTrack4.setOnClickListener(this);
+        fubBusTrack5 = view.findViewById(R.id.fab_action5);
+        fubBusTrack5.setOnClickListener(this);
         geoPoints = new ArrayList<>();
         duration = 2500;
         start = SystemClock.uptimeMillis();
@@ -166,10 +166,10 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
                         Double.parseDouble(jsonObject.get("position.longitude").getAsString())));*/
                /* findGPS(Double.parseDouble(jsonObject.get("position.latitude").getAsString()),
                         Double.parseDouble(jsonObject.get("position.longitude").getAsString()));*/
-                map.getOverlays().add(hideMarke);
+                map.getOverlays().add(busMarker_1);
                 map.invalidate();
                 //TODO здесь приходят координаты автобуса
-                animateMarker(map, hideMarke, new GeoPoint(Double.parseDouble(jsonObject.get("position.latitude").getAsString()),
+                animateMarker(map, busMarker_1, new GeoPoint(Double.parseDouble(jsonObject.get("position.latitude").getAsString()),
                         Double.parseDouble(jsonObject.get("position.longitude").getAsString())));
 
             }
@@ -185,30 +185,19 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.fab_action1:
-                Log.d("TAG", "ic_center_map");
-                LocationManager mLocationManager = (LocationManager)
-                        getActivity().getSystemService(Context.LOCATION_SERVICE);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
-                            != PackageManager.PERMISSION_GRANTED
-                            && ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION)
-                            != PackageManager.PERMISSION_GRANTED) {
-                        Log.d("TAG", "проверку не прошел");
-                        return;
-                    }
-                }
-                Log.d("TAG", "прошел");
-                Location locationGPS = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                GeoPoint myPosition = new GeoPoint(locationGPS.getLatitude(), locationGPS.getLongitude());
-                map.getController().animateTo(myPosition);
+                DataRouteBusAndBusStop.routeBusTwo(map);
                 break;
             case R.id.fab_action2:
-                Log.d("TAG", "ic_follow_me");
-                if (!locationOverlay.isFollowLocationEnabled()) {
-                    locationOverlay.enableFollowLocation();
-                } else {
-                    locationOverlay.disableFollowLocation();
-                }
+                DataRouteBusAndBusStop.routeBusThree(map);
+                break;
+            case R.id.fab_action3:
+                DataRouteBusAndBusStop.routeBusFour(map);
+                break;
+            case R.id.fab_action4:
+                DataRouteBusAndBusStop.routeBusFive(map);
+                break;
+            case R.id.fab_action5:
+                DataRouteBusAndBusStop.routeBusSeven(map);
                 break;
         }
     }
@@ -253,7 +242,7 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
         mScaleBarOverlay.setScaleBarOffset(dm.widthPixels / 2, 10);
         mRotationGestureOverlay = new RotationGestureOverlay(getContext(), map);
         mRotationGestureOverlay.setEnabled(true);
-        hideMarke = new Marker(map);
+        busMarker_1 = new Marker(map);
         compassOverlay = new CompassOverlay(getContext(),
                 new InternalCompassOrientationProvider(getContext()), map);
         compassOverlay.enableCompass();
