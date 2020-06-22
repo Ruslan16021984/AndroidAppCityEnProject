@@ -96,6 +96,9 @@ public class TaxiTakenOrderFragment extends Fragment {
         //bottom handler imitation take order
         activity= (MainActivityWithNaviDrawer) getActivity();
         activity.getmPresenter().getDispTopic().dispose();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            hideMarke.setIcon(getActivity().getDrawable(R.drawable.taxi));
+        }
         activity.getmPresenter().stompTopic(mapView.getMapView(), hideMarke);
         Handler h = new Handler();
 //        h.postDelayed(new Runnable() {
