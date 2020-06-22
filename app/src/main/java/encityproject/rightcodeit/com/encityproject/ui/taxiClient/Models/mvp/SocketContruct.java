@@ -29,7 +29,7 @@ public interface SocketContruct {
     interface Presenter {
         Disposable getDispTopic();
         void stompTopic(final MapView map, final Marker marker);
-        void stompStartTopic(Activity activity);
+        void stompStartTopic(Activity activity, Handler h);
 
         void connectStomp();
         void sendRequestClient(TaxiClient taxiClient);
