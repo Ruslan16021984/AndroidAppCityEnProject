@@ -49,6 +49,7 @@ public class MainPresenter implements SocketContruct.Presenter {
 
     }
 
+
     @Override
     public void stompTopic(final MapView map, final Marker marker) {
         Disposable dispTopic = mRepository.getStompClient().topic("/user/taxiOnline/greetings")
