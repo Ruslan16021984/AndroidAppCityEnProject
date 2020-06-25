@@ -17,6 +17,7 @@ import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
 import org.reactivestreams.Publisher;
 
+import java.io.Serializable;
 import java.util.Timer;
 import java.util.concurrent.TimeUnit;
 
@@ -77,8 +78,13 @@ public class MainPresenter implements SocketContruct.Presenter {
                 .observeOn(AndroidSchedulers.mainThread()).take(1)
                 .subscribe(topicMessage -> {
                     Log.e(TAG, "успешный ответ от таксиста" );
+                    TaxiWorker taxiWorker;
+                    String taxi = topicMessage.getPayload();
+                    taxiWorker = mGson.fromJson(taxi, TaxiWorker.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("worker", (Serializable) taxiWorker);
                     NavController navController = Navigation.findNavController(activity, R.id.nav_host_fragment);
-                    navController.navigate(R.id.nav_taxi_taken_order_fragment);
+                    navController.navigate(R.id.nav_taxi_taken_order_fragment, bundle);
                     h.removeCallbacksAndMessages(null);
                 }, throwable -> {
 //                    todo:здесь по истечении 30 сек. если не приходит сообщение тогда нужно выполнить нужные действия
