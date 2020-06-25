@@ -1,6 +1,8 @@
 package encityproject.rightcodeit.com.encityproject.ui.taxiClient.Models;
 
-public class TaxiWorker {
+import java.io.Serializable;
+
+public class TaxiWorker implements Serializable {
     private String clientPhone = "";
     private String login = "123";
     private String uuId;
