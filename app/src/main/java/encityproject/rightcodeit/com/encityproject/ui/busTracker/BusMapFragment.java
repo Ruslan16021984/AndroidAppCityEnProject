@@ -233,7 +233,7 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
         map.setFlingEnabled(true);
 
         locationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(getContext()), map);
-        locationOverlay.enableMyLocation();
+        //locationOverlay.enableMyLocation();
 //        locationOverlay.enableFollowLocation();
         locationOverlay.setDrawAccuracyEnabled(true);
         locationOverlay.setOptionsMenuEnabled(true);
@@ -247,7 +247,7 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
         mRotationGestureOverlay.setEnabled(true);
         busMarker_1 = new Marker(map);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            busMarker_1.setIcon(getActivity().getDrawable(R.drawable.bus));
+            busMarker_1.setIcon(getResources().getDrawable(R.drawable.bus));
         }
         compassOverlay = new CompassOverlay(getContext(),
                 new InternalCompassOrientationProvider(getContext()), map);
