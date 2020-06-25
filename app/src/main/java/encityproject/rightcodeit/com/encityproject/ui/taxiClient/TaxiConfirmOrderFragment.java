@@ -68,7 +68,8 @@ public class TaxiConfirmOrderFragment extends Fragment {
 
         Bundle bundle = getArguments();
         if (bundle != null) {
-            l = (Location) bundle.getSerializable("location");
+            taxiClient.setLatit(bundle.getDouble("Latit"));
+            taxiClient.setLongit(bundle.getDouble("Longit"));
             place = bundle.getString("place", "");
             door = bundle.getString("door", "");
             tvInfoOrder1.setText(place + ", під'їзд " + door);

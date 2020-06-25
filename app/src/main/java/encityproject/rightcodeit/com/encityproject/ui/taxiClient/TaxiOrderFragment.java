@@ -118,7 +118,8 @@ public class TaxiOrderFragment extends Fragment {
                 if(etAddress.getText().length()>5) {
                     Bundle bundle = new Bundle();
                     bundle.putString("place", etAddress.getText().toString());
-                    bundle.putSerializable("location", (Serializable) l);
+                    bundle.putDouble("Latit",  l.getLatitude());
+                    bundle.putDouble("Longit",  l.getLongitude());
                     openDialogNumberDoor(etAddress.getText().toString(), bundle);
                 }
 
