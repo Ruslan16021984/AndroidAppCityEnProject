@@ -2,6 +2,8 @@ package encityproject.rightcodeit.com.encityproject.ui.busTracker;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.location.LocationManager;
 import android.os.Build;
@@ -21,6 +23,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
+import android.widget.TextView;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.google.gson.JsonObject;
@@ -93,6 +96,8 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_bus_map, container, false);
         fubBusTrack1 = view.findViewById(R.id.fab_action1);
+        /*fubBusTrack1.setBackgroundTintList(ColorStateList.valueOf(Color
+                .parseColor("#33691E")));*/
         fubBusTrack1.setOnClickListener(this);
         fubBusTrack2 = view.findViewById(R.id.fab_action2);
         fubBusTrack2.setOnClickListener(this);
@@ -241,6 +246,9 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
         mRotationGestureOverlay = new RotationGestureOverlay(getContext(), map);
         mRotationGestureOverlay.setEnabled(true);
         busMarker_1 = new Marker(map);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            busMarker_1.setIcon(getActivity().getDrawable(R.drawable.bus));
+        }
         compassOverlay = new CompassOverlay(getContext(),
                 new InternalCompassOrientationProvider(getContext()), map);
         compassOverlay.enableCompass();
@@ -249,9 +257,9 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
         map.getOverlays().add(locationOverlay);
 
         mapController = (MapController) map.getController();
-        mapController.setZoom(15);
+        mapController.setZoom(14.5);
         final ArrayList<OverlayItem> items = new ArrayList<OverlayItem>();
-        map.getController().animateTo(new GeoPoint(47.4886911,34.6576792));
+        map.getController().animateTo(new GeoPoint(47.49364, 34.65646));
         items.add(new OverlayItem("Title", "Description", new GeoPoint(0.0d, 0.0d))); // Lat/Lon decimal degrees
         map.getOverlays().add(new MapEventsOverlay(new MapEventsReceiver() {
             @Override

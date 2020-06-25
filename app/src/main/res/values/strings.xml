@@ -29,11 +29,11 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="bt_center_map_description">center map</string>
     <string name="menu_busmap">Громадський транспорт</string>
-    <string name="bus_1">Bus 2</string>
-    <string name="bus_2">Bus 3</string>
-    <string name="bus_3">Bus 4</string>
-    <string name="bus_4">Bus 5</string>
-    <string name="bus_5">Bus 7</string>
+    <string name="bus_1">Маршрут 2</string>
+    <string name="bus_2">Маршрут 3</string>
+    <string name="bus_3">Маршрут 4</string>
+    <string name="bus_4">Маршрут 5</string>
+    <string name="bus_5">Маршрут 7</string>
     <string name="menu_news">Новини</string>
     <string name="algorithm">Алгоритм оказания первой помощи</string>
     <string name="algorithm_text">\t Чтобы не растеряться и грамотно оказать первую помощь, \n

@@ -8,6 +8,8 @@ import org.osmdroid.views.overlay.Polyline;
 
 import java.util.ArrayList;
 
+import encityproject.rightcodeit.com.encityproject.R;
+
 public class DataRouteBusAndBusStop {
     public static Polyline line = new Polyline();
 
@@ -47,7 +49,7 @@ public class DataRouteBusAndBusStop {
             line.onDestroy();
         }
         line.setPoints(arrayListRouteBusTwo);
-        line.setColor(Color.GRAY);
+        line.setColor(Color.parseColor("#E60000"));
         map.getOverlayManager().add(line);
         map.invalidate();
     }
@@ -91,7 +93,7 @@ public class DataRouteBusAndBusStop {
             line.onDestroy();
         }
         line.setPoints(arrayListRouteBusThree);
-        line.setColor(Color.GREEN);
+        line.setColor(Color.parseColor("#09C000"));
         map.getOverlayManager().add(line);
         map.invalidate();
     }
@@ -153,7 +155,7 @@ public class DataRouteBusAndBusStop {
             line.onDestroy();
         }
         line.setPoints(arrayListRouteBusFour);
-        line.setColor(Color.BLUE);
+        line.setColor(Color.parseColor("#0040FF"));
         map.getOverlayManager().add(line);
         map.invalidate();
     }
@@ -200,7 +202,7 @@ public class DataRouteBusAndBusStop {
             line.onDestroy();
         }
         line.setPoints(arrayListRouteBusFive);
-        line.setColor(Color.YELLOW);
+        line.setColor(Color.parseColor("#FFDE00"));
         map.getOverlayManager().add(line);
         map.invalidate();
     }
@@ -247,7 +249,7 @@ public class DataRouteBusAndBusStop {
             line.onDestroy();
         }
         line.setPoints(arrayListRouteBusSeven);
-        line.setColor(Color.RED);
+        line.setColor(Color.parseColor("#B700FF"));
         map.getOverlayManager().add(line);
         map.invalidate();
     }
