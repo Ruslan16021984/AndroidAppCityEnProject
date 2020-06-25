@@ -32,6 +32,7 @@ import org.osmdroid.bonuspack.BuildConfig;
 import org.osmdroid.config.Configuration;
 import org.osmdroid.util.GeoPoint;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,12 +43,14 @@ import encityproject.rightcodeit.com.encityproject.ui.busTracker.GetAddressTask;
 import encityproject.rightcodeit.com.encityproject.ui.taxiClient.Adapters.AnyAddressAdapter;
 import encityproject.rightcodeit.com.encityproject.ui.taxiClient.Adapters.MyAdressAdapter;
 import encityproject.rightcodeit.com.encityproject.ui.taxiClient.Models.AddressOrder;
+import encityproject.rightcodeit.com.encityproject.ui.taxiClient.Models.mvp.GpsTracker;
 
 import static android.content.Context.LOCATION_SERVICE;
 import static android.support.constraint.Constraints.TAG;
 
 
 public class TaxiOrderFragment extends Fragment {
+    private Location l;
     private static final String TAG1 = "TAG";
     private MainActivityWithNaviDrawer activity;
     private static final int REQUEST_CODE_PERMISSION_READ_CONTACTS = 123;
@@ -115,6 +118,7 @@ public class TaxiOrderFragment extends Fragment {
                 if(etAddress.getText().length()>5) {
                     Bundle bundle = new Bundle();
                     bundle.putString("place", etAddress.getText().toString());
+                    bundle.putSerializable("location", (Serializable) l);
                     openDialogNumberDoor(etAddress.getText().toString(), bundle);
                 }
 
@@ -198,7 +202,7 @@ public class TaxiOrderFragment extends Fragment {
     public void findNameHouse() {
         mLocationManager = (LocationManager)
                 getActivity().getSystemService(LOCATION_SERVICE);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
                     != PackageManager.PERMISSION_GRANTED
                     && ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION)
@@ -227,21 +231,29 @@ public class TaxiOrderFragment extends Fragment {
     }
 
     private Location getLastKnownLocation() {
-        mLocationManager = (LocationManager) getContext().getSystemService(LOCATION_SERVICE);
-        List<String> providers = mLocationManager.getProviders(true);
-        Location bestLocation = null;
-        for (String provider : providers) {
-            @SuppressLint("MissingPermission")
-            Location l = mLocationManager.getLastKnownLocation(provider);
-            if (l == null) {
-                continue;
-            }
-            if (bestLocation == null || l.getAccuracy() < bestLocation.getAccuracy()) {
-                // Found best last known location: %s", l);
-                bestLocation = l;
-            }
+//        mLocationManager = (LocationManager) getContext().getSystemService(LOCATION_SERVICE);
+//        List<String> providers = mLocationManager.getProviders(true);
+//        Location bestLocation = null;
+//        for (String provider : providers) {
+//            @SuppressLint("MissingPermission")
+//            Location l = mLocationManager.getLastKnownLocation(provider);
+//            if (l == null) {
+//                continue;
+//            }
+//            if (bestLocation == null || l.getAccuracy() < bestLocation.getAccuracy()) {
+//                // Found best last known location: %s", l);
+//                bestLocation = l;
+//            }
+//        }
+        GpsTracker gt = new GpsTracker(getContext());
+        l = gt.getLocation();
+        if( l == null){
+            //  Toast.makeText(getApplicationContext(),"GPS unable to get Value",Toast.LENGTH_SHORT).show();
+        }else {
+            return l;
+            // Toast.makeText(getApplicationContext(),"GPS Lat = "+latit+"\n lon = "+longi,Toast.LENGTH_SHORT).show();
         }
-        return bestLocation;
+        return null;
     }
 
     private final LocationListener locationListener = new LocationListener() {

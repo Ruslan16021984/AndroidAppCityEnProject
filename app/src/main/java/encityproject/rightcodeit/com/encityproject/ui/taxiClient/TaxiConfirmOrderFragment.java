@@ -2,6 +2,7 @@ package encityproject.rightcodeit.com.encityproject.ui.taxiClient;
 
 
 import android.annotation.SuppressLint;
+import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -33,6 +34,7 @@ public class TaxiConfirmOrderFragment extends Fragment {
     private LinearLayout llConfirmTaxi, llBlack;
     private FrameLayout flSearch;
     private CustomMapView mapView;
+    private Location l;
     private int time;
     private String place;
     private String door;
@@ -66,6 +68,7 @@ public class TaxiConfirmOrderFragment extends Fragment {
 
         Bundle bundle = getArguments();
         if (bundle != null) {
+            l = (Location) bundle.getSerializable("location");
             place = bundle.getString("place", "");
             door = bundle.getString("door", "");
             tvInfoOrder1.setText(place + ", під'їзд " + door);
@@ -73,6 +76,8 @@ public class TaxiConfirmOrderFragment extends Fragment {
             //todo: еще нужно добавить номер телефона и тд.
             taxiClient.setPhone("0668705440");
             taxiClient.setTextAddress(place + ", під'їзд " + door);
+            taxiClient.setLatit(l.getLatitude());
+            taxiClient.setLongit(l.getLongitude());
         }
 
         //Подтверждаем поездку. Высылаем на сервер. И ждем взятие заказ таксистом
@@ -95,7 +100,7 @@ public class TaxiConfirmOrderFragment extends Fragment {
                         h.postDelayed(this, 1000);
                         //imitation time for take order by driver
                         if(time==0) {
-                            Bundle bundle = new Bundle();
+//                            Bundle bundle = new Bundle();
                             //    bundle.putString("place", etAddress.getText().toString());
                             NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
                             navController.navigate(R.id.nav_taxi_confirm_order_fragment, bundle);

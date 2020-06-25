@@ -274,7 +274,7 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
         Projection proj = map.getProjection();
         Point startPoint = proj.toPixels(marker.getPosition(), null);
         final IGeoPoint startLatLng = proj.fromPixels(startPoint.x, startPoint.y);
-        final long duration = 500;
+        final long duration = 1000;
 
         final Interpolator interpolator = new LinearInterpolator();
 
