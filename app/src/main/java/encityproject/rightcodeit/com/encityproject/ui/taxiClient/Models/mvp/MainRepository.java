@@ -9,7 +9,7 @@ import ua.naiksoftware.stomp.StompClient;
 
 public class MainRepository implements SocketContruct.Repository {
     private static final String TAG = "MainRepository";
-    public static final String ANDROID_EMULATOR_LOCALHOST = "192.168.1.57";
+    public static final String ANDROID_EMULATOR_LOCALHOST = "192.168.0.87";
     public static final String ANDROID_EMULATOR_LOCALHOST_2 = "192.168.43.115";
     public static final String SERVER_PORT = "8080";
     private StompClient mStompClient;

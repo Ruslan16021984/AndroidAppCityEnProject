@@ -19,10 +19,7 @@ import androidx.navigation.Navigation;
 
 import encityproject.rightcodeit.com.encityproject.MainActivityWithNaviDrawer;
 import encityproject.rightcodeit.com.encityproject.R;
-import encityproject.rightcodeit.com.encityproject.ui.taxiClient.Models.AddressOrder;
 import encityproject.rightcodeit.com.encityproject.ui.taxiClient.Models.TaxiClient;
-import encityproject.rightcodeit.com.encityproject.ui.taxiClient.Models.mvp.MainPresenter;
-import encityproject.rightcodeit.com.encityproject.ui.taxiClient.Models.mvp.SocketContruct;
 
 import static android.support.constraint.Constraints.TAG;
 
