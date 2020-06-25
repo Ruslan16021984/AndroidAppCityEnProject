@@ -1,41 +1,42 @@
 package encityproject.rightcodeit.com.encityproject.ui.taxiClient.Models;
 
 public class TaxiWorker {
-    private String loginClient= "укеекь676756а354п45645е45е";
-    private String login;
+    private String clientPhone = "";
+    private String login = "123";
     private String uuId;
     private Double latit;
     private Double longit;
     private int readyToBoard; //ready to board in Taxi. Car is at place order;
+    private String nameDriver;
     private String phone;
+    private String nameCar;
+    private String colorCar;
+    private String numberCar;
+
 
     public TaxiWorker() {
     }
 
-    public TaxiWorker(String loginClient, String login, String uuId, Double latit, Double longit, int readyToBoard, String phone) {
-        this.loginClient = loginClient;
+    public TaxiWorker(String clientPhone, String login, String uuId, Double latit, Double longit, int readyToBoard, String nameDriver, String phone, String nameCar, String colorCar, String numberCar) {
+        this.clientPhone = clientPhone;
         this.login = login;
         this.uuId = uuId;
         this.latit = latit;
         this.longit = longit;
         this.readyToBoard = readyToBoard;
+        this.nameDriver = nameDriver;
         this.phone = phone;
+        this.nameCar = nameCar;
+        this.colorCar = colorCar;
+        this.numberCar = numberCar;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getClientPhone() {
+        return clientPhone;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public int getReadyToBoard() {
-        return readyToBoard;
-    }
-
-    public void setReadyToBoard(int readyToBoard) {
-        this.readyToBoard = readyToBoard;
+    public void setClientPhone(String clientPhone) {
+        this.clientPhone = clientPhone;
     }
 
     public String getLogin() {
@@ -70,22 +71,51 @@ public class TaxiWorker {
         this.longit = longit;
     }
 
-    public String getLoginClient() {
-        return loginClient;
+    public int getReadyToBoard() {
+        return readyToBoard;
     }
 
-    public void setLoginClient(String loginClient) {
-        this.loginClient = loginClient;
+    public void setReadyToBoard(int readyToBoard) {
+        this.readyToBoard = readyToBoard;
     }
 
-    @Override
-    public String toString() {
-        return "TaxiWorker{" +
-                "loginClient='" + loginClient + '\'' +
-                ", login='" + login + '\'' +
-                ", uuId='" + uuId + '\'' +
-                ", latit=" + latit +
-                ", longit=" + longit +
-                '}';
+    public String getNameDriver() {
+        return nameDriver;
+    }
+
+    public void setNameDriver(String nameDriver) {
+        this.nameDriver = nameDriver;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getNameCar() {
+        return nameCar;
+    }
+
+    public void setNameCar(String nameCar) {
+        this.nameCar = nameCar;
+    }
+
+    public String getColorCar() {
+        return colorCar;
+    }
+
+    public void setColorCar(String colorCar) {
+        this.colorCar = colorCar;
+    }
+
+    public String getNumberCar() {
+        return numberCar;
+    }
+
+    public void setNumberCar(String numberCar) {
+        this.numberCar = numberCar;
     }
 }

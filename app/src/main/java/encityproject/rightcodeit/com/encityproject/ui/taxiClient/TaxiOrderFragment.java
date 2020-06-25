@@ -115,6 +115,7 @@ public class TaxiOrderFragment extends Fragment {
         ivAdressNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                l= getLastKnownLocation();
                 if(etAddress.getText().length()>5) {
                     Bundle bundle = new Bundle();
                     bundle.putString("place", etAddress.getText().toString());
@@ -232,22 +233,10 @@ public class TaxiOrderFragment extends Fragment {
     }
 
     private Location getLastKnownLocation() {
-//        mLocationManager = (LocationManager) getContext().getSystemService(LOCATION_SERVICE);
-//        List<String> providers = mLocationManager.getProviders(true);
-//        Location bestLocation = null;
-//        for (String provider : providers) {
-//            @SuppressLint("MissingPermission")
-//            Location l = mLocationManager.getLastKnownLocation(provider);
-//            if (l == null) {
-//                continue;
-//            }
-//            if (bestLocation == null || l.getAccuracy() < bestLocation.getAccuracy()) {
-//                // Found best last known location: %s", l);
-//                bestLocation = l;
-//            }
-//        }
+
         GpsTracker gt = new GpsTracker(getContext());
         l = gt.getLocation();
+        Log.d(TAG, "getLastKnownLocation: " + gt.getLocation());
         if( l == null){
             //  Toast.makeText(getApplicationContext(),"GPS unable to get Value",Toast.LENGTH_SHORT).show();
         }else {

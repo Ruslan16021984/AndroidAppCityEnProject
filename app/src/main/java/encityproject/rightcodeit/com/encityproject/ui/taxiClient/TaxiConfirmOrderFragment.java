@@ -77,8 +77,7 @@ public class TaxiConfirmOrderFragment extends Fragment {
             //todo: еще нужно добавить номер телефона и тд.
             taxiClient.setPhone("0668705440");
             taxiClient.setTextAddress(place + ", під'їзд " + door);
-            taxiClient.setLatit(l.getLatitude());
-            taxiClient.setLongit(l.getLongitude());
+
         }
 
         //Подтверждаем поездку. Высылаем на сервер. И ждем взятие заказ таксистом
