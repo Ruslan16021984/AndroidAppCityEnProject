@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.graphics.Point;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
 
@@ -61,6 +62,7 @@ public interface SocketContruct {
                     double lat = t * toPosition.getLatitude() + (1 - t) * startLatLng.getLatitude();
 
                     marker.setPosition(new GeoPoint(lat, lng));
+                    Log.e("TAG", "run: " + lat +" " + lng );
 
                     if (t < 1.0) {
                         // Post again 16ms later.

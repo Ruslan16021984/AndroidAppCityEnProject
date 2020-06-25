@@ -83,7 +83,7 @@ public class MainPresenter implements SocketContruct.Presenter {
                     taxiWorker = mGson.fromJson(taxi, TaxiWorker.class);
                     Bundle bundle = new Bundle();
                     Log.e(TAG, "stompStartTopic: "+  taxiWorker.toString());
-                    bundle.putSerializable("worker", taxiWorker);
+                    bundle.putString("worker",  topicMessage.getPayload());
                     NavController navController = Navigation.findNavController(activity, R.id.nav_host_fragment);
                     navController.navigate(R.id.nav_taxi_taken_order_fragment, bundle);
                     h.removeCallbacksAndMessages(null);

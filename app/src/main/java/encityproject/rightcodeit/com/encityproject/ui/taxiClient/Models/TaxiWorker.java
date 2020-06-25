@@ -120,4 +120,21 @@ public class TaxiWorker implements Serializable {
     public void setNumberCar(String numberCar) {
         this.numberCar = numberCar;
     }
+
+    @Override
+    public String toString() {
+        return "TaxiWorker{" +
+                "clientPhone='" + clientPhone + '\'' +
+                ", login='" + login + '\'' +
+                ", uuId='" + uuId + '\'' +
+                ", latit=" + latit +
+                ", longit=" + longit +
+                ", readyToBoard=" + readyToBoard +
+                ", nameDriver='" + nameDriver + '\'' +
+                ", phone='" + phone + '\'' +
+                ", nameCar='" + nameCar + '\'' +
+                ", colorCar='" + colorCar + '\'' +
+                ", numberCar='" + numberCar + '\'' +
+                '}';
+    }
 }

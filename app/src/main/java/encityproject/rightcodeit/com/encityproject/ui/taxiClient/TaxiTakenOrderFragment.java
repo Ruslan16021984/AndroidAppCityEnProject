@@ -25,6 +25,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
 import org.osmdroid.bonuspack.BuildConfig;
 import org.osmdroid.config.Configuration;
 import org.osmdroid.views.overlay.Marker;
@@ -64,19 +66,21 @@ public class TaxiTakenOrderFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_taxi_taken_order, container, false);
 
-        Bundle bundle=getArguments();
-        if(bundle!=null){
-            taxiWorker= (TaxiWorker) bundle.getSerializable("worker");
-            tvAuto.setText(taxiWorker.getNameCar());
-            tvAutoNum.setText(taxiWorker.getNumberCar());
-            tvAutoColor.setText(taxiWorker.getColorCar());
-            tvAutoDriver.setText(taxiWorker.getNameDriver());
-        }
         tvAuto = view.findViewById(R.id.tvAuto);
         tvAutoColor = view.findViewById(R.id.tvAutoColor);
         tvAutoNum = view.findViewById(R.id.tvAutoNum);
         tvAutoDriver = view.findViewById(R.id.tvAutoDriver);
         tvAutoNum = view.findViewById(R.id.tvAutoNum);
+        Bundle bundle=getArguments();
+        if(bundle!=null){
+            String taxiW=  bundle.getString("worker","");
+            Log.e("TAG", "onCreateView: "+ taxiW );
+            taxiWorker = new Gson().fromJson(taxiW, TaxiWorker.class);
+            tvAuto.setText(taxiWorker.getNameCar());
+            tvAutoNum.setText(taxiWorker.getNumberCar());
+            tvAutoColor.setText(taxiWorker.getColorCar());
+            tvAutoDriver.setText(taxiWorker.getNameDriver());
+        }
 
         btnCancelTaxi = view.findViewById(R.id.btnCancelTaxi);
         llBtnCallDriver = view.findViewById(R.id.llBtnCallDriver);
@@ -86,9 +90,14 @@ public class TaxiTakenOrderFragment extends Fragment {
         //bottom handler imitation take order
         activity= (MainActivityWithNaviDrawer) getActivity();
         activity.getmPresenter().getDispTopic().dispose();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            hideMarke.setIcon(getActivity().getDrawable(R.drawable.taxi));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            hideMarke.setIcon(getResources().getDrawable(R.drawable.taxi));
+            Log.e("TAG", "onCreateView: иконка установилась успешно"  );
+        }else {
+            Log.e("TAG", "onCreateView: иконка установилась НЕ успешно"  );
         }
+        mapView.getMapView().getOverlays().add(hideMarke);
+        mapView.getMapView().invalidate();
         activity.getmPresenter().stompTopic(mapView.getMapView(), hideMarke);
         Handler h = new Handler();
 //        h.postDelayed(new Runnable() {
