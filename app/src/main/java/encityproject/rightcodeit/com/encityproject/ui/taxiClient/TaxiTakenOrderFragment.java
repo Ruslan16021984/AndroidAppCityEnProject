@@ -31,6 +31,7 @@ import org.osmdroid.views.overlay.Marker;
 
 import encityproject.rightcodeit.com.encityproject.MainActivityWithNaviDrawer;
 import encityproject.rightcodeit.com.encityproject.R;
+import encityproject.rightcodeit.com.encityproject.ui.taxiClient.Models.TaxiWorker;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -44,6 +45,7 @@ public class TaxiTakenOrderFragment extends Fragment {
     private TextView tvAuto, tvAutoColor, tvAutoNum, tvAutoDriver, tvAutoTime;
     private LinearLayout llBtnCallDriver;
     private Marker hideMarke;
+    private TaxiWorker taxiWorker;
 
     public TaxiTakenOrderFragment() {
         // Required empty public constructor
@@ -62,6 +64,14 @@ public class TaxiTakenOrderFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_taxi_taken_order, container, false);
 
+        Bundle bundle=getArguments();
+        if(bundle!=null){
+            taxiWorker= (TaxiWorker) bundle.getSerializable("worker");
+            tvAuto.setText(taxiWorker.getNameCar());
+            tvAutoNum.setText(taxiWorker.getNumberCar());
+            tvAutoColor.setText(taxiWorker.getColorCar());
+            tvAutoDriver.setText(taxiWorker.getNameDriver());
+        }
         tvAuto = view.findViewById(R.id.tvAuto);
         tvAutoColor = view.findViewById(R.id.tvAutoColor);
         tvAutoNum = view.findViewById(R.id.tvAutoNum);
@@ -102,7 +112,7 @@ public class TaxiTakenOrderFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse
-                        ("tel: " + "111"));
+                        ("tel: " + taxiWorker.getPhone()));
                 if (intent != null) {
                     startActivity(intent);
                 }
