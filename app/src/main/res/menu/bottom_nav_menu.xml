@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" >
+    <item
+        android:id="@+id/action_phones"
+        android:enabled="true"
+        android:icon="@drawable/phonecallempty"
+        android:title="Довідник"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_weahter"
+        android:enabled="true"
+        android:icon="@drawable/weather"
+        android:title="Погода"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_bus"
+        android:enabled="true"
+        android:icon="@drawable/bus"
+        android:title="Транспорт"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_discount"
+        android:enabled="true"
+        android:icon="@drawable/discount"
+        android:title="Знижки"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_news"
+        android:enabled="true"
+        android:icon="@drawable/news"
+        android:title="Новини"
+        app:showAsAction="ifRoom" />
+
+
+
+</menu>

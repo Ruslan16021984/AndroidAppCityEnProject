@@ -1,11 +1,20 @@
 package encityproject.rightcodeit.com.encityproject.ui.busTracker;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Point;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,19 +22,28 @@ import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.getbase.floatingactionbutton.FloatingActionButton;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+
+import com.google.android.gms.common.util.MapUtils;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -53,15 +71,29 @@ import org.osmdroid.views.overlay.gestures.RotationGestureOverlay;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
+import java.io.BufferedOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.PrintWriter;
 import java.math.BigDecimal;
+import java.net.Socket;
 import java.util.ArrayList;
 
+import com.github.clans.fab.FloatingActionButton;
+
 import encityproject.rightcodeit.com.encityproject.R;
+import encityproject.rightcodeit.com.encityproject.ui.busTracker.model.BusStop;
 import encityproject.rightcodeit.com.encityproject.ui.busTracker.model.DataRouteBusAndBusStop;
 
 import static android.content.Context.LOCATION_SERVICE;
 
 public class BusMapFragment extends Fragment implements View.OnClickListener{
+    private int port = 4656;
+    //  private String ip = "192.168.1.46";
+    private String ip = "35.232.178.112";
+    // private String ip = "192.168.1.103";
+    //private String ip = "192.168.0.103";
     private MqttHelper mqttHelper;
     private static final int REQUEST_CODE_PERMISSION_READ_CONTACTS = 123;
     private ScaleBarOverlay mScaleBarOverlay;
@@ -83,7 +115,26 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
     private long duration;
     private GeoPoint myPosition;
     private LocationManager mLocationManager;
-
+    Marker m1=null;
+    Marker m2=null;
+    Marker m3=null;
+    Marker m4=null;
+    Marker m5=null;
+    Marker m6=null;
+    Marker m7=null;
+    Marker m8=null;
+    Marker m9=null;
+    Marker m10=null;
+    Marker m11=null;
+    Marker m12=null;
+    Marker m13=null;
+    Marker m14=null;
+    Marker m15=null;
+    Marker m16=null;
+    Marker m17=null;
+    Marker[] mMarkers=new Marker[17];
+    private Button btnZoomIn, btnZoomOut;
+    private double zoomScale=14.5;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -95,9 +146,32 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_bus_map, container, false);
+
+        btnZoomIn=view.findViewById(R.id.btnZoomIn);
+        btnZoomOut=view.findViewById(R.id.btnZoomOut);
+        /*GetMoniBus getMoniBus = new GetMoniBus();
+        getMoniBus.execute("getbus");*/
         fubBusTrack1 = view.findViewById(R.id.fab_action1);
         /*fubBusTrack1.setBackgroundTintList(ColorStateList.valueOf(Color
                 .parseColor("#33691E")));*/
+        mMarkers[0]=m1;
+        mMarkers[1]=m2;
+        mMarkers[2]=m3;
+        mMarkers[3]=m4;
+        mMarkers[4]=m5;
+        mMarkers[5]=m6;
+        mMarkers[6]=m7;
+        mMarkers[7]=m8;
+        mMarkers[8]=m9;
+        mMarkers[9]=m10;
+        mMarkers[10]=m11;
+        mMarkers[11]=m12;
+        mMarkers[12]=m13;
+        mMarkers[13]=m14;
+        mMarkers[14]=m15;
+        mMarkers[15]=m16;
+        mMarkers[16]=m17;
+
         fubBusTrack1.setOnClickListener(this);
         fubBusTrack2 = view.findViewById(R.id.fab_action2);
         fubBusTrack2.setOnClickListener(this);
@@ -113,9 +187,34 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
         interpolator = new LinearInterpolator();
         map = view.findViewById(R.id.map);
         map.setTileSource(TileSourceFactory.MAPNIK);
+        map.setBuiltInZoomControls(false);
         Configuration.getInstance().load(getActivity(), PreferenceManager.getDefaultSharedPreferences(getContext()));
         checkPermition();
         startMqtt();
+
+        btnZoomIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                zoomScale=zoomScale+0.5;
+                if(zoomScale>=20.0){
+                    zoomScale=20.0;
+                    mapController.setZoom(zoomScale);
+                }else
+                    mapController.setZoom(zoomScale);
+            }
+        });
+
+        btnZoomOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                zoomScale=zoomScale-0.5;
+                if(zoomScale<=4.0){
+                    zoomScale=4.0;
+                    mapController.setZoom(zoomScale);
+                }else
+                    mapController.setZoom(zoomScale);
+            }
+        });
 
         return view;
     }
@@ -186,22 +285,69 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
+        ArrayList<BusStop> aBus=new ArrayList<>();
         switch (v.getId()) {
             case R.id.fab_action1:
+                zoomScale=14.5;
+                map.getController().animateTo(new GeoPoint(47.49364, 34.65646));
+                mapController.setZoom(zoomScale);
+                removeOldStations();
                 DataRouteBusAndBusStop.routeBusTwo(map);
+                createNewStations(DataRouteBusAndBusStop.BusStop_2());
                 break;
             case R.id.fab_action2:
+                zoomScale=14.5;
+                map.getController().animateTo(new GeoPoint(47.49364, 34.65646));
+                mapController.setZoom(zoomScale);
+                removeOldStations();
                 DataRouteBusAndBusStop.routeBusThree(map);
+                createNewStations(DataRouteBusAndBusStop.BusStop_3());
                 break;
             case R.id.fab_action3:
+                zoomScale=12.6;
+                map.getController().animateTo(new GeoPoint(47.497476, 34.622944));
+                mapController.setZoom(zoomScale);
+                removeOldStations();
                 DataRouteBusAndBusStop.routeBusFour(map);
+                createNewStations(DataRouteBusAndBusStop.BusStop_4());
                 break;
             case R.id.fab_action4:
+                zoomScale=14.5;
+                map.getController().animateTo(new GeoPoint(47.49364, 34.65646));
+                mapController.setZoom(zoomScale);
+                removeOldStations();
                 DataRouteBusAndBusStop.routeBusFive(map);
+                createNewStations(DataRouteBusAndBusStop.BusStop_5());
                 break;
             case R.id.fab_action5:
+                map.getController().animateTo(new GeoPoint(47.49364, 34.65646));
+                mapController.setZoom(14.5);
+                removeOldStations();
                 DataRouteBusAndBusStop.routeBusSeven(map);
+                createNewStations(DataRouteBusAndBusStop.BusStop_7());
+
                 break;
+        }
+    }
+
+    private void createNewStations(ArrayList<BusStop> aBusStop){
+        for(int i=0;i<aBusStop.size();i++){
+            mMarkers[i]=new Marker(map);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                //busMarker_1.setIcon(getResources().getDrawable(R.drawable.bus_circle));
+                mMarkers[i].setIcon(writeOnDrawable(R.drawable.busstop, aBusStop.get(i).getNameBusStop()));
+            }
+            map.getOverlays().add(mMarkers[i]);
+            mMarkers[i].setPosition(new GeoPoint(aBusStop.get(i).getLatitude(), aBusStop.get(i).getLongitude()));
+            map.invalidate();
+        }
+    }
+
+    private void removeOldStations(){
+        for(int y=0;y<mMarkers.length;y++){
+            map.getOverlays().remove(mMarkers[y]);
+            map.invalidate();
+            mMarkers[y]=null;
         }
     }
 
@@ -223,13 +369,28 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
         }
     }
 
+    public BitmapDrawable writeOnDrawable(int drawableId, String text){
+
+        Bitmap bm = BitmapFactory.decodeResource(getResources(), drawableId).copy(Bitmap.Config.ARGB_8888, true);
+        Bitmap b = Bitmap.createScaledBitmap(bm, 150, 120, false);
+        Paint paint = new Paint();
+        paint.setStyle(Paint.Style.FILL);
+        paint.setColor(Color.BLACK);
+        paint.setTextSize(30);
+
+        Canvas canvas = new Canvas(b);
+        canvas.drawText(text, 0, b.getHeight()/4, paint);
+
+        return new BitmapDrawable(b);
+    }
+
     private void createMap() {
         Log.d("TAG", "createMap()");
 
         map.setTileSource(TileSourceFactory.MAPNIK);
         map.setMultiTouchControls(true);
         map.setTilesScaledToDpi(true);
-        map.setBuiltInZoomControls(true);
+   //     map.setBuiltInZoomControls(true);
         map.setFlingEnabled(true);
 
         locationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(getContext()), map);
@@ -245,10 +406,17 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
         mScaleBarOverlay.setScaleBarOffset(dm.widthPixels / 2, 10);
         mRotationGestureOverlay = new RotationGestureOverlay(getContext(), map);
         mRotationGestureOverlay.setEnabled(true);
+
         busMarker_1 = new Marker(map);
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            busMarker_1.setIcon(getResources().getDrawable(R.drawable.bus));
+            //busMarker_1.setIcon(getResources().getDrawable(R.drawable.bus_circle));
+            busMarker_1.setIcon(writeOnDrawable(R.drawable.bus3, ""));
         }
+        map.getOverlays().add(busMarker_1);
+        map.invalidate();
+
+
         compassOverlay = new CompassOverlay(getContext(),
                 new InternalCompassOrientationProvider(getContext()), map);
         compassOverlay.enableCompass();
@@ -282,7 +450,7 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
         Projection proj = map.getProjection();
         Point startPoint = proj.toPixels(marker.getPosition(), null);
         final IGeoPoint startLatLng = proj.fromPixels(startPoint.x, startPoint.y);
-        final long duration = 1000;
+        final long duration = 2000;
 
         final Interpolator interpolator = new LinearInterpolator();
 
@@ -320,4 +488,62 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
         super.onResume();
         Configuration.getInstance().load(getContext(), PreferenceManager.getDefaultSharedPreferences(getActivity())); //needed for compass, my location overlays, v6.0.0 and up
     }
+
+    class GetMoniBus extends AsyncTask<String, Void, Socket> {
+        private String linkCheckVApp = "myNull";
+        private Socket socket;
+        private PrintWriter pw = null;
+        private InputStream is = null;
+        private String fromServer="";
+
+        @Override
+        protected Socket doInBackground(String... params) {
+
+            PrintWriter pw;
+            try {
+                socket = new Socket(ip, port);
+
+                pw = new PrintWriter(new BufferedOutputStream(socket.getOutputStream()));
+                pw.write(params[0] + "@.#" + linkCheckVApp + "\n");
+                pw.flush();
+
+                /*is = socket.getInputStream();
+                Scanner sc = new Scanner(is);
+                fromServer = sc.nextLine();
+
+                is.close();*/
+                ObjectInputStream objectInput = new ObjectInputStream(socket.getInputStream());
+                try {
+                    Object object = objectInput.readUnshared();
+                    fromServer =  (String) object;
+                    Log.d("fromServerMoni", fromServer);
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                objectInput.close();
+            } catch (IOException e) {
+                //e.printStackTrace();
+                Log.d("Ex GetMoniBus", e.getMessage());
+            }
+            finally {
+
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Socket socket) {
+            super.onPostExecute(socket);
+            //pbListPhones.setVisibility(View.INVISIBLE);
+            //   fromServer="ok";
+            if(fromServer.length()>0 && !fromServer.equals("no")){
+                startMqtt();
+            }
+            else{
+                Toast.makeText(getContext(), "Виникли технічні помилки. Вже вирішуемо", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
 }

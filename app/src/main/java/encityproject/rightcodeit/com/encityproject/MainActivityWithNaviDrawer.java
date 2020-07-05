@@ -11,6 +11,7 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
@@ -253,6 +254,47 @@ public class MainActivityWithNaviDrawer extends AppCompatActivity implements Soc
         MenuItem nav_cloud_market = menuNav.findItem(R.id.nav_entrance_market);
         nav_cloud_market.setVisible(true);*/
 
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setSelectedItemId(R.id.action_weahter);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.action_phones:
+                        if(bottomNavigationView.getSelectedItemId()==R.id.action_phones){
+
+                        }else navController.navigate(R.id.nav_phonesBook);
+                        break;
+                    case R.id.action_weahter:
+                        if(bottomNavigationView.getSelectedItemId()==R.id.action_weahter){
+
+                        }else navController.navigate(R.id.nav_weather);
+                        break;
+                    case R.id.action_bus:
+                        if(bottomNavigationView.getSelectedItemId()==R.id.action_bus){
+
+                        }else
+                            navController.navigate(R.id.nav_busmap);
+                        break;
+                    case R.id.action_discount:
+                        if(bottomNavigationView.getSelectedItemId()==R.id.action_discount){
+
+                        }else
+                            navController.navigate(R.id.nav_discount);
+                        break;
+                    case R.id.action_news:
+                        if(bottomNavigationView.getSelectedItemId()==R.id.action_news){
+
+                        }else
+                            navController.navigate(R.id.nav_news);
+                        break;
+
+
+
+                }
+                return true;
+            }
+        });
 
     }
 
