@@ -155,10 +155,6 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
         llTransInfo=view.findViewById(R.id.llTransInfo);
         llTransInfo.setVisibility(View.INVISIBLE);
         tvTransInfo=view.findViewById(R.id.tvTransInfo);
-        Animation animAppear= AnimationUtils.loadAnimation(getContext(), R.anim.appear5000);
-        Animation animDisapp= AnimationUtils.loadAnimation(getContext(), R.anim.disappear5000);
-
-        llTransInfo.startAnimation(animAppear);
         btnZoomIn=view.findViewById(R.id.btnZoomIn);
         btnZoomOut=view.findViewById(R.id.btnZoomOut);
         /*GetMoniBus getMoniBus = new GetMoniBus();
@@ -202,21 +198,8 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
         map.setBuiltInZoomControls(false);
         Configuration.getInstance().load(getActivity(), PreferenceManager.getDefaultSharedPreferences(getContext()));
         checkPermition();
-        startMqtt();
 
-        if(checkTimeDrive(((20*60)+30),((8*60)+30) )==false){
-            tvTransInfo.setText("Нажаль міський транспорт\nзараз не працює");
-            tvTransInfo.setBackgroundResource(R.drawable.button_rounded_grey);
-        }
 
-        hTransInfo=new Handler();
-        hTransInfo.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                llTransInfo.startAnimation(animDisapp);
-                //llTransInfo.setVisibility(View.INVISIBLE);
-            }
-        },2000);
 
         btnZoomIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -244,6 +227,8 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
 
         return view;
     }
+
+
 
     private boolean checkTimeDrive(int lastBusTime, int ealyBusTime) {
         Calendar c = Calendar.getInstance();
@@ -285,7 +270,7 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
         mqttHelper.setCallback(new MqttCallbackExtended() {
             @Override
             public void connectComplete(boolean b, String s) {
-
+                Log.e("Connect MQTT", s);
             }
 
             @Override
@@ -450,7 +435,7 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
             //busMarker_1.setIcon(writeOnDrawable(R.drawable.numeric_3_circle, ""));
         }
         map.getOverlays().add(busMarker_1);
-        map.invalidate();
+      //  map.invalidate();
 
 
         compassOverlay = new CompassOverlay(getContext(),
@@ -512,6 +497,7 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onPause() {
         super.onPause();
+        mqttHelper.disconnect();
         hTransInfo.removeCallbacksAndMessages(null);
     }
 
@@ -529,6 +515,25 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
     public void onResume() {
         super.onResume();
         Configuration.getInstance().load(getContext(), PreferenceManager.getDefaultSharedPreferences(getActivity())); //needed for compass, my location overlays, v6.0.0 and up
+        startMqtt();
+        Animation animAppear= AnimationUtils.loadAnimation(getContext(), R.anim.appear5000);
+        Animation animDisapp= AnimationUtils.loadAnimation(getContext(), R.anim.disappear5000);
+
+        llTransInfo.startAnimation(animAppear);
+
+        if(checkTimeDrive(((20*60)+30),((8*60)+30) )==false){
+            tvTransInfo.setText("Нажаль міський транспорт\nзараз не працює");
+            tvTransInfo.setBackgroundResource(R.drawable.button_rounded_grey);
+        }
+
+        hTransInfo=new Handler();
+        hTransInfo.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                llTransInfo.startAnimation(animDisapp);
+                //llTransInfo.setVisibility(View.INVISIBLE);
+            }
+        },2000);
     }
 
     class GetMoniBus extends AsyncTask<String, Void, Socket> {

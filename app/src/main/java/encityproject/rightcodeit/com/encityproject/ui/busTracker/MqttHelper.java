@@ -28,7 +28,7 @@ public class MqttHelper {
 
     public MqttHelper(Context context){
         mqttAndroidClient = new MqttAndroidClient(context, serverUri, clientId);
-        mqttAndroidClient.setCallback(new MqttCallbackExtended() {
+        /*mqttAndroidClient.setCallback(new MqttCallbackExtended() {
             @Override
             public void connectComplete(boolean b, String s) {
                 Log.w("mqtt", s);
@@ -48,7 +48,7 @@ public class MqttHelper {
             public void deliveryComplete(IMqttDeliveryToken iMqttDeliveryToken) {
 
             }
-        });
+        });*/
         connect();
     }
 
@@ -56,10 +56,18 @@ public class MqttHelper {
         mqttAndroidClient.setCallback(callback);
     }
 
+    public void disconnect(){
+        try {
+            mqttAndroidClient.disconnect();
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void connect(){
         MqttConnectOptions mqttConnectOptions = new MqttConnectOptions();
         mqttConnectOptions.setAutomaticReconnect(true);
-        mqttConnectOptions.setCleanSession(false);
+        mqttConnectOptions.setCleanSession(true);
         mqttConnectOptions.setUserName(username);
      //   mqttConnectOptions.setPassword(password.toCharArray());
 
