@@ -141,6 +141,7 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
     private LinearLayout llTransInfo;
     private TextView tvTransInfo;
     private Handler hTransInfo;
+    private DataRouteBusAndBusStop dataRouteBusAndBusStop;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -152,6 +153,7 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_bus_map, container, false);
+        dataRouteBusAndBusStop = new DataRouteBusAndBusStop();
         llTransInfo=view.findViewById(R.id.llTransInfo);
         llTransInfo.setVisibility(View.INVISIBLE);
         tvTransInfo=view.findViewById(R.id.tvTransInfo);
@@ -313,7 +315,7 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
                 map.getController().animateTo(new GeoPoint(47.49364, 34.65646));
                 mapController.setZoom(zoomScale);
                 removeOldStations();
-                DataRouteBusAndBusStop.routeBusTwo(map);
+                dataRouteBusAndBusStop.routeBusTwo(map);
                 createNewStations(DataRouteBusAndBusStop.BusStop_2());
                 break;
             case R.id.fab_action2:
@@ -321,7 +323,7 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
                 map.getController().animateTo(new GeoPoint(47.49364, 34.65646));
                 mapController.setZoom(zoomScale);
                 removeOldStations();
-                DataRouteBusAndBusStop.routeBusThree(map);
+                dataRouteBusAndBusStop.routeBusThree(map);
                 createNewStations(DataRouteBusAndBusStop.BusStop_3());
                 break;
             case R.id.fab_action3:
@@ -329,7 +331,7 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
                 map.getController().animateTo(new GeoPoint(47.497476, 34.622944));
                 mapController.setZoom(zoomScale);
                 removeOldStations();
-                DataRouteBusAndBusStop.routeBusFour(map);
+                dataRouteBusAndBusStop.routeBusFour(map);
                 createNewStations(DataRouteBusAndBusStop.BusStop_4());
                 break;
             case R.id.fab_action4:
@@ -337,14 +339,14 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
                 map.getController().animateTo(new GeoPoint(47.49364, 34.65646));
                 mapController.setZoom(zoomScale);
                 removeOldStations();
-                DataRouteBusAndBusStop.routeBusFive(map);
+                dataRouteBusAndBusStop.routeBusFive(map);
                 createNewStations(DataRouteBusAndBusStop.BusStop_5());
                 break;
             case R.id.fab_action5:
                 map.getController().animateTo(new GeoPoint(47.49364, 34.65646));
                 mapController.setZoom(14.5);
                 removeOldStations();
-                DataRouteBusAndBusStop.routeBusSeven(map);
+                dataRouteBusAndBusStop.routeBusSeven(map);
                 createNewStations(DataRouteBusAndBusStop.BusStop_7());
 
                 break;
