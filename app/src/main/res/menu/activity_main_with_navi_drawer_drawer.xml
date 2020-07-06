@@ -28,12 +28,12 @@
             android:id="@+id/nav_busmap"
             android:icon="@drawable/bus"
             android:title="@string/menu_busmap" />
-
+-->
         <item
             android:id="@+id/nav_helsi"
             android:icon="@drawable/helsi"
             android:title="@string/menu_helsi" />
--->
+
        <!-- <item
             android:id="@+id/nav_firstAid"
             android:icon="@drawable/first_aid"

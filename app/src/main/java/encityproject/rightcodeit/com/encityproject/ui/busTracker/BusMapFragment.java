@@ -33,6 +33,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
 import android.widget.Button;
@@ -79,6 +81,7 @@ import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import com.github.clans.fab.FloatingActionButton;
 
@@ -135,6 +138,9 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
     Marker[] mMarkers=new Marker[17];
     private Button btnZoomIn, btnZoomOut;
     private double zoomScale=14.5;
+    private LinearLayout llTransInfo;
+    private TextView tvTransInfo;
+    private Handler hTransInfo;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -146,7 +152,13 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_bus_map, container, false);
+        llTransInfo=view.findViewById(R.id.llTransInfo);
+        llTransInfo.setVisibility(View.INVISIBLE);
+        tvTransInfo=view.findViewById(R.id.tvTransInfo);
+        Animation animAppear= AnimationUtils.loadAnimation(getContext(), R.anim.appear5000);
+        Animation animDisapp= AnimationUtils.loadAnimation(getContext(), R.anim.disappear5000);
 
+        llTransInfo.startAnimation(animAppear);
         btnZoomIn=view.findViewById(R.id.btnZoomIn);
         btnZoomOut=view.findViewById(R.id.btnZoomOut);
         /*GetMoniBus getMoniBus = new GetMoniBus();
@@ -192,6 +204,20 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
         checkPermition();
         startMqtt();
 
+        if(checkTimeDrive(((20*60)+30),((8*60)+30) )==false){
+            tvTransInfo.setText("Нажаль міський транспорт\nзараз не працює");
+            tvTransInfo.setBackgroundResource(R.drawable.button_rounded_grey);
+        }
+
+        hTransInfo=new Handler();
+        hTransInfo.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                llTransInfo.startAnimation(animDisapp);
+                //llTransInfo.setVisibility(View.INVISIBLE);
+            }
+        },2000);
+
         btnZoomIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -217,6 +243,16 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
         });
 
         return view;
+    }
+
+    private boolean checkTimeDrive(int lastBusTime, int ealyBusTime) {
+        Calendar c = Calendar.getInstance();
+        int h=c.get(Calendar.HOUR_OF_DAY);
+        int m=c.get(Calendar.MINUTE);
+        if((h*60)+m>=lastBusTime || (h*60)+m<ealyBusTime){
+            return false;
+        }
+        else return true;
     }
 
     public void findGPS(double lat, double lon) {
@@ -410,8 +446,8 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
         busMarker_1 = new Marker(map);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            //busMarker_1.setIcon(getResources().getDrawable(R.drawable.bus_circle));
-            busMarker_1.setIcon(writeOnDrawable(R.drawable.bus3, ""));
+            busMarker_1.setIcon(getResources().getDrawable(R.drawable.numeric_5_circle));
+            //busMarker_1.setIcon(writeOnDrawable(R.drawable.numeric_3_circle, ""));
         }
         map.getOverlays().add(busMarker_1);
         map.invalidate();
@@ -471,6 +507,12 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
                 map.postInvalidate();
             }
         });
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        hTransInfo.removeCallbacksAndMessages(null);
     }
 
     @Override
