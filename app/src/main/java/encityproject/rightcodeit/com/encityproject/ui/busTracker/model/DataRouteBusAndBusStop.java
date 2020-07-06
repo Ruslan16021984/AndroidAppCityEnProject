@@ -79,10 +79,7 @@ public class DataRouteBusAndBusStop {
         arrayListRouteBusTwo.add(new GeoPoint(47.4969656, 34.6486310));
         arrayListRouteBusTwo.add(new GeoPoint(47.4969717, 34.6487188));
         arrayListRouteBusTwo.add(new GeoPoint(47.4969853, 34.6487518));
-        if (line!=null){
 
-            line.onDestroy();
-        }
         line.setPoints(arrayListRouteBusTwo);
         line.setColor(Color.parseColor("#E60000"));
         map.getOverlayManager().add(line);
@@ -163,10 +160,7 @@ public class DataRouteBusAndBusStop {
         arrayListRouteBusThree.add(new GeoPoint(47.4969656, 34.6486310));
         arrayListRouteBusThree.add(new GeoPoint(47.4969717, 34.6487188));
         arrayListRouteBusThree.add(new GeoPoint(47.4969853, 34.6487518));
-        if (line!=null){
 
-            line.onDestroy();
-        }
         line.setPoints(arrayListRouteBusThree);
         line.setColor(Color.parseColor("#09C000"));
         map.getOverlayManager().add(line);
@@ -299,10 +293,7 @@ public class DataRouteBusAndBusStop {
         arrayListRouteBusFour.add(new GeoPoint(47.4969656, 34.6486310));
         arrayListRouteBusFour.add(new GeoPoint(47.4969717, 34.6487188));
         arrayListRouteBusFour.add(new GeoPoint(47.4969853, 34.6487518));
-        if (line!=null){
 
-            line.onDestroy();
-        }
         line.setPoints(arrayListRouteBusFour);
         line.setColor(Color.parseColor("#0040FF"));
         map.getOverlayManager().add(line);
@@ -390,10 +381,7 @@ public class DataRouteBusAndBusStop {
         arrayListRouteBusFive.add(new GeoPoint(47.4969656, 34.6486310));
         arrayListRouteBusFive.add(new GeoPoint(47.4969717, 34.6487188));
         arrayListRouteBusFive.add(new GeoPoint(47.4969853, 34.6487518));
-        if (line!=null){
 
-            line.onDestroy();
-        }
         line.setPoints(arrayListRouteBusFive);
         line.setColor(Color.parseColor("#FFDE00"));
         map.getOverlayManager().add(line);
@@ -492,10 +480,7 @@ public class DataRouteBusAndBusStop {
         arrayListRouteBusSeven.add(new GeoPoint(47.4969717, 34.6487188));
         arrayListRouteBusSeven.add(new GeoPoint(47.4969853, 34.6487518));
 
-        if (line!=null){
 
-            line.onDestroy();
-        }
         line.setPoints(arrayListRouteBusSeven);
         line.setColor(Color.parseColor("#B700FF"));
         map.getOverlayManager().add(line);
