@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.util.TimeUtils;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -15,20 +14,13 @@ import com.google.gson.GsonBuilder;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
-import org.reactivestreams.Publisher;
-
-import java.io.Serializable;
-import java.util.Timer;
-import java.util.concurrent.TimeUnit;
 
 import encityproject.rightcodeit.com.encityproject.R;
 import encityproject.rightcodeit.com.encityproject.ui.taxiClient.Models.TaxiClient;
 import encityproject.rightcodeit.com.encityproject.ui.taxiClient.Models.TaxiWorker;
 import io.reactivex.CompletableTransformer;
-import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 public class MainPresenter implements SocketContruct.Presenter {
