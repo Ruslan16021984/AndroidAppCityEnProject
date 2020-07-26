@@ -94,7 +94,7 @@ import static android.content.Context.LOCATION_SERVICE;
 
 public class BusMapFragment extends Fragment implements View.OnClickListener{
     private int port = 4656;
-    private String ipLocal = "192.168.1.46";
+    //private String ipLocal = "192.168.1.46";
     private String ip = "35.232.178.112";
     // private String ip = "192.168.1.103";
     //private String ip = "192.168.0.103";
@@ -555,7 +555,7 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
 
             PrintWriter pw;
             try {
-                socket = new Socket(ipLocal, port);
+                socket = new Socket(ip, port);
 
                 pw = new PrintWriter(new BufferedOutputStream(socket.getOutputStream()));
                 pw.write(params[0] + "@.#" + linkCheckVApp + "\n");
