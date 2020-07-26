@@ -17,17 +17,24 @@ public class MqttHelper {
     public MqttAndroidClient mqttAndroidClient;
 
     //final String serverUri = "tcp://m12.cloudmqtt.com:11111";
-    final String serverUri = "tcp://ru-mqtt.flespi.io";
+    String serverUri = "tcp://ru-mqtt.flespi.io";
+    String login;
+    String pass;
+    String topic;
 
+    String clientId = "ExampleAndroidClient";
+    String subscriptionTopic = "flespi/message/gw/channels/19582/359633101118334";
 
-    final String clientId = "ExampleAndroidClient";
-    final String subscriptionTopic = "flespi/message/gw/channels/19582/359633101118334";
-
-    final String username = "FlespiToken Nm6kTTKuxlTJft6GCclQANkFtFjgJewnqsx8c7sxi95ms1ST12zsFJVWc23L6nYn";
+    String username = "FlespiToken Nm6kTTKuxlTJft6GCclQANkFtFjgJewnqsx8c7sxi95ms1ST12zsFJVWc23L6nYn";
    // final String password = "yyyyyyyyyy";
 
-    public MqttHelper(Context context){
-        mqttAndroidClient = new MqttAndroidClient(context, serverUri, clientId);
+    public MqttHelper(Context context, String login, String pass, String serverUri, String topic){
+        this.serverUri=serverUri;
+        this.login=login;
+        this.pass=pass;
+        this.topic=topic;
+    //    Log.e("1MQTTHLPER",this.serverUri+"-"+this.login+"-"+this.pass+"-"+this.topic);
+        mqttAndroidClient = new MqttAndroidClient(context, this.serverUri, clientId);
         /*mqttAndroidClient.setCallback(new MqttCallbackExtended() {
             @Override
             public void connectComplete(boolean b, String s) {
@@ -68,7 +75,8 @@ public class MqttHelper {
         MqttConnectOptions mqttConnectOptions = new MqttConnectOptions();
         mqttConnectOptions.setAutomaticReconnect(true);
         mqttConnectOptions.setCleanSession(true);
-        mqttConnectOptions.setUserName(username);
+        //mqttConnectOptions.setUserName(username);
+        mqttConnectOptions.setUserName(this.login);
      //   mqttConnectOptions.setPassword(password.toCharArray());
 
         try {
@@ -76,7 +84,7 @@ public class MqttHelper {
             mqttAndroidClient.connect(mqttConnectOptions, null, new IMqttActionListener() {
                 @Override
                 public void onSuccess(IMqttToken asyncActionToken) {
-
+                    Log.e("CON NECT", "OK");
                     DisconnectedBufferOptions disconnectedBufferOptions = new DisconnectedBufferOptions();
                     disconnectedBufferOptions.setBufferEnabled(true);
                     disconnectedBufferOptions.setBufferSize(100);
@@ -101,10 +109,12 @@ public class MqttHelper {
 
     private void subscribeToTopic() {
         try {
-            mqttAndroidClient.subscribe(subscriptionTopic, 0, null, new IMqttActionListener() {
+            mqttAndroidClient.subscribe(this.topic, 0, null, new IMqttActionListener() {
                 @Override
                 public void onSuccess(IMqttToken asyncActionToken) {
                     Log.w("Mqtt","Subscribed!");
+                    Log.e("SUB SCRIBE", "OK");
+
                 }
 
                 @Override

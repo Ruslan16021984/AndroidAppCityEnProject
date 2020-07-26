@@ -88,12 +88,13 @@ import com.github.clans.fab.FloatingActionButton;
 import encityproject.rightcodeit.com.encityproject.R;
 import encityproject.rightcodeit.com.encityproject.ui.busTracker.model.BusStop;
 import encityproject.rightcodeit.com.encityproject.ui.busTracker.model.DataRouteBusAndBusStop;
+import encityproject.rightcodeit.com.encityproject.ui.busTracker.model.Mqttbusenter;
 
 import static android.content.Context.LOCATION_SERVICE;
 
 public class BusMapFragment extends Fragment implements View.OnClickListener{
     private int port = 4656;
-    //  private String ip = "192.168.1.46";
+    private String ipLocal = "192.168.1.46";
     private String ip = "35.232.178.112";
     // private String ip = "192.168.1.103";
     //private String ip = "192.168.0.103";
@@ -157,8 +158,7 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
         tvTransInfo=view.findViewById(R.id.tvTransInfo);
         btnZoomIn=view.findViewById(R.id.btnZoomIn);
         btnZoomOut=view.findViewById(R.id.btnZoomOut);
-        /*GetMoniBus getMoniBus = new GetMoniBus();
-        getMoniBus.execute("getbus");*/
+
         fubBusTrack1 = view.findViewById(R.id.fab_action1);
         /*fubBusTrack1.setBackgroundTintList(ColorStateList.valueOf(Color
                 .parseColor("#33691E")));*/
@@ -265,8 +265,9 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
 
     }
 
-    private void startMqtt() {
-        mqttHelper = new MqttHelper(getContext());
+    private void startMqtt(String login, String pass, String serverUri, String topic) {
+        Log.e("STArtMQTT", "login="+login+"  passs="+pass+"  URI="+serverUri+"  topic="+topic);
+        mqttHelper = new MqttHelper(getContext(), login, pass, serverUri, topic);
         mqttHelper.setCallback(new MqttCallbackExtended() {
             @Override
             public void connectComplete(boolean b, String s) {
@@ -515,7 +516,9 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
     public void onResume() {
         super.onResume();
         Configuration.getInstance().load(getContext(), PreferenceManager.getDefaultSharedPreferences(getActivity())); //needed for compass, my location overlays, v6.0.0 and up
-        startMqtt();
+     //   startMqtt();
+        GetMoniBus getMoniBus = new GetMoniBus();
+        getMoniBus.execute("getbus");
         Animation animAppear= AnimationUtils.loadAnimation(getContext(), R.anim.appear5000);
         Animation animDisapp= AnimationUtils.loadAnimation(getContext(), R.anim.disappear5000);
 
@@ -541,14 +544,16 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
         private Socket socket;
         private PrintWriter pw = null;
         private InputStream is = null;
-        private String fromServer="";
+        //private String fromServer="";
+        private ArrayList<String> fromServer;
+        private ArrayList<Mqttbusenter> mqttbus;
 
         @Override
         protected Socket doInBackground(String... params) {
 
             PrintWriter pw;
             try {
-                socket = new Socket(ip, port);
+                socket = new Socket(ipLocal, port);
 
                 pw = new PrintWriter(new BufferedOutputStream(socket.getOutputStream()));
                 pw.write(params[0] + "@.#" + linkCheckVApp + "\n");
@@ -562,12 +567,22 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
                 ObjectInputStream objectInput = new ObjectInputStream(socket.getInputStream());
                 try {
                     Object object = objectInput.readUnshared();
-                    fromServer =  (String) object;
-                    Log.d("fromServerMoni", fromServer);
+                    fromServer =  (ArrayList<String>) object;
+                    Log.d("fromServerMoni","ok yes");
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
                 }
                 objectInput.close();
+
+                mqttbus=new ArrayList<>();
+                for(int r=0;r<fromServer.size();r++){
+                    mqttbus.add(new Mqttbusenter(
+                            fromServer.get(r).split(";")[0],
+                            fromServer.get(r).split(";")[1],
+                            fromServer.get(r).split(";")[2],
+                            fromServer.get(r).split(";")[3]
+                    ));
+                }
             } catch (IOException e) {
                 //e.printStackTrace();
                 Log.d("Ex GetMoniBus", e.getMessage());
@@ -584,13 +599,18 @@ public class BusMapFragment extends Fragment implements View.OnClickListener{
             super.onPostExecute(socket);
             //pbListPhones.setVisibility(View.INVISIBLE);
             //   fromServer="ok";
-            if(fromServer.length()>0 && !fromServer.equals("no")){
-                startMqtt();
+            if(fromServer.size()>0){
+                startMqtt(mqttbus.get(0).getLoginbus(),
+                        mqttbus.get(0).getPassbus(),
+                        mqttbus.get(0).getServerbus(),
+                        mqttbus.get(0).getTopicbus());
             }
             else{
                 Toast.makeText(getContext(), "Виникли технічні помилки. Вже вирішуемо", Toast.LENGTH_SHORT).show();
             }
         }
     }
+
+
 
 }
